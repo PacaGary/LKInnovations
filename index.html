@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LK Innovations</title>
+<meta name="description" content="Making Miracles Happen.">
+<meta property="og:title" content="LK Innovations">
+<meta property="og:description" content="Making Miracles Happen.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lkinnovations.org/">
+<meta name="theme-color" content="#f5f1ea">
+<link rel="icon" type="image/svg+xml" href="/lk.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f1ea;
+    color: #2a2628;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding: 2rem;
+  }
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.25rem;
+  }
+  .stage {
+    position: relative;
+    width: clamp(140px, 22vw, 200px);
+    aspect-ratio: 105.12 / 108.73;
+  }
+  .logo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .sheen-mask {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    -webkit-mask: url('lk.svg') center / contain no-repeat;
+            mask: url('lk.svg') center / contain no-repeat;
+  }
+  .sheen-band {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 38%,
+      rgba(225, 225, 225, 0.92) 50%,
+      transparent 62%
+    );
+    animation: sheen 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: transform;
+  }
+  @keyframes sheen {
+    0%   { transform: translateX(-100%); }
+    30%  { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+  }
+  .tagline {
+    margin: 0;
+    font-weight: 300;
+    font-size: clamp(0.75rem, 1.4vw, 0.92rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #3a3531;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sheen-band { animation: none; opacity: 0; }
+  }
+</style>
+</head>
+<body>
+  <main class="hero">
+    <div class="stage">
+      <img class="logo" src="lk.svg" alt="LK Innovations">
+      <div class="sheen-mask" aria-hidden="true">
+        <div class="sheen-band"></div>
+      </div>
+    </div>
+    <p class="tagline">Making Miracles Happen</p>
+  </main>
+</body>
+</html>
