@@ -25,3 +25,8 @@
 {"ts":"2026-06-03T11:27:54.069Z","cmd":"style","args":".sheen-band animation-play-state paused","origin":"http://localhost:8765/","durationMs":29,"status":"ok","hasCookies":false,"mode":"launched"}
 {"ts":"2026-06-03T11:27:54.128Z","cmd":"style","args":".sheen-band transform translateX(0%)","origin":"http://localhost:8765/","durationMs":6,"status":"ok","hasCookies":false,"mode":"launched"}
 {"ts":"2026-06-03T11:27:54.212Z","cmd":"screenshot","args":"/tmp/lk-sheen-mid.png","origin":"http://localhost:8765/","durationMs":34,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:31:01.987Z","cmd":"viewport","args":"1280x800","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:31:02.073Z","cmd":"goto","args":"http://localhost:8765/","origin":"http://localhost:8765/","durationMs":32,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:31:02.129Z","cmd":"css","args":".stage width","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:31:02.181Z","cmd":"css","args":".sheen-band animation","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:31:02.230Z","cmd":"console","args":"--errors","origin":"http://localhost:8765/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}

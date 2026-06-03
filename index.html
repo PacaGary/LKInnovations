@@ -36,7 +36,7 @@
   }
   .stage {
     position: relative;
-    width: clamp(140px, 22vw, 200px);
+    width: clamp(260px, 42vw, 440px);
     aspect-ratio: 105.12 / 108.73;
   }
   .logo {
@@ -65,12 +65,12 @@
       rgba(225, 225, 225, 0.92) 50%,
       transparent 62%
     );
-    animation: sheen 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    animation: sheen 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
     will-change: transform;
   }
   @keyframes sheen {
     0%   { transform: translateX(-100%); }
-    30%  { transform: translateX(100%); }
+    45%  { transform: translateX(100%); }
     100% { transform: translateX(100%); }
   }
   .tagline {
