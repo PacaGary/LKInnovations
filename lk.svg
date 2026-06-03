@@ -1,151 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 105.12 108.73">
-  <!-- Generator: Adobe Illustrator 30.3.0, SVG Export Plug-In . SVG Version: 2.1.3 Build 182)  -->
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 71.9 72.2">
+  <!-- Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
   <defs>
     <style>
       .st0 {
         fill: none;
       }
 
-      .st1, .st2 {
+      .st1 {
         fill: #231f20;
       }
 
       .st2 {
-        font-family: AcuminPro-Regular, 'Acumin Pro';
-        font-size: 7.31px;
-      }
-
-      .st3 {
-        isolation: isolate;
-      }
-
-      .st4 {
-        font-family: Marydale-Bold, Marydale;
-        font-size: 5px;
-        font-weight: 700;
-      }
-
-      .st4, .st5 {
-        fill: #221f20;
-      }
-
-      .st6 {
         clip-path: url(#clippath-1);
       }
 
-      .st7 {
+      .st3 {
         clip-path: url(#clippath-3);
       }
 
-      .st8 {
+      .st4 {
         clip-path: url(#clippath-4);
       }
 
-      .st9 {
+      .st5 {
         clip-path: url(#clippath-2);
       }
 
-      .st10 {
-        clip-path: url(#clippath-7);
-      }
-
-      .st11 {
-        clip-path: url(#clippath-6);
-      }
-
-      .st12 {
-        clip-path: url(#clippath-5);
-      }
-
-      .st13 {
-        letter-spacing: .08em;
-      }
-
-      .st14 {
+      .st6 {
         clip-path: url(#clippath);
-      }
-
-      .st15 {
-        letter-spacing: .02em;
       }
     </style>
     <clipPath id="clippath">
-      <rect class="st0" x="-243.8" y="-12.53" width="598.29" height="135.04"/>
+      <rect class="st0" x="8.5" y="60.4" width="9" height="8.1"/>
     </clipPath>
     <clipPath id="clippath-1">
-      <rect class="st0" x="-243.8" y="-12.53" width="598.29" height="135.04"/>
+      <rect class="st0" x="17.2" y="60.4" width="12.9" height="8.1"/>
     </clipPath>
     <clipPath id="clippath-2">
-      <rect class="st0" x="26.03" y="76.3" width="56.47" height="8.11"/>
+      <rect class="st0" x="30" y="60.4" width="5.5" height="8.1"/>
     </clipPath>
     <clipPath id="clippath-3">
-      <rect class="st0" x="26.03" y="76.3" width="8.96" height="8.11"/>
+      <rect class="st0" x="34.8" y="60.4" width="5.7" height="8.1"/>
     </clipPath>
     <clipPath id="clippath-4">
-      <rect class="st0" x="34.73" y="76.3" width="12.93" height="8.11"/>
-    </clipPath>
-    <clipPath id="clippath-5">
-      <rect class="st0" x="47.52" y="76.3" width="5.55" height="8.11"/>
-    </clipPath>
-    <clipPath id="clippath-6">
-      <rect class="st0" x="52.32" y="76.3" width="5.71" height="8.11"/>
-    </clipPath>
-    <clipPath id="clippath-7">
-      <rect class="st0" x="57.1" y="76.3" width="25.39" height="8.11"/>
+      <rect class="st0" x="39.6" y="60.4" width="25.4" height="8.1"/>
     </clipPath>
   </defs>
-  <rect class="st5" x="-167.19" y="77.92" width=".66" height="5.12"/>
-  <polygon class="st5" points="-160.35 83.04 -160.95 83.04 -164.19 78.99 -164.19 83.04 -164.85 83.04 -164.85 77.92 -164.25 77.92 -161.02 81.96 -161.02 77.92 -160.35 77.92 -160.35 83.04"/>
-  <polygon class="st5" points="-154.18 83.04 -154.78 83.04 -158.02 78.99 -158.02 83.04 -158.68 83.04 -158.68 77.92 -158.07 77.92 -154.84 81.96 -154.84 77.92 -154.18 77.92 -154.18 83.04"/>
-  <g class="st14">
-    <path class="st5" d="M-152.87,80.47c0-1.56,1.24-2.65,2.92-2.65s2.92,1.08,2.92,2.65-1.24,2.65-2.92,2.65-2.92-1.08-2.92-2.65M-147.72,80.47c0-1.23-.92-2.08-2.24-2.08s-2.23.85-2.23,2.08.92,2.08,2.23,2.08,2.24-.85,2.24-2.08"/>
-    <polygon class="st5" points="-143.58 83.04 -144.33 83.04 -146.59 77.92 -145.85 77.92 -143.96 82.34 -142.06 77.92 -141.33 77.92 -143.58 83.04"/>
-    <path class="st5" d="M-140.04,81.75l-.6,1.28h-.74l2.35-5.11h.76l2.35,5.11h-.73l-.58-1.28h-2.8ZM-138.65,78.58l-1.13,2.62h2.28l-1.15-2.62Z"/>
-    <polygon class="st5" points="-133.38 78.48 -133.38 83.04 -134.05 83.04 -134.05 78.48 -135.98 78.48 -135.98 77.92 -131.44 77.92 -131.44 78.48 -133.38 78.48"/>
-    <rect class="st5" x="-130.34" y="77.92" width=".66" height="5.12"/>
-    <path class="st5" d="M-128.37,80.47c0-1.56,1.24-2.65,2.92-2.65s2.92,1.08,2.92,2.65-1.24,2.65-2.92,2.65-2.92-1.08-2.92-2.65M-123.22,80.47c0-1.23-.92-2.08-2.24-2.08s-2.23.85-2.23,2.08.92,2.08,2.23,2.08,2.24-.85,2.24-2.08"/>
-    <polygon class="st5" points="-116.73 83.04 -117.33 83.04 -120.57 78.99 -120.57 83.04 -121.23 83.04 -121.23 77.92 -120.62 77.92 -117.39 81.96 -117.39 77.92 -116.73 77.92 -116.73 83.04"/>
-    <path class="st5" d="M-115.45,82.5l.37-.45c.51.35,1.22.51,1.95.51.85,0,1.47-.31,1.47-.9,0-.68-.81-.76-1.53-.88-1.67-.27-2.1-.65-2.1-1.39,0-1.21,1.21-1.56,2.25-1.56.72,0,1.45.23,2,.54l-.39.45c-.53-.28-1.04-.41-1.63-.41-1.02,0-1.55.35-1.55.95,0,.49.36.7,1.54.87.74.12,2.1.3,2.1,1.43,0,.88-.84,1.49-2.17,1.49-.97,0-1.88-.35-2.31-.63"/>
-    <polygon class="st5" points="-128.07 72.52 -167.19 72.52 -167.19 18.65 -158.84 18.65 -158.84 65.14 -128.07 65.14 -128.07 72.52"/>
-    <polygon class="st5" points="-146.23 49.65 -146.23 61.15 -152.81 61.15 -152.81 18.65 -146.23 18.65 -146.23 40.64 -124.31 18.65 -115.62 18.65 -134.66 37.95 -113.76 61.15 -122.26 61.15 -139.2 42.56 -146.23 49.65"/>
-  </g>
-  <text class="st4" transform="translate(-122.16 68.35)"><tspan class="st13" x="0" y="0">LIA</tspan><tspan x="8.47" y="0">N</tspan></text>
-  <text class="st4" transform="translate(-110.21 68.35)"><tspan x="0" y="0"> </tspan></text>
-  <text class="st4" transform="translate(-122.16 72.35)"><tspan x="0" y="0">K</tspan></text>
-  <text class="st4" transform="translate(-118.39 72.35)"><tspan x="0" y="0">A</tspan></text>
-  <text class="st4" transform="translate(-114.91 72.35)"><tspan x="0" y="0">I</tspan></text>
-  <g class="st6">
-    <polygon class="st1" points="69.09 72.52 26.04 72.52 26.04 18.66 33.49 18.66 33.49 65.15 33.5 65.15 33.5 66.02 64.84 66.02 69.09 72.52"/>
-    <polygon class="st1" points="80.59 72.52 71.32 72.52 51.18 44.38 43.61 52.02 43.61 63.63 36.52 63.63 36.52 18.65 43.61 18.65 43.61 42.32 67.21 18.65 76.56 18.65 56.35 39.14 80.59 72.52"/>
-    <g class="st3">
-      <g class="st9">
-        <g class="st3">
-          <g class="st7">
-            <text class="st2" transform="translate(26.03 82.49) scale(1.18 1)"><tspan class="st15" x="0" y="0">I</tspan><tspan x="2.13" y="0">N</tspan></text>
-          </g>
-        </g>
-        <g class="st3">
-          <g class="st8">
-            <text class="st2" transform="translate(34.73 82.49) scale(1.18 1)"><tspan x="0" y="0">NO</tspan></text>
-          </g>
-        </g>
-        <g class="st3">
-          <g class="st12">
-            <text class="st2" transform="translate(47.52 82.49) scale(1.18 1)"><tspan x="0" y="0">V</tspan></text>
-          </g>
-        </g>
-        <g class="st3">
-          <g class="st11">
-            <text class="st2" transform="translate(52.32 82.49) scale(1.18 1)"><tspan x="0" y="0">A</tspan></text>
-          </g>
-        </g>
-        <g class="st3">
-          <g class="st10">
-            <text class="st2" transform="translate(57.1 82.49) scale(1.18 1)"><tspan x="0" y="0">TIONS</tspan></text>
-          </g>
-        </g>
+  <polygon class="st1" points="51.6 56.6 8.5 56.6 8.5 2.8 16 2.8 16 49.3 16 49.3 16 50.1 47.3 50.1 51.6 56.6"/>
+  <polygon class="st1" points="63.1 56.6 53.8 56.6 33.7 28.5 26.1 36.1 26.1 47.7 19 47.7 19 2.8 26.1 2.8 26.1 26.4 49.7 2.8 59 2.8 38.8 23.3 63.1 56.6"/>
+  <g>
+    <g class="st6">
+      <g>
+        <path class="st1" d="M10.1,61.5v5.1h-.8v-5.1s.8,0,.8,0Z"/>
+        <path class="st1" d="M11.8,66.6v-5.1h1.1c.9,1.2,2.7,3.7,3.1,4.3h0c0-.7,0-1.5,0-2.3v-2h.8v5.1h-1c-.8-1.1-2.8-3.8-3.1-4.4h0c0,.6,0,1.4,0,2.4v2h-.8,0Z"/>
       </g>
     </g>
+    <g class="st2">
+      <g>
+        <path class="st1" d="M18,66.6v-5.1h1.1c.9,1.2,2.7,3.7,3.1,4.3h0c0-.7,0-1.5,0-2.3v-2h.8v5.1h-1c-.8-1.1-2.8-3.8-3.1-4.4h0c0,.6,0,1.4,0,2.4v2h-.8,0Z"/>
+        <path class="st1" d="M29.7,64c0,1.4-.9,2.7-2.8,2.7s-2.8-1.2-2.8-2.6,1-2.6,2.8-2.6,2.8,1.1,2.8,2.6h0ZM25,64c0,1.1.7,2.1,2,2.1s2-1,2-2.1-.6-2-2-2-2,.9-2,2h0Z"/>
+      </g>
+    </g>
+    <g class="st5">
+      <path class="st1" d="M32.3,66.6l-2.2-5.1h.9l1.1,2.5c.3.8.6,1.5.8,2h0c.1-.4.5-1.2.8-1.9l1.1-2.6h.8l-2.3,5.1h-.9Z"/>
+    </g>
+    <g class="st3">
+      <path class="st1" d="M36.4,65.1l-.6,1.5h-.8l2.1-5.1h1l2.2,5.1h-.9l-.7-1.5h-2.4,0ZM38.6,64.5c-.6-1.3-.9-2.1-1-2.4h0c-.1.4-.5,1.3-1,2.4h2,0Z"/>
+    </g>
+    <g class="st4">
+      <g>
+        <path class="st1" d="M41.6,62.1h-1.9v-.6h4.7v.6h-2v4.5h-.8v-4.5Z"/>
+        <path class="st1" d="M46,61.5v5.1h-.8v-5.1s.8,0,.8,0Z"/>
+        <path class="st1" d="M52.8,64c0,1.4-.9,2.7-2.8,2.7s-2.8-1.2-2.8-2.6,1-2.6,2.8-2.6,2.8,1.1,2.8,2.6h0ZM48.1,64c0,1.1.7,2.1,2,2.1s2-1,2-2.1-.6-2-2-2-2,.9-2,2h0Z"/>
+        <path class="st1" d="M54.1,66.6v-5.1h1.1c.9,1.2,2.7,3.7,3.1,4.3h0c0-.7,0-1.5,0-2.3v-2h.8v5.1h-1c-.8-1.1-2.8-3.8-3.1-4.4h0c0,.6,0,1.4,0,2.4v2h-.8,0Z"/>
+        <path class="st1" d="M60.9,65.2c.2.6.7.9,1.5.9s1.3-.4,1.3-.9-.3-.8-1.5-1c-1.4-.3-1.9-.7-1.9-1.4s.7-1.4,2-1.4,2,.7,2.1,1.4h-.8c-.1-.4-.4-.8-1.3-.8s-1.1.3-1.1.8.3.7,1.4.9c1.7.3,2,.9,2,1.6s-.7,1.5-2.2,1.5-2.2-.7-2.3-1.5h.8,0Z"/>
+      </g>
+    </g>
+    <rect class="st0" x="8.5" y="60.4" width="56.5" height="8.1"/>
   </g>
 </svg>
