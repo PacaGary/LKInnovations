@@ -9,7 +9,7 @@
 <meta property="og:description" content="Making Miracles Happen.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://lkinnovations.org/">
-<meta name="theme-color" content="#f5f1ea">
+<meta name="theme-color" content="#1a1612">
 <link rel="icon" type="image/svg+xml" href="/lk.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,12 +21,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f1ea;
-    color: #2a2628;
+    background: #1a1612;
+    color: #e8e0d0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     padding: 2rem;
+    overflow: hidden;
   }
   .hero {
     display: flex;
@@ -39,18 +40,41 @@
     width: clamp(260px, 42vw, 440px);
     aspect-ratio: 105.12 / 108.73;
   }
-  .logo {
+  .glow {
+    position: absolute;
+    inset: -45%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 215, 165, 0.55) 0%,
+      rgba(255, 200, 140, 0.30) 25%,
+      rgba(255, 190, 130, 0.10) 50%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    opacity: 0.35;
+    animation: glow-pulse 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: opacity, transform;
+  }
+  @keyframes glow-pulse {
+    0%   { opacity: 0.35; transform: scale(1); }
+    22%  { opacity: 1;    transform: scale(1.06); }
+    45%  { opacity: 0.55; transform: scale(1.02); }
+    100% { opacity: 0.35; transform: scale(1); }
+  }
+  .logo-mask {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
+    z-index: 1;
+    -webkit-mask: url('lk.svg') center / contain no-repeat;
+            mask: url('lk.svg') center / contain no-repeat;
+    background: linear-gradient(180deg, #f5ead2 0%, #d8c8a4 55%, #b8a47c 100%);
   }
   .sheen-mask {
     position: absolute;
     inset: 0;
+    z-index: 2;
     pointer-events: none;
     overflow: hidden;
     -webkit-mask: url('lk.svg') center / contain no-repeat;
@@ -62,7 +86,7 @@
     background: linear-gradient(
       115deg,
       transparent 38%,
-      rgba(225, 225, 225, 0.92) 50%,
+      rgba(255, 245, 220, 0.85) 50%,
       transparent 62%
     );
     animation: sheen 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
@@ -79,17 +103,19 @@
     font-size: clamp(0.75rem, 1.4vw, 0.92rem);
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: #3a3531;
+    color: #d6cdbf;
   }
   @media (prefers-reduced-motion: reduce) {
     .sheen-band { animation: none; opacity: 0; }
+    .glow { animation: none; opacity: 0.5; transform: scale(1.03); }
   }
 </style>
 </head>
 <body>
   <main class="hero">
     <div class="stage">
-      <img class="logo" src="lk.svg" alt="LK Innovations">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="logo-mask" role="img" aria-label="LK Innovations"></div>
       <div class="sheen-mask" aria-hidden="true">
         <div class="sheen-band"></div>
       </div>

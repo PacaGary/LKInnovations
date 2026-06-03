@@ -30,3 +30,15 @@
 {"ts":"2026-06-03T11:31:02.129Z","cmd":"css","args":".stage width","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
 {"ts":"2026-06-03T11:31:02.181Z","cmd":"css","args":".sheen-band animation","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
 {"ts":"2026-06-03T11:31:02.230Z","cmd":"console","args":"--errors","origin":"http://localhost:8765/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.076Z","cmd":"viewport","args":"1280x800","origin":"http://localhost:8765/","durationMs":3,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.328Z","cmd":"goto","args":"http://localhost:8765/","origin":"http://localhost:8765/","durationMs":189,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.417Z","cmd":"is","args":"visible .glow","origin":"http://localhost:8765/","durationMs":28,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.479Z","cmd":"is","args":"visible .logo-mask","origin":"http://localhost:8765/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.535Z","cmd":"is","args":"visible .sheen-band","origin":"http://localhost:8765/","durationMs":3,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.588Z","cmd":"is","args":"visible .tagline","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.640Z","cmd":"css","args":"body background-color","origin":"http://localhost:8765/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.691Z","cmd":"css","args":".tagline color","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.745Z","cmd":"css","args":".glow animation","origin":"http://localhost:8765/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.799Z","cmd":"css","args":".sheen-band animation","origin":"http://localhost:8765/","durationMs":2,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.851Z","cmd":"css","args":".stage width","origin":"http://localhost:8765/","durationMs":1,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-06-03T11:37:48.903Z","cmd":"console","args":"--errors","origin":"http://localhost:8765/","durationMs":0,"status":"ok","hasCookies":false,"mode":"launched"}
