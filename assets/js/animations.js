@@ -41,7 +41,7 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var items = Array.from(
-      document.querySelectorAll('.about-visual-placeholder, .brand-visual-placeholder')
+      document.querySelectorAll('.about-visual-img, .about-visual-placeholder, .brand-visual-placeholder')
     );
     if (!items.length) return;
 
@@ -98,7 +98,7 @@
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
       tracks.forEach(function (t) {
-        var range  = 1500;
+        var range  = 1200;
         var offset = (progress - 0.5) * range * 2 * t.speed;
         t.el.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
       });
