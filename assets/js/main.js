@@ -1,5 +1,5 @@
 // main.js — lkinnovations.org
-// Stylesheet loader, scroll animations, social links, contact form.
+// Stylesheet loader, social links, contact form.
 
 (function () {
   'use strict';
@@ -62,38 +62,6 @@
     document.head.appendChild(link);
   }
 
-  // ─── Scroll animations ───────────────────────────────────────────────────
-  var scrollObserver = null;
-
-  function initScrollAnimations() {
-    if (!window.IntersectionObserver) return;
-
-    var fadeUpSelectors = ['.about-inner', '.brand-inner', '.contact-inner', '.about-brands'];
-    var fadeInSelectors = ['.brand-visual', '.about-visual'];
-
-    if (!scrollObserver) {
-      scrollObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            scrollObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-    }
-
-    function observe(els, type) {
-      els.forEach(function (el) {
-        if (el.classList.contains('will-animate')) return;
-        el.classList.add('will-animate', type);
-        scrollObserver.observe(el);
-      });
-    }
-
-    observe(Array.from(document.querySelectorAll(fadeUpSelectors.join(','))), 'fade-up');
-    observe(Array.from(document.querySelectorAll(fadeInSelectors.join(','))), 'fade-in');
-  }
-
   // ─── Contact form handler ────────────────────────────────────────────────
   function initContactForm() {
     var form = document.querySelector('.contact-form');
@@ -128,7 +96,6 @@
 
   function init() {
     renderSocialLinks();
-    initScrollAnimations();
     initContactForm();
   }
 

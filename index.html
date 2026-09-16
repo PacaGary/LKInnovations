@@ -60,6 +60,7 @@
   <script>document.body && document.body.classList.add('fouc-guard');</script>
   <script src="/assets/js/nav.js"></script>
   <script src="/assets/js/stories.js"></script>
+  <script src="/assets/js/animations.js"></script>
   <script src="/assets/js/main.js"></script>
 
   <style>
@@ -228,7 +229,7 @@
          ABOUT / MISSION
          ═══════════════════════════════════════════════════════ -->
     <section class="about-section" id="about" aria-labelledby="about-heading">
-      <div class="about-inner">
+      <div class="about-inner reveal-group">
 
         <div class="about-content">
           <span class="about-kicker">Who We Are</span>
@@ -262,7 +263,7 @@
          RE:YOU BRAND SECTION
          ═══════════════════════════════════════════════════════ -->
     <section class="brand-section reyou-section" id="reyou" aria-labelledby="reyou-heading">
-      <div class="brand-inner">
+      <div class="brand-inner reveal-group">
 
         <div class="brand-content">
           <span class="brand-kicker">Brand</span>
@@ -295,7 +296,7 @@
          PACAGEN BRAND SECTION
          ═══════════════════════════════════════════════════════ -->
     <section class="brand-section pacagen-section" id="pacagen" aria-labelledby="pacagen-heading">
-      <div class="brand-inner brand-inner--reverse">
+      <div class="brand-inner brand-inner--reverse reveal-group">
 
         <div class="brand-content">
           <span class="brand-kicker">Brand</span>
@@ -330,29 +331,44 @@
          ═══════════════════════════════════════════════════════ -->
     <section class="stories-section" id="stories" aria-labelledby="stories-heading">
 
-      <div class="stories-header">
+      <div class="stories-header reveal">
         <span class="stories-kicker">Real People. Real Results.</span>
         <h2 class="stories-heading" id="stories-heading">Making Miracles Happen</h2>
         <p class="stories-subhead">Click any story to hear how our science changed their life.</p>
       </div>
 
-      <!-- Row 1 — drifts left -->
-      <div class="stories-track stories-track--left" aria-hidden="true">
-        <div class="stories-track-inner">
-        </div>
-      </div>
+      <div class="stories-sticky">
 
-      <!-- Row 2 — drifts right -->
-      <div class="stories-track stories-track--right" aria-hidden="true">
-        <div class="stories-track-inner">
-        </div>
-      </div>
+      <div class="stories-columns">
 
-      <!-- Row 3 — drifts left, slower -->
-      <div class="stories-track stories-track--left stories-track--slow" aria-hidden="true">
-        <div class="stories-track-inner">
+        <!-- Column A — up, fast -->
+        <div class="stories-track stories-track--a" aria-hidden="true">
+          <div class="stories-track-inner"></div>
         </div>
-      </div>
+
+        <!-- Column B — down -->
+        <div class="stories-track stories-track--b" aria-hidden="true">
+          <div class="stories-track-inner"></div>
+        </div>
+
+        <!-- Column C — up, slow -->
+        <div class="stories-track stories-track--c" aria-hidden="true">
+          <div class="stories-track-inner"></div>
+        </div>
+
+        <!-- Column D — down, fast -->
+        <div class="stories-track stories-track--d" aria-hidden="true">
+          <div class="stories-track-inner"></div>
+        </div>
+
+        <!-- Column E — up, medium -->
+        <div class="stories-track stories-track--e" aria-hidden="true">
+          <div class="stories-track-inner"></div>
+        </div>
+
+      </div><!-- /.stories-columns -->
+
+      </div><!-- /.stories-sticky -->
 
     </section>
 
@@ -374,7 +390,7 @@
          CONTACT
          ═══════════════════════════════════════════════════════ -->
     <section class="contact-section" id="contact" aria-labelledby="contact-heading">
-      <div class="contact-inner">
+      <div class="contact-inner reveal-group">
 
         <div class="contact-details">
           <span class="contact-kicker">Get in Touch</span>
