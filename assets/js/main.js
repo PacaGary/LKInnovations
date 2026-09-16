@@ -136,6 +136,66 @@
     );
   }
 
+  // ─── Stories modal ───────────────────────────────────────────────────────
+  function initStories() {
+    var modal    = document.getElementById('story-modal');
+    var backdrop = modal && modal.querySelector('.story-modal-backdrop');
+    var closeBtn = modal && modal.querySelector('.story-modal-close');
+    var badge    = document.getElementById('modal-badge');
+    var nameEl   = document.getElementById('modal-name');
+    var locEl    = document.getElementById('modal-location');
+    var storyEl  = document.getElementById('modal-story');
+    if (!modal) return;
+
+    var tiles = document.querySelectorAll('.story-tile');
+    var lastFocused = null;
+
+    function openModal(tile) {
+      var product = tile.dataset.product || '';
+      badge.textContent    = product;
+      badge.className      = 'story-modal-product-badge ' + product.toLowerCase();
+      nameEl.textContent   = tile.dataset.name || '';
+      locEl.textContent    = tile.dataset.location || '';
+      storyEl.textContent  = tile.dataset.story || '';
+      lastFocused = tile;
+      modal.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    tiles.forEach(function (tile) {
+      tile.addEventListener('click', function () { openModal(tile); });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
+    });
+
+    // Trap focus inside modal
+    modal.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = Array.from(modal.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])'));
+      var first = focusable[0];
+      var last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
   // ─── Contact form handler ────────────────────────────────────────────────
   function initContactForm() {
     var form = document.querySelector('.contact-form');
@@ -173,6 +233,7 @@
     initNavScroll();
     initMobileDrawer();
     initScrollAnimations();
+    initStories();
     initContactForm();
   }
 

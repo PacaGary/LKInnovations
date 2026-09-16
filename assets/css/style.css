@@ -999,7 +999,313 @@ body.fouc-guard {
 }
 
 /* ============================================================
-   12. CONTACT / FOOTER SECTION
+   12. STORIES — MAKING MIRACLES HAPPEN
+   ============================================================ */
+.stories-section {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.stories-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.3) 40%,
+    rgba(0,0,0,0.55) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.stories-header {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+  max-width: 640px;
+}
+
+.stories-kicker {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: var(--space-sm);
+}
+
+.stories-heading {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: var(--color-white);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.stories-subhead {
+  font-size: var(--text-body);
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+}
+
+/* ── Mosaic wall ── */
+.stories-wall {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 6px;
+  width: 100%;
+  padding: 0 6px var(--space-2xl);
+}
+
+.story-tile {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 4px;
+  outline: none;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.story-tile:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.6);
+}
+
+.story-tile--tall {
+  grid-row: span 2;
+}
+
+.story-tile--wide {
+  grid-column: span 2;
+}
+
+.story-tile-img {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: tile-drift 18s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+.story-tile-img svg {
+  width: 60%;
+  height: 60%;
+  opacity: 0.6;
+}
+
+/* Stagger drift animation per tile */
+.story-tile:nth-child(1) .story-tile-img { animation-duration: 16s; animation-delay: 0s; }
+.story-tile:nth-child(2) .story-tile-img { animation-duration: 20s; animation-delay: -4s; }
+.story-tile:nth-child(3) .story-tile-img { animation-duration: 14s; animation-delay: -8s; }
+.story-tile:nth-child(4) .story-tile-img { animation-duration: 22s; animation-delay: -2s; }
+.story-tile:nth-child(5) .story-tile-img { animation-duration: 18s; animation-delay: -6s; }
+.story-tile:nth-child(6) .story-tile-img { animation-duration: 15s; animation-delay: -10s; }
+
+@keyframes tile-drift {
+  0%   { transform: scale(1.08) translate(0%, 0%); }
+  25%  { transform: scale(1.12) translate(1.5%, -1%); }
+  50%  { transform: scale(1.1)  translate(-1%, 1.5%); }
+  75%  { transform: scale(1.13) translate(1%, 1%); }
+  100% { transform: scale(1.08) translate(-1.5%, -0.5%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-tile-img { animation: none; transform: scale(1.08); }
+}
+
+/* Dark overlay on each tile, lifts on hover */
+.story-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  transition: background 0.3s;
+}
+
+.story-tile:hover::after,
+.story-tile:focus-visible::after {
+  background: rgba(0,0,0,0.1);
+}
+
+.story-tile:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+.story-tile-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.story-tile-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-white);
+  letter-spacing: 0.04em;
+}
+
+.story-tile-product {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+.story-tile-product.reyou {
+  background: var(--reyou-gold);
+  color: var(--reyou-maroon);
+}
+
+.story-tile-product.pacagen {
+  background: var(--pacagen-blue);
+  color: var(--color-white);
+}
+
+/* ── Story modal ── */
+.story-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-modal[hidden] {
+  display: none;
+}
+
+.story-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.story-modal-panel {
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+  color: var(--color-black);
+  max-width: 560px;
+  width: calc(100% - 2rem);
+  border-radius: 8px;
+  overflow: hidden;
+  animation: modal-in 0.3s ease;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.story-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-muted);
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.story-modal-close:hover { color: var(--color-black); }
+
+.story-modal-body {
+  padding: 2.5rem 2rem 2rem;
+}
+
+.story-modal-product-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.story-modal-product-badge.reyou {
+  background: var(--reyou-ivory);
+  color: var(--reyou-maroon);
+  border: 1px solid var(--reyou-gold);
+}
+
+.story-modal-product-badge.pacagen {
+  background: #e8f0ff;
+  color: var(--pacagen-navy);
+  border: 1px solid var(--pacagen-blue);
+}
+
+.story-modal-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.story-modal-location {
+  font-size: var(--text-meta);
+  color: var(--color-muted);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.story-modal-quote {
+  font-size: 1.0625rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #333;
+  margin: 0;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--color-divider);
+  font-style: italic;
+}
+
+/* ============================================================
+   13. CONTACT / FOOTER SECTION
    ============================================================ */
 .contact-section {
   background: var(--color-off-white);
@@ -1367,6 +1673,21 @@ body.fouc-guard {
     gap: var(--space-md);
     text-align: center;
   }
+
+  /* Stories */
+  .stories-wall {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+  }
+
+  .story-tile--wide {
+    grid-column: span 2;
+  }
+
+  .story-modal-panel {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
 }
 
 /* ============================================================
@@ -1387,5 +1708,23 @@ body.fouc-guard {
 
   .contact-social {
     flex-wrap: wrap;
+  }
+
+  /* Stories — single column on small phones */
+  .stories-wall {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 160px;
+  }
+
+  .story-tile--tall {
+    grid-row: span 1;
+  }
+
+  .story-tile--wide {
+    grid-column: span 2;
+  }
+
+  .story-modal-body {
+    padding: 1.75rem 1.25rem 1.25rem;
   }
 }

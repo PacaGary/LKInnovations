@@ -331,32 +331,11 @@
   <section class="hero">
     <canvas id="glass-canvas"></canvas>
 
-    <img src="/assets/images/LKDH_stacked.svg" alt="LKDH Innovations" class="hero-logo">
-
     <p class="drag-hint">Drag to rotate</p>
 
     <div class="hero-content">
       <h1 class="hero-title">Making <em>Miracles</em> Happen</h1>
       <p class="hero-sub">Biotechnology for consumer health &amp; wellness</p>
-    </div>
-
-    <div class="spec-bar">
-      <div class="spec-item" style="--i:0">
-        <span class="spec-label">Renderer</span>
-        <span class="spec-value">Raw WebGL</span>
-      </div>
-      <div class="spec-item" style="--i:1">
-        <span class="spec-label">Technique</span>
-        <span class="spec-value">Ray Marching SDF</span>
-      </div>
-      <div class="spec-item" style="--i:2">
-        <span class="spec-label">Shading</span>
-        <span class="spec-value">IOR 1.5 Refraction</span>
-      </div>
-      <div class="spec-item" style="--i:3">
-        <span class="spec-label">Interaction</span>
-        <span class="spec-value">Drag + Tilt</span>
-      </div>
     </div>
 
     <div class="scroll-cue">
@@ -465,6 +444,7 @@ uniform float uTorusTube;
 uniform float uDisp;
 uniform float uFrost;
 uniform vec3  uTint;
+uniform float uTime;
 
 const float PI = 3.14159265359;
 const float IOR = ${IOR.toFixed(4)};
@@ -497,7 +477,14 @@ float map(vec3 p) {
     vec2 q = vec2(length(p.xy)-0.8, p.z);
     return length(q) - uTorusTube;
   }
-  return length(p) - 1.2;
+  // Sphere with layered surface ripple
+  float r = length(p);
+  vec3 n = p / max(r, 0.001);
+  float ripple =
+    0.028 * sin(5.0*n.x + uTime*1.1) * sin(5.0*n.y + uTime*0.7) +
+    0.018 * sin(8.0*n.z - uTime*1.4 + n.x*3.0) +
+    0.012 * sin(11.0*n.y + uTime*0.9 + n.z*4.0);
+  return r - 1.2 - ripple;
 }
 
 vec3 mapNormal(vec3 p) {
@@ -679,7 +666,7 @@ void main() {
         const lx = (w - logoW) / 2;
         const ly = (h - logoH) / 2;
         // White with moderate opacity so it reads through the glass distortion
-        ctx.globalAlpha = 0.55;
+        ctx.globalAlpha = 0.88;
         ctx.drawImage(img, lx, ly, logoW, logoH);
         ctx.globalAlpha = 1;
         callback(c);
@@ -754,6 +741,7 @@ void main() {
       disp:     gl.getUniformLocation(glassProg, 'uDisp'),
       frost:    gl.getUniformLocation(glassProg, 'uFrost'),
       tint:     gl.getUniformLocation(glassProg, 'uTint'),
+      time:     gl.getUniformLocation(glassProg, 'uTime'),
     };
 
     const aPlatePos = gl.getAttribLocation(plateProg, 'aPos');
@@ -790,13 +778,17 @@ void main() {
     let plateAspect = 1, plateReady = false;
 
     function uploadBackdrop() {
-      const c = buildBackdropCanvas(vw, vh);
-      if (!c) return;
-      plateAspect = vw / vh;
-      gl.bindTexture(gl.TEXTURE_2D, plateTex);
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c);
-      plateReady = true;
+      const w = vw, h = vh;
+      buildBackdropCanvas(w, h, function(c) {
+        if (!c) return;
+        // Ignore if canvas has been resized before callback fires
+        if (w !== vw || h !== vh) return;
+        plateAspect = w / h;
+        gl.bindTexture(gl.TEXTURE_2D, plateTex);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c);
+        plateReady = true;
+      });
     }
 
     function resize() {
@@ -861,27 +853,27 @@ void main() {
       tiltX += (tiltTX - tiltX) * k;
       tiltY += (tiltTY - tiltY) * k;
 
-      // Torus: yaw-only spin, fixed tilt so the ring reads as a ring
-      const spin = 1.2;
-      baseYaw += spin * SPIN_YAW * dt;
-      const fixedPitch = -0.62; // ~35° tilt toward viewer
+      // Sphere: gentle dual-axis drift so it never looks static
+      const spin = 0.8;
+      baseYaw   += spin * SPIN_YAW   * dt;
+      basePitch += spin * SPIN_PITCH * 0.3 * dt;
 
       const yaw   = baseYaw + tiltX;
-      const pitch = fixedPitch - tiltY * 0.3;
+      const pitch = basePitch - tiltY * 0.4;
       const rot   = rotYXZ(yaw, pitch, 0);
       const rotT  = transpose3(rot);
 
       const camDist    = CAM_DIST;
       const halfFrame  = camDist * Math.tan(FOV / 2);
-      const sizeFrac   = 0.68;
+      const sizeFrac   = 0.72;
       const targetHalf = sizeFrac * halfFrame;
 
-      // Torus
+      // Sphere
       const torusTube = 0.18;
-      const refHalf   = 0.8 + torusTube;
-      const boundR    = 0.8 + torusTube;
-      const shapeId   = 1;
       const halfDepth = 0.16;
+      const refHalf   = 1.2;
+      const boundR    = 1.2;
+      const shapeId   = 2;
 
       const scale = targetHalf / refHalf;
       const floatY = Math.sin(elapsed * 2) * IDLE_FLOAT;
@@ -934,6 +926,7 @@ void main() {
       gl.uniform1f(u.disp, 0.025);
       gl.uniform1f(u.frost, 0.5);
       gl.uniform3f(u.tint, 1.0, 1.0, 1.0);
+      gl.uniform1f(u.time, elapsed);
 
       gl.enableVertexAttribArray(aGlassPos);
       gl.vertexAttribPointer(aGlassPos, 2, gl.FLOAT, false, 0, 0);
