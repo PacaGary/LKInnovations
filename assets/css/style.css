@@ -499,113 +499,87 @@ body.fouc-guard {
    ============================================================ */
 .site-hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-black);
+  width: 100%;
+  height: 100svh;
   overflow: hidden;
+  background: #060608;
 }
 
-/* Subtle grid texture */
-.site-hero::before {
-  content: '';
+#glass-canvas {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-}
-
-.hero-inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.5rem;
-  padding: var(--space-2xl) var(--space-lg);
-}
-
-/* Logo stage — carries over from original */
-.logo-stage {
-  position: relative;
-  width: clamp(200px, 35vw, 340px);
-  aspect-ratio: 1 / 1;
-}
-
-.logo-glow {
-  position: absolute;
-  inset: -10%;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at center,
-    rgba(220, 220, 220, 0.45) 0%,
-    rgba(180, 180, 180, 0.2) 40%,
-    transparent 70%
-  );
-  filter: blur(18px);
-  opacity: 0.5;
-  animation: glow-pulse 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  will-change: opacity, transform;
-}
-
-@keyframes glow-pulse {
-  0%   { opacity: 0.4;  transform: scale(1); }
-  22%  { opacity: 0.85; transform: scale(1.06); }
-  45%  { opacity: 0.5;  transform: scale(1.02); }
-  100% { opacity: 0.4;  transform: scale(1); }
-}
-
-.logo-img {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  user-select: none;
-  -webkit-user-drag: none;
+  display: block;
+  touch-action: none;
 }
 
-.logo-sheen-mask {
+.hero-content {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 5rem;
   pointer-events: none;
-  overflow: hidden;
+  z-index: 2;
 }
 
-.logo-sheen-band {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 38%,
-    rgba(255, 255, 255, 0.6) 50%,
-    transparent 62%
-  );
-  animation: sheen 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  will-change: transform;
-}
-
-@keyframes sheen {
-  0%   { transform: translateX(-100%); }
-  45%  { transform: translateX(100%); }
-  100% { transform: translateX(100%); }
-}
-
-.hero-tagline {
+.hero-eyebrow {
   font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(0.7rem, 1.2vw, 0.875rem);
-  letter-spacing: 0.3em;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--color-silver-dk);
+  margin-bottom: 0.75rem;
+  opacity: 0;
+  animation: hero-fade-up 1s 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  text-align: center;
+  color: var(--color-white);
+  opacity: 0;
+  animation: hero-fade-up 1s 1.4s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-silver-lt);
+}
+
+.hero-sub {
+  margin-top: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-silver-dk);
+  opacity: 0;
+  animation: hero-fade-up 1s 1.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+.drag-hint {
+  position: absolute;
+  top: calc(64px + 1.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  opacity: 0;
+  animation: hero-fade-in 1s 2s forwards, hero-fade-out 1s 5s forwards;
+  pointer-events: none;
 }
 
 .hero-scroll-cue {
@@ -613,22 +587,28 @@ body.fouc-guard {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-silver-dk);
-  font-size: var(--text-label);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  animation: bounce 2.5s ease-in-out infinite;
+  z-index: 3;
+  color: rgba(255,255,255,0.25);
+  animation: scroll-bounce 2.5s ease-in-out infinite, hero-fade-in 1s 2.2s forwards;
+  opacity: 0;
 }
 
-.hero-scroll-cue svg {
-  opacity: 0.5;
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes bounce {
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes hero-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes scroll-bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50%       { transform: translateX(-50%) translateY(6px); }
 }
@@ -647,7 +627,7 @@ body.fouc-guard {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
   align-items: center;
 }
 
@@ -707,21 +687,25 @@ body.fouc-guard {
 .about-visual {
   position: relative;
   aspect-ratio: 4 / 5;
-  background: var(--color-off-white);
+  background: var(--color-black);
   overflow: hidden;
 }
 
-.about-visual-placeholder {
+.about-visual-img {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #f4f4f4 0%, #e0e0e0 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-silver-dk);
-  font-size: var(--text-meta);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  inset: -20% 0;
+  width: 100%;
+  height: 140%;
+  object-fit: cover;
+  --parallax-y: 0px;
+  --hover-scale: 1;
+  transform: translateY(var(--parallax-y)) scale(var(--hover-scale));
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-visual:hover .about-visual-img {
+  --hover-scale: 1.04;
 }
 
 /* ============================================================
@@ -814,7 +798,8 @@ body.fouc-guard {
 
 .brand-visual-placeholder {
   position: absolute;
-  inset: 0;
+  inset: -20% 0;
+  height: 140%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -822,6 +807,15 @@ body.fouc-guard {
   font-weight: 900;
   font-size: 5rem;
   letter-spacing: -0.04em;
+  --parallax-y: 0px;
+  --hover-scale: 1;
+  transform: translateY(var(--parallax-y)) scale(var(--hover-scale));
+  will-change: transform;
+  transition: --hover-scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-visual:hover .brand-visual-placeholder {
+  --hover-scale: 1.04;
 }
 
 /* ============================================================
@@ -967,42 +961,66 @@ body.fouc-guard {
 /* ============================================================
    12. STORIES — MAKING MIRACLES HAPPEN
    ============================================================ */
+
+/* Tall scroll container — JS parallax drives track positions */
 .stories-section {
   position: relative;
+  height: 300vh;
+  background: #080808;
+}
+
+/* Sticky visual layer — stays in viewport while section scrolls */
+.stories-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #080808;
-  padding-bottom: var(--space-2xl);
 }
 
-/* Edge fade so tracks bleed off naturally */
-.stories-section::before,
-.stories-section::after {
+/* Column row — 4 vertical tracks side by side */
+.stories-columns {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 0 7vw;
+  box-sizing: border-box;
+}
+
+/* Top/bottom edge fades on the columns area */
+.stories-columns::before,
+.stories-columns::after {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 160px;
+  left: 0;
+  right: 0;
+  height: 100px;
   z-index: 4;
   pointer-events: none;
 }
-.stories-section::before {
-  left: 0;
-  background: linear-gradient(to right, #080808 0%, transparent 100%);
+.stories-columns::before {
+  top: 0;
+  background: linear-gradient(to bottom, #080808 0%, transparent 100%);
 }
-.stories-section::after {
-  right: 0;
-  background: linear-gradient(to left, #080808 0%, transparent 100%);
+.stories-columns::after {
+  bottom: 0;
+  background: linear-gradient(to top, #080808 0%, transparent 100%);
 }
 
 .stories-header {
   position: relative;
   z-index: 5;
   text-align: center;
-  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
-  max-width: 640px;
+  padding: 20vh var(--space-lg) 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .stories-kicker {
@@ -1032,52 +1050,29 @@ body.fouc-guard {
   font-weight: 300;
 }
 
-/* ── Scrolling tracks ── */
+/* ── Scrolling tracks (vertical columns) ── */
 .stories-track {
   position: relative;
   z-index: 2;
-  width: 100%;
+  flex: 1;
+  height: 100%;
   overflow: hidden;
-  margin-bottom: 6px;
 }
 
 .stories-track-inner {
   display: flex;
+  flex-direction: column;
   gap: 6px;
-  width: max-content;
+  width: 100%;
   will-change: transform;
-}
-
-/* JS sets --track-width; CSS drives the animation */
-.stories-track--left  .stories-track-inner { animation: track-scroll-left  28s linear infinite; }
-.stories-track--right .stories-track-inner { animation: track-scroll-right 32s linear infinite; }
-.stories-track--slow  .stories-track-inner { animation-duration: 42s; }
-
-@keyframes track-scroll-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(calc(-50%)); }
-}
-
-@keyframes track-scroll-right {
-  from { transform: translateX(calc(-50%)); }
-  to   { transform: translateX(0); }
-}
-
-/* Pause on hover over the track */
-.stories-track:hover .stories-track-inner {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .stories-track-inner { animation: none !important; }
 }
 
 /* ── Individual tiles ── */
 .story-tile {
   position: relative;
   flex: 0 0 auto;
-  width: 220px;
-  height: 280px;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   border: none;
   padding: 0;
@@ -1088,9 +1083,6 @@ body.fouc-guard {
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.story-tile--wide {
-  width: 340px;
-}
 
 .story-tile:focus-visible {
   box-shadow: 0 0 0 3px rgba(255,255,255,0.55);
@@ -1613,32 +1605,45 @@ body.fouc-guard {
 /* ============================================================
    13. SCROLL ANIMATIONS
    ============================================================ */
-.will-animate {
-  transition: opacity var(--dur) var(--ease-out),
-              transform var(--dur) var(--ease-out);
+
+/* Single element — fades + slides up */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.will-animate.fade-up {
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Group — direct children stagger in 80ms apart */
+.reveal-group > * {
   opacity: 0;
   transform: translateY(28px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.will-animate.fade-in {
-  opacity: 0;
-}
+.reveal-group.is-visible > *:nth-child(1) { transition-delay: 0s; }
+.reveal-group.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+.reveal-group.is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+.reveal-group.is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+.reveal-group.is-visible > *:nth-child(5) { transition-delay: 0.32s; }
 
-.will-animate.is-visible {
+.reveal-group.is-visible > * {
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-sheen-band { animation: none; opacity: 0; }
-  .logo-glow       { animation: none; opacity: 0.4; }
-  .hero-scroll-cue { animation: none; }
-  .will-animate    { transition: none; }
-  .will-animate.fade-up,
-  .will-animate.fade-in { opacity: 1; transform: none; }
+  .hero-scroll-cue { animation: none; opacity: 0.25; }
+  .hero-eyebrow, .hero-title, .hero-sub { animation: none; opacity: 1; transform: none; }
+  .drag-hint { animation: none; opacity: 0.3; }
+  .reveal,
+  .reveal-group > * { opacity: 1; transform: none; transition: none; }
 }
 
 /* ============================================================
@@ -1682,9 +1687,7 @@ body.fouc-guard {
     text-align: center;
   }
 
-  /* Stories — narrower tiles on tablet */
-  .story-tile       { width: 180px; height: 240px; }
-  .story-tile--wide { width: 280px; }
+  /* Stories — aspect-ratio handles tile sizing */
 
   .story-modal-panel {
     max-height: 90vh;
@@ -1708,9 +1711,7 @@ body.fouc-guard {
     flex-wrap: wrap;
   }
 
-  /* Stories — smaller tiles on phones */
-  .story-tile       { width: 150px; height: 200px; }
-  .story-tile--wide { width: 220px; }
+  /* Stories — aspect-ratio handles tile sizing */
 
   .story-modal-body {
     padding: 1.75rem 1.25rem 1.25rem;

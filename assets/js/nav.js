@@ -8,7 +8,6 @@
     { href: '#reyou',              label: 'RE:YOU',  cls: 'nav-link' },
     { href: '#pacagen',            label: 'Pacagen', cls: 'nav-link' },
     { href: '/orb-particles.html', label: 'Orb A',   cls: 'nav-link' },
-    { href: '/orb-glass.html',     label: 'Orb B',   cls: 'nav-link' },
     { href: '#stories',            label: 'Stories', cls: 'nav-link' },
     { href: '#contact',            label: 'Contact', cls: 'nav-cta'  }
   ];
@@ -47,6 +46,8 @@
     if (!toggle || !drawer) return;
 
     function openDrawer() {
+      var sb = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.paddingRight = sb + 'px';
       drawer.style.display = 'flex';
       requestAnimationFrame(function () {
         drawer.classList.add('is-open');
@@ -61,6 +62,7 @@
       drawer.classList.remove('is-open');
       toggle.classList.remove('is-open');
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Open menu');
       setTimeout(function () {
