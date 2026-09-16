@@ -268,6 +268,99 @@ p {
 }
 
 /* ============================================================
+   4b. FONT FACES — RE:YOU (Canela + TestDieGrotesk)
+   ============================================================ */
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-Light-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-LightItalic-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-Regular-Trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TestDieGrotesk';
+  src: url('/assets/fonts/TestDieGrotesk-A-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TestDieGrotesk';
+  src: url('/assets/fonts/TestDieGrotesk-A-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TestDieGrotesk';
+  src: url('/assets/fonts/TestDieGrotesk-A-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   4c. FONT FACES — Pacagen (Work Sans + Domine)
+   ============================================================ */
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-subset.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-italics-subset.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Domine';
+  src: url('/assets/fonts/DomineVariable.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* ============================================================
    5. FOUC PREVENTION
    ============================================================ */
 body.fouc-guard {
@@ -737,82 +830,172 @@ body.fouc-guard {
 
 /* ============================================================
    10. RE:YOU SECTION
+   — Brand palette: maroon #5d2a2c, gold #b59156, ivory #f9f5f3
+   — Typography feel: editorial serif headline (Grift light),
+     open-tracking eyebrow, light body copy
    ============================================================ */
+:root {
+  --reyou-maroon:  #5d2a2c;
+  --reyou-gold:    #b59156;
+  --reyou-ivory:   #f9f5f3;
+  --reyou-blush:   #fffbfb;
+  --font-canela:   'Canela', Georgia, serif;
+  --font-grotesk:  'TestDieGrotesk', 'Grift', Arial, sans-serif;
+  /* Gold metallic conic-gradient for CTA border animation */
+  --reyou-gold-metal: conic-gradient(
+    from var(--btn-angle, 0deg),
+    #c9a96e 0%, #f0d898 20%, #b59156 40%,
+    #e8c97a 60%, #a07840 80%, #c9a96e 100%
+  );
+}
+
 .reyou-section {
-  background: var(--color-off-white);
-  color: var(--color-black);
+  background: var(--reyou-ivory);
+  color: var(--reyou-maroon);
+  border-top: 1px solid rgba(93, 42, 44, 0.08);
 }
 
 .reyou-section .brand-kicker {
-  color: var(--color-muted);
+  color: var(--reyou-gold);
+  letter-spacing: 0.18em;
+  font-family: var(--font-grotesk);
 }
 
 .reyou-section .brand-headline {
-  background: var(--gradient-silver);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--font-canela);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: var(--reyou-maroon);
+  /* override shared gradient-clip */
+  background: none;
+  -webkit-text-fill-color: var(--reyou-maroon);
 }
 
-.reyou-section .brand-tagline,
+.reyou-section .brand-tagline {
+  color: var(--reyou-maroon);
+  opacity: 0.75;
+  font-family: var(--font-grotesk);
+  font-weight: 300;
+}
+
 .reyou-section .brand-body {
-  color: #333;
+  color: var(--reyou-maroon);
+  opacity: 0.8;
+  font-family: var(--font-grotesk);
+  font-weight: 300;
 }
 
+/* Gold-outlined CTA with rotating metallic border on hover */
 .reyou-section .brand-cta {
-  color: var(--color-black);
-  border-color: var(--color-black);
+  position: relative;
+  color: var(--reyou-maroon);
+  border-color: var(--reyou-gold);
+  background: transparent;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.reyou-section .brand-cta::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--reyou-gold-metal);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+  animation: reyou-spin 3s linear infinite paused;
 }
 
 .reyou-section .brand-cta:hover {
-  background: var(--color-black);
-  color: var(--color-white);
+  color: var(--reyou-maroon);
+  border-color: transparent;
+}
+
+.reyou-section .brand-cta:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@property --btn-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes reyou-spin {
+  to { --btn-angle: 360deg; }
 }
 
 .reyou-section .brand-visual-placeholder {
-  background: linear-gradient(135deg, #e8e8e8 0%, #c8c8c8 100%);
-  color: var(--color-silver-dk);
+  background: linear-gradient(150deg, var(--reyou-blush) 0%, #ede0d8 100%);
+  color: var(--reyou-gold);
 }
 
 /* ============================================================
    11. PACAGEN SECTION
+   — Brand palette: navy #032d70, blue #044eb7, warm bg #faf4f3
+   — Typography feel: clean sans, rounded CTA, blue gradient hover
    ============================================================ */
+:root {
+  --pacagen-navy:   #032d70;
+  --pacagen-blue:   #044eb7;
+  --pacagen-dark:   #0f294d;
+  --pacagen-bg:     #faf4f3;
+  --pacagen-bg-dk:  #f5ede8;
+  --font-worksans:  'Work Sans', 'Grift', Arial, sans-serif;
+  --font-domine:    'Domine', Georgia, serif;
+}
+
 .pacagen-section {
-  background: var(--color-black);
+  background: #032d70;
   color: var(--color-white);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(3, 45, 112, 0.08);
 }
 
 .pacagen-section .brand-kicker {
-  color: var(--color-silver-dk);
+  color: #7aadff;
+  letter-spacing: 0.18em;
+  font-family: var(--font-worksans);
 }
 
 .pacagen-section .brand-headline {
   color: var(--color-white);
+  font-family: var(--font-domine);
+  /* override shared gradient-clip */
+  background: none;
+  -webkit-text-fill-color: var(--color-white);
 }
 
 .pacagen-section .brand-tagline {
-  color: var(--color-silver);
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-worksans);
 }
 
 .pacagen-section .brand-body {
-  color: var(--color-silver-lt);
+  color: rgba(255,255,255,0.8);
+  font-family: var(--font-worksans);
 }
 
+/* Rounded-rectangle navy CTA, blue gradient on hover */
 .pacagen-section .brand-cta {
   color: var(--color-white);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--pacagen-blue);
+  border-color: var(--pacagen-blue);
+  border-radius: 9999px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 .pacagen-section .brand-cta:hover {
-  background: var(--color-white);
-  color: var(--color-black);
-  border-color: var(--color-white);
+  background: linear-gradient(135deg, #1a6ef5 0%, var(--pacagen-navy) 100%);
+  border-color: #1a6ef5;
+  box-shadow: 0 4px 20px rgba(4, 78, 183, 0.45);
+  color: var(--color-white);
 }
 
 .pacagen-section .brand-visual-placeholder {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  color: var(--color-silver-dk);
+  background: linear-gradient(150deg, #044eb7 0%, #021f50 100%);
+  color: rgba(255,255,255,0.3);
 }
 
 /* ============================================================

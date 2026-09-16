@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LKDH — Particle Orb</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+    :root {
+      --black: #000;
+      --white: #fff;
+      --silver: #a0a0a0;
+      --silver-lt: #d0d0d0;
+      --font-display: 'Grift', 'Cormorant Garamond', Georgia, serif;
+      --nav-h: 64px;
+    }
+
+    @font-face {
+      font-family: 'Grift';
+      src: url('/assets/fonts/Grift-Light.otf') format('opentype');
+      font-weight: 300;
+    }
+    @font-face {
+      font-family: 'Grift';
+      src: url('/assets/fonts/Grift-Regular.otf') format('opentype');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Grift';
+      src: url('/assets/fonts/Grift-ExtraBold.otf') format('opentype');
+      font-weight: 800;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-display);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      mix-blend-mode: normal;
+    }
+
+    .nav-logo img { height: 32px; width: auto; filter: invert(0); }
+
+    .nav-back {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--white); }
+
+    .nav-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100svh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #orb-canvas-wrap {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── LOGO OVERLAY ── */
+    .hero-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      pointer-events: none;
+      width: clamp(160px, 22vw, 280px);
+      opacity: 0;
+      animation: fadeIn 1.2s 0.6s var(--ease-out) forwards;
+      filter: drop-shadow(0 0 32px rgba(0,0,0,0.8));
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 5rem;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s var(--ease-out) forwards;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.05;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s var(--ease-out) forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--silver-lt);
+    }
+
+    .hero-sub {
+      margin-top: 1.25rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+      opacity: 0;
+      animation: fadeUp 1s 1.6s var(--ease-out) forwards;
+    }
+
+    /* ── SPEC BAR ── */
+    .spec-bar {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 2.5rem;
+      right: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s calc(1.8s + var(--i, 0) * 0.1s) var(--ease-out) forwards;
+    }
+
+    .spec-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+    .spec-value {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--silver-lt);
+    }
+
+    /* ── SCROLL CUE ── */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.25);
+      animation: scrollBounce 2.5s ease-in-out infinite, fadeIn 1s 2.2s forwards;
+      opacity: 0;
+    }
+    .scroll-cue svg { display: block; }
+
+    /* ── COMPARE SECTION ── */
+    .compare-section {
+      background: #050505;
+      padding: 8rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .compare-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .compare-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 1.5rem;
+    }
+
+    .compare-heading {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .compare-body {
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.5rem;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-top: 3rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .compare-cell {
+      background: #050505;
+      padding: 1.5rem;
+    }
+
+    .compare-cell-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 0.5rem;
+    }
+
+    .compare-cell-val {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .compare-cell.highlight .compare-cell-val {
+      color: #7fffd4;
+    }
+
+    /* ── LINKS ── */
+    .compare-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .cmp-link {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 0.25rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .cmp-link:hover { color: var(--white); border-color: var(--white); }
+
+    /* ── KEYFRAMES ── */
+    :root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/assets/images/LKDH_horizontal.svg" alt="LKDH Innovations">
+    </a>
+    <span class="nav-label">Design Test — Particle Orb</span>
+    <a href="/orb-glass.html" class="nav-back">View Glass Orb →</a>
+  </nav>
+
+  <section class="hero">
+    <div id="orb-canvas-wrap"></div>
+
+    <img src="/assets/images/LKDH_stacked.svg" alt="LKDH Innovations" class="hero-logo">
+
+    <div class="hero-content">
+      <h1 class="hero-title">Making <em>Miracles</em> Happen</h1>
+      <p class="hero-sub">Biotechnology for consumer health &amp; wellness</p>
+    </div>
+
+    <div class="spec-bar">
+      <div class="spec-item" style="--i:0">
+        <span class="spec-label">Renderer</span>
+        <span class="spec-value">Three.js WebGL</span>
+      </div>
+      <div class="spec-item" style="--i:1">
+        <span class="spec-label">Particles</span>
+        <span class="spec-value">20,000</span>
+      </div>
+      <div class="spec-item" style="--i:2">
+        <span class="spec-label">Post FX</span>
+        <span class="spec-value">Unreal Bloom</span>
+      </div>
+      <div class="spec-item" style="--i:3">
+        <span class="spec-label">Motion</span>
+        <span class="spec-value">Curl Turbulence</span>
+      </div>
+    </div>
+
+    <div class="scroll-cue">
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="1" y="1" width="14" height="22" rx="7"/>
+        <circle cx="8" cy="7" r="2" fill="currentColor" stroke="none">
+          <animate attributeName="cy" values="7;15;7" dur="2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </section>
+
+  <section class="compare-section">
+    <div class="compare-inner">
+      <p class="compare-eyebrow">Design Comparison — Option A</p>
+      <h2 class="compare-heading">Three.js Particle Swarm</h2>
+      <p class="compare-body">
+        20,000 instanced particles arranged on a Fibonacci sphere with layered sine curl turbulence.
+        Iridescent cyan-to-magenta hue drift, Fresnel shell shading, and Unreal Bloom post-processing.
+        Feels alive — a breathing, swirling orb of light.
+      </p>
+      <p class="compare-body">
+        Best suited for a hero that reads as dynamic, scientific, and alive. The density and bloom
+        create a sense of depth that rewards a full-screen hero placement.
+      </p>
+
+      <div class="compare-grid">
+        <div class="compare-cell">
+          <p class="compare-cell-label">Aesthetic</p>
+          <p class="compare-cell-val">Iridescent particle field / sci-fi bioluminescence</p>
+        </div>
+        <div class="compare-cell highlight">
+          <p class="compare-cell-label">Performance</p>
+          <p class="compare-cell-val">InstancedMesh — single draw call regardless of count</p>
+        </div>
+        <div class="compare-cell">
+          <p class="compare-cell-label">Interactivity</p>
+          <p class="compare-cell-val">Passive — camera orbits autonomously</p>
+        </div>
+        <div class="compare-cell">
+          <p class="compare-cell-label">Dependency</p>
+          <p class="compare-cell-val">Three.js + EffectComposer (CDN, ~280 KB gz)</p>
+        </div>
+      </div>
+
+      <div class="compare-links">
+        <a href="/orb-glass.html" class="cmp-link">View Option B — Glass Orb</a>
+        <a href="/" class="cmp-link">Back to site</a>
+      </div>
+    </div>
+  </section>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/examples/jsm/postprocessing/EffectComposer.js": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/EffectComposer.js",
+      "three/examples/jsm/postprocessing/RenderPass.js": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/RenderPass.js",
+      "three/examples/jsm/postprocessing/UnrealBloomPass.js": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/UnrealBloomPass.js",
+      "three/examples/jsm/postprocessing/ShaderPass.js": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/postprocessing/ShaderPass.js",
+      "three/examples/jsm/shaders/CopyShader.js": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/shaders/CopyShader.js",
+      "three/examples/jsm/shaders/LuminosityHighPassShader.js": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/shaders/LuminosityHighPassShader.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
+    class ParticleSwarm {
+      constructor(container, count = 20000) {
+        this.count = count;
+        this.container = container;
+        this.speedMult = 1;
+
+        this.scene = new THREE.Scene();
+        this.scene.fog = new THREE.FogExp2(0x000000, 0.008);
+
+        this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+        this.camera.position.set(0, 0, 100);
+
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance', alpha: true });
+        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.container.appendChild(this.renderer.domElement);
+
+        this.composer = new EffectComposer(this.renderer);
+        this.composer.addPass(new RenderPass(this.scene, this.camera));
+        const bloom = new UnrealBloomPass(
+          new THREE.Vector2(window.innerWidth, window.innerHeight),
+          1.0, 0.4, 0.1
+        );
+        this.composer.addPass(bloom);
+
+        this.dummy = new THREE.Object3D();
+        this.color = new THREE.Color();
+        this.target = new THREE.Vector3();
+        this.pColor = new THREE.Color();
+
+        const geo = new THREE.SphereGeometry(0.3, 8, 8);
+        const mat = new THREE.ShaderMaterial({
+          vertexShader: `
+            varying vec3 vNormal;
+            varying vec3 vViewPosition;
+            varying vec3 vColor;
+            void main() {
+              vec4 mvPosition = modelViewMatrix * instanceMatrix * vec4(position, 1.0);
+              vNormal = normalize(normalMatrix * normal);
+              vViewPosition = -mvPosition.xyz;
+              vColor = instanceColor;
+              gl_Position = projectionMatrix * mvPosition;
+            }
+          `,
+          fragmentShader: `
+            varying vec3 vNormal;
+            varying vec3 vViewPosition;
+            varying vec3 vColor;
+            void main() {
+              float fresnel = dot(vNormal, normalize(vViewPosition));
+              fresnel = clamp(1.0 - fresnel, 0.0, 1.0);
+              fresnel = pow(fresnel, 2.0);
+              vec3 col = vColor * fresnel + vec3(0.08);
+              gl_FragColor = vec4(col, 0.25 + fresnel * 0.75);
+            }
+          `,
+          transparent: true,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+        });
+
+        this.mesh = new THREE.InstancedMesh(geo, mat, this.count);
+        this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        this.scene.add(this.mesh);
+
+        this.positions = [];
+        for (let i = 0; i < this.count; i++) {
+          this.positions.push(new THREE.Vector3(
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100,
+            (Math.random() - 0.5) * 100
+          ));
+          this.mesh.setColorAt(i, this.color.setHex(0x00ffaa));
+        }
+
+        this.clock = new THREE.Clock();
+
+        window.addEventListener('resize', () => this._onResize());
+
+        this._animate = this._animate.bind(this);
+        this._animate();
+      }
+
+      _onResize() {
+        const w = window.innerWidth, h = window.innerHeight;
+        this.camera.aspect = w / h;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(w, h);
+        this.composer.setSize(w, h);
+      }
+
+      _animate() {
+        requestAnimationFrame(this._animate);
+        const time = this.clock.getElapsedTime() * this.speedMult;
+
+        const PARAMS = { radius: 60, flow: 0.8, turb: 0.45, shell: 0.25, hueShift: 0.35 };
+        const count = this.count;
+        const golden = 2.399963229728653;
+
+        for (let i = 0; i < this.count; i++) {
+          const frac = (i + 0.5) / count;
+          const y0 = 1.0 - 2.0 * frac;
+          const r0 = Math.sqrt(Math.max(0, 1 - y0 * y0));
+          const th = golden * i;
+          let x = r0 * Math.cos(th);
+          let y = y0;
+          let z = r0 * Math.sin(th);
+
+          const t = time * PARAMS.flow;
+          const w1 = Math.sin(3*x + t*1.7 + Math.cos(2*z - t)) * Math.cos(2*y - t*1.3);
+          const w2 = Math.sin(4*z - t*1.1 + Math.cos(3*x + t*0.7)) * Math.cos(3*y + t);
+          const w3 = Math.sin(2*y + t*2.1 + Math.cos(4*x - t*0.5)) * Math.cos(2*z + t*0.9);
+
+          const breath = 1 + 0.06 * Math.sin(t*1.2) + 0.03 * Math.sin(t*2.7 + 1.3);
+          const band = 0.5 + 0.5 * Math.sin(frac * 6.28318 * 3 + t * 0.6);
+          const shellMix = band * PARAMS.shell;
+          const rMod = breath * (1 - shellMix * (0.55 + 0.35 * Math.sin(th * 0.5 + t)));
+          const dist = PARAMS.turb * 0.22;
+
+          const rotA = t * 0.25;
+          const cA = Math.cos(rotA), sA = Math.sin(rotA);
+          const xr = x * cA - z * sA;
+          const zr = x * sA + z * cA;
+
+          const px = (xr + w1 * dist) * PARAMS.radius * rMod;
+          const py = (y  + w2 * dist * 1.15) * PARAMS.radius * rMod;
+          const pz = (zr + w3 * dist) * PARAMS.radius * rMod;
+
+          this.target.set(px, py, pz);
+
+          const swirl = 0.5 + 0.5 * Math.sin(y*2 + xr*1.5 + t*1.4 + w1*2);
+          const hue = 0.52 + PARAMS.hueShift * 0.28 * swirl + 0.05 * Math.sin(t*0.5 + frac*6.28318);
+          const edge = Math.abs(y0);
+          const light = 0.55 + 0.25 * w2 * PARAMS.turb + 0.12 * edge;
+          const sat = 0.75 + 0.2 * swirl;
+          this.pColor.setHSL(hue % 1, Math.min(1, Math.max(0, sat)), Math.min(0.92, Math.max(0.15, light)));
+
+          this.positions[i].lerp(this.target, 0.1);
+          this.dummy.position.copy(this.positions[i]);
+          this.dummy.updateMatrix();
+          this.mesh.setMatrixAt(i, this.dummy.matrix);
+          this.mesh.setColorAt(i, this.pColor);
+        }
+
+        this.mesh.instanceMatrix.needsUpdate = true;
+        this.mesh.instanceColor.needsUpdate = true;
+        this.composer.render();
+      }
+    }
+
+    const wrap = document.getElementById('orb-canvas-wrap');
+    new ParticleSwarm(wrap);
+  </script>
+</body>
+</html>

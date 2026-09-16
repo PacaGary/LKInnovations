@@ -59,9 +59,120 @@
   <!-- FOUC prevention -->
   <script>document.body && document.body.classList.add('fouc-guard');</script>
   <script src="/assets/js/main.js"></script>
+
+  <style>
+    #password-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    #password-gate .gate-logo {
+      width: 160px;
+      opacity: 0.9;
+    }
+    #password-gate form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    #password-gate input[type="password"] {
+      background: transparent;
+      border: 1px solid #444;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 0.65rem 1rem;
+      border-radius: 6px;
+      width: 260px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #password-gate input[type="password"]:focus {
+      border-color: #888;
+    }
+    #password-gate input[type="password"].error {
+      border-color: #e05;
+      animation: gate-shake 0.3s ease;
+    }
+    #password-gate button {
+      background: #fff;
+      color: #000;
+      border: none;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.65rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 260px;
+      transition: opacity 0.2s;
+    }
+    #password-gate button:hover { opacity: 0.85; }
+    #password-gate .gate-error {
+      color: #e05;
+      font-size: 0.8125rem;
+      letter-spacing: 0.04em;
+      min-height: 1.2em;
+    }
+    @keyframes gate-shake {
+      0%, 100% { transform: translateX(0); }
+      25%       { transform: translateX(-6px); }
+      75%       { transform: translateX(6px); }
+    }
+  </style>
 </head>
 
 <body class="fouc-guard">
+
+  <!-- Password gate -->
+  <div id="password-gate" role="dialog" aria-modal="true" aria-label="Site access">
+    <img src="/assets/images/LKDH_stacked.svg" alt="LKDH Innovations" class="gate-logo">
+    <form id="gate-form" novalidate>
+      <input type="password" id="gate-input" placeholder="Enter password"
+             autocomplete="current-password" autofocus>
+      <p class="gate-error" id="gate-error" aria-live="polite"></p>
+      <button type="submit">Enter</button>
+    </form>
+  </div>
+
+  <script>
+    (function () {
+      var CORRECT = 'pacapaca';
+      var gate    = document.getElementById('password-gate');
+      var form    = document.getElementById('gate-form');
+      var input   = document.getElementById('gate-input');
+      var errMsg  = document.getElementById('gate-error');
+
+      function unlock() {
+        gate.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      document.body.style.overflow = 'hidden';
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value === CORRECT) {
+          unlock();
+        } else {
+          errMsg.textContent = 'Incorrect password.';
+          input.classList.add('error');
+          input.value = '';
+          setTimeout(function () { input.classList.remove('error'); }, 400);
+        }
+      });
+    })();
+  </script>
 
   <!-- ═══════════════════════════════════════════════════════
        NAVIGATION
@@ -77,6 +188,8 @@
         <li><a href="#about"   class="nav-link">About</a></li>
         <li><a href="#reyou"   class="nav-link">RE:YOU</a></li>
         <li><a href="#pacagen" class="nav-link">Pacagen</a></li>
+        <li><a href="/orb-particles.html" class="nav-link">Orb A</a></li>
+        <li><a href="/orb-glass.html"     class="nav-link">Orb B</a></li>
         <li><a href="#contact" class="nav-cta">Contact</a></li>
       </ul>
 
