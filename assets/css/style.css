@@ -450,18 +450,17 @@ body.fouc-guard {
 
 .logo-glow {
   position: absolute;
-  inset: -45%;
+  inset: -10%;
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    rgba(220, 220, 220, 0.4) 0%,
-    rgba(180, 180, 180, 0.2) 25%,
-    rgba(150, 150, 150, 0.05) 50%,
+    rgba(220, 220, 220, 0.45) 0%,
+    rgba(180, 180, 180, 0.2) 40%,
     transparent 70%
   );
-  filter: blur(40px);
-  opacity: 0.4;
+  filter: blur(18px);
+  opacity: 0.5;
   animation: glow-pulse 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   will-change: opacity, transform;
 }
@@ -994,6 +993,111 @@ body.fouc-guard {
 
 .footer-legal a:hover {
   color: var(--color-white);
+}
+
+/* ============================================================
+   12b. POLICY PAGES (privacy-policy, terms)
+   ============================================================ */
+.policy-page {
+  background: var(--color-white);
+  color: var(--color-black);
+  padding-top: calc(var(--nav-height) + var(--space-2xl));
+  padding-bottom: var(--space-2xl);
+  min-height: 100vh;
+}
+
+.policy-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.policy-header {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.policy-kicker {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-label);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.policy-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-sm);
+}
+
+.policy-meta {
+  font-size: var(--text-meta);
+  color: var(--color-muted);
+  font-weight: 300;
+}
+
+.policy-section {
+  margin-bottom: var(--space-xl);
+}
+
+.policy-section h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-divider);
+}
+
+.policy-section h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.policy-section p {
+  font-size: var(--text-body);
+  font-weight: 300;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.policy-section ul {
+  margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+  list-style: disc;
+}
+
+.policy-section ul li {
+  font-size: var(--text-body);
+  font-weight: 300;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: var(--space-sm);
+}
+
+.policy-section a {
+  color: var(--color-black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.policy-section a:hover {
+  color: var(--color-muted);
 }
 
 /* ============================================================
