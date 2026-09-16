@@ -1,128 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LK Innovations</title>
-<meta name="description" content="Making Miracles Happen.">
-<meta property="og:title" content="LK Innovations">
-<meta property="og:description" content="Making Miracles Happen.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://lkinnovations.org/">
-<meta name="theme-color" content="#1a1612">
-<link rel="icon" type="image/svg+xml" href="/lk.svg">
-<link rel="shortcut icon" href="/lk.svg">
-<link rel="apple-touch-icon" href="/lk.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap">
-<style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1a1612;
-    color: #e8e0d0;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding: 2rem;
-    overflow: hidden;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LKDH Innovations — Biotechnology for Consumer Health &amp; Wellness</title>
+  <meta name="description" content="LKDH Innovations is a biotechnology innovation company developing the next generation of consumer health and wellness through patent-protected technologies and category-defining brands.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://lkinnovations.org/">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="LKDH Innovations — Biotechnology for Consumer Health &amp; Wellness">
+  <meta property="og:description" content="We discover and engineer novel, patent-protected technologies, then bring them to market through category-defining brands like Pacagen and RE:YOU.">
+  <meta property="og:url"         content="https://lkinnovations.org/">
+  <meta property="og:image"       content="https://lkinnovations.org/assets/images/og-default.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name"   content="LKDH Innovations">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="LKDH Innovations — Biotechnology for Consumer Health &amp; Wellness">
+  <meta name="twitter:description" content="We discover and engineer novel, patent-protected technologies, then bring them to market through category-defining brands.">
+  <meta name="twitter:image"       content="https://lkinnovations.org/assets/images/og-default.jpg">
+
+  <meta name="theme-color" content="#000000">
+
+  <!-- Favicons -->
+  <link rel="icon"             type="image/svg+xml" href="/assets/images/logo/favicon.svg">
+  <link rel="shortcut icon"    href="/assets/images/logo/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/images/logo/favicon.svg">
+
+  <!-- Font preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "LKDH Innovations",
+    "url": "https://lkinnovations.org",
+    "description": "LKDH Innovations is a biotechnology innovation company developing the next generation of consumer health and wellness through novel, patent-protected technologies.",
+    "brand": [
+      { "@type": "Brand", "name": "Pacagen", "url": "https://pacagen.com" },
+      { "@type": "Brand", "name": "RE:YOU",  "url": "https://reyou.com" }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/company/lkdhinnovations",
+      "https://www.instagram.com/lkdhinnovations",
+      "https://x.com/lkdhinnovations"
+    ]
   }
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2.25rem;
-  }
-  .stage {
-    position: relative;
-    width: clamp(260px, 42vw, 440px);
-    aspect-ratio: 105.12 / 108.73;
-  }
-  .glow {
-    position: absolute;
-    inset: -45%;
-    z-index: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      circle at center,
-      rgba(255, 215, 165, 0.55) 0%,
-      rgba(255, 200, 140, 0.30) 25%,
-      rgba(255, 190, 130, 0.10) 50%,
-      transparent 70%
-    );
-    filter: blur(40px);
-    opacity: 0.35;
-    animation: glow-pulse 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-    will-change: opacity, transform;
-  }
-  @keyframes glow-pulse {
-    0%   { opacity: 0.35; transform: scale(1); }
-    22%  { opacity: 1;    transform: scale(1.06); }
-    45%  { opacity: 0.55; transform: scale(1.02); }
-    100% { opacity: 0.35; transform: scale(1); }
-  }
-  .logo-mask {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    -webkit-mask: url('lk.svg') center / contain no-repeat;
-            mask: url('lk.svg') center / contain no-repeat;
-    background: linear-gradient(180deg, #f5ead2 0%, #d8c8a4 55%, #b8a47c 100%);
-  }
-  .sheen-mask {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    overflow: hidden;
-    -webkit-mask: url('lk.svg') center / contain no-repeat;
-            mask: url('lk.svg') center / contain no-repeat;
-  }
-  .sheen-band {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      115deg,
-      transparent 38%,
-      rgba(255, 245, 220, 0.85) 50%,
-      transparent 62%
-    );
-    animation: sheen 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-    will-change: transform;
-  }
-  @keyframes sheen {
-    0%   { transform: translateX(-100%); }
-    45%  { transform: translateX(100%); }
-    100% { transform: translateX(100%); }
-  }
-  .tagline {
-    margin: 0;
-    font-weight: 300;
-    font-size: clamp(0.75rem, 1.4vw, 0.92rem);
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: #d6cdbf;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .sheen-band { animation: none; opacity: 0; }
-    .glow { animation: none; opacity: 0.5; transform: scale(1.03); }
-  }
-</style>
+  </script>
+
+  <!-- FOUC prevention -->
+  <script>document.body && document.body.classList.add('fouc-guard');</script>
+  <script src="/assets/js/main.js"></script>
 </head>
-<body>
-  <main class="hero">
-    <div class="stage">
-      <div class="glow" aria-hidden="true"></div>
-      <div class="logo-mask" role="img" aria-label="LK Innovations"></div>
-      <div class="sheen-mask" aria-hidden="true">
-        <div class="sheen-band"></div>
+
+<body class="fouc-guard">
+
+  <!-- Skip to content -->
+  <a class="sr-only" href="#main-content">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+
+      <a href="/" class="nav-logo" aria-label="LKDH Innovations — Home">
+        <img src="/assets/images/LKDH_horizontal.svg" alt="LKDH Innovations" width="120" height="58" class="nav-logo-img">
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about"   class="nav-link">About</a></li>
+        <li><a href="#reyou"   class="nav-link">RE:YOU</a></li>
+        <li><a href="#pacagen" class="nav-link">Pacagen</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+
+      <button class="nav-menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span class="toggle-bar" aria-hidden="true"></span>
+        <span class="toggle-bar" aria-hidden="true"></span>
+        <span class="toggle-bar" aria-hidden="true"></span>
+      </button>
+
+    </nav>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div id="mobile-drawer" class="mobile-drawer" role="dialog" aria-label="Site navigation" aria-modal="true">
+    <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
+    <a href="#about"   class="nav-link">About</a>
+    <a href="#reyou"   class="nav-link">RE:YOU</a>
+    <a href="#pacagen" class="nav-link">Pacagen</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ═══════════════════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════════════════ -->
+    <section class="site-hero" aria-labelledby="hero-tagline">
+      <div class="hero-inner">
+
+        <div class="logo-stage" role="img" aria-label="LKDH Innovations">
+          <div class="logo-glow" aria-hidden="true"></div>
+          <img src="/assets/images/LKDH_stacked.svg"
+               alt="LKDH Innovations"
+               class="logo-img"
+               width="380" height="380"
+               draggable="false">
+          <div class="logo-sheen-mask" aria-hidden="true">
+            <div class="logo-sheen-band"></div>
+          </div>
+        </div>
+
+        <p class="hero-tagline" id="hero-tagline">Making Miracles Happen</p>
+
       </div>
-    </div>
-    <p class="tagline">Making Miracles Happen</p>
+
+      <!-- Scroll cue -->
+      <div class="hero-scroll-cue" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         ABOUT / MISSION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="about-section" id="about" aria-labelledby="about-heading">
+      <div class="about-inner">
+
+        <div class="about-content">
+          <span class="about-kicker">Who We Are</span>
+          <h2 class="about-headline" id="about-heading">
+            Engineering what's next in consumer health.
+          </h2>
+          <p class="about-body">
+            LKDH Innovations is a biotechnology innovation company developing the next
+            generation of consumer health and wellness. We discover and engineer novel,
+            patent-protected technologies, then bring them to market through
+            category-defining brands.
+          </p>
+          <p class="about-body">
+            Our work begins in the lab and ends in the hands of consumers — connecting
+            rigorous science with products that people actually use.
+          </p>
+          <div class="about-brands">
+            <a href="#reyou"   class="about-brand-pill">RE:YOU</a>
+            <a href="#pacagen" class="about-brand-pill">Pacagen</a>
+          </div>
+        </div>
+
+        <div class="about-visual" aria-hidden="true">
+          <div class="about-visual-placeholder">Image</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         RE:YOU BRAND SECTION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="brand-section reyou-section" id="reyou" aria-labelledby="reyou-heading">
+      <div class="brand-inner">
+
+        <div class="brand-content">
+          <span class="brand-kicker">Brand</span>
+          <h2 class="brand-headline" id="reyou-heading">RE:YOU</h2>
+          <p class="brand-tagline">Personalized wellness, re-engineered.</p>
+          <p class="brand-body">
+            RE:YOU is a next-generation wellness brand built on proprietary biotech.
+            [Placeholder — add RE:YOU product description, key differentiators,
+            and target market here.]
+          </p>
+          <a href="https://reyou.com" class="brand-cta" target="_blank" rel="noopener noreferrer">
+            Visit RE:YOU
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="brand-visual" aria-hidden="true">
+          <div class="brand-visual-placeholder">RE:YOU</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         PACAGEN BRAND SECTION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="brand-section pacagen-section" id="pacagen" aria-labelledby="pacagen-heading">
+      <div class="brand-inner brand-inner--reverse">
+
+        <div class="brand-content">
+          <span class="brand-kicker">Brand</span>
+          <h2 class="brand-headline" id="pacagen-heading">Pacagen</h2>
+          <p class="brand-tagline">Science-first solutions for everyday life.</p>
+          <p class="brand-body">
+            Pacagen is a consumer biotechnology brand translating breakthrough science
+            into clinically supported health solutions.
+            [Placeholder — add Pacagen product description, key differentiators,
+            and target market here.]
+          </p>
+          <a href="https://pacagen.com" class="brand-cta" target="_blank" rel="noopener noreferrer">
+            Visit Pacagen
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="brand-visual" aria-hidden="true">
+          <div class="brand-visual-placeholder">Pacagen</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONTACT
+         ═══════════════════════════════════════════════════════ -->
+    <section class="contact-section" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-inner">
+
+        <div class="contact-details">
+          <span class="contact-kicker">Get in Touch</span>
+          <h2 class="contact-headline" id="contact-heading">
+            Let's build something remarkable.
+          </h2>
+          <p class="contact-detail">
+            For partnerships, press, or general inquiries:<br>
+            <a href="mailto:info@lkdhinnovations.com">info@lkdhinnovations.com</a>
+          </p>
+
+          <nav class="contact-social" aria-label="Social media links">
+            <!-- LinkedIn -->
+            <a class="contact-social-link"
+               href="https://www.linkedin.com/company/lkdhinnovations"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a class="contact-social-link"
+               href="https://www.instagram.com/lkdhinnovations"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <!-- X / Twitter -->
+            <a class="contact-social-link"
+               href="https://x.com/lkdhinnovations"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="X">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+        <form class="contact-form" action="#" method="post" novalidate aria-label="Contact form">
+          <div class="form-field">
+            <label class="form-label" for="contact-name">Name</label>
+            <input class="form-input" type="text" id="contact-name" name="name"
+                   placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="contact-email">Email <span aria-hidden="true">*</span></label>
+            <input class="form-input" type="email" id="contact-email" name="email"
+                   placeholder="your@email.com" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="contact-message">Message</label>
+            <textarea class="form-textarea" id="contact-message" name="message"
+                      placeholder="How can we help?" rows="5"></textarea>
+          </div>
+          <button class="form-submit" type="submit">Send Message</button>
+        </form>
+
+      </div>
+    </section>
+
   </main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER BAR
+       ═══════════════════════════════════════════════════════ -->
+  <footer class="site-footer-bar" role="contentinfo">
+    <p class="footer-copy">&copy; <span id="footer-year"></span> LKDH Innovations. All rights reserved.</p>
+    <nav class="footer-legal" aria-label="Legal navigation">
+      <a href="/privacy-policy">Privacy Policy</a>
+      <a href="/terms">Terms of Use</a>
+    </nav>
+  </footer>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>

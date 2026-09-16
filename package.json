@@ -1,0 +1,10 @@
+{
+  "name": "lkdh-innovations",
+  "version": "1.0.0",
+  "description": "LKDH Innovations — company website",
+  "private": true,
+  "scripts": {
+    "start": "npx serve . --listen 3000 --no-clipboard",
+    "dev": "npx serve . --listen 3000"
+  }
+}
