@@ -268,6 +268,99 @@ p {
 }
 
 /* ============================================================
+   4b. FONT FACES — RE:YOU (Canela + TestDieGrotesk)
+   ============================================================ */
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-Light-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-LightItalic-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Canela';
+  src: url('/assets/fonts/Canela-Regular-Trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TestDieGrotesk';
+  src: url('/assets/fonts/TestDieGrotesk-A-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TestDieGrotesk';
+  src: url('/assets/fonts/TestDieGrotesk-A-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TestDieGrotesk';
+  src: url('/assets/fonts/TestDieGrotesk-A-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   4c. FONT FACES — Pacagen (Work Sans + Domine)
+   ============================================================ */
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-subset.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-italics-subset.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/assets/fonts/WorkSans-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Domine';
+  src: url('/assets/fonts/DomineVariable.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+/* ============================================================
    5. FOUC PREVENTION
    ============================================================ */
 body.fouc-guard {
@@ -450,18 +543,17 @@ body.fouc-guard {
 
 .logo-glow {
   position: absolute;
-  inset: -45%;
+  inset: -10%;
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    rgba(220, 220, 220, 0.4) 0%,
-    rgba(180, 180, 180, 0.2) 25%,
-    rgba(150, 150, 150, 0.05) 50%,
+    rgba(220, 220, 220, 0.45) 0%,
+    rgba(180, 180, 180, 0.2) 40%,
     transparent 70%
   );
-  filter: blur(40px);
-  opacity: 0.4;
+  filter: blur(18px);
+  opacity: 0.5;
   animation: glow-pulse 11s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   will-change: opacity, transform;
 }
@@ -738,86 +830,533 @@ body.fouc-guard {
 
 /* ============================================================
    10. RE:YOU SECTION
+   — Brand palette: maroon #5d2a2c, gold #b59156, ivory #f9f5f3
+   — Typography feel: editorial serif headline (Grift light),
+     open-tracking eyebrow, light body copy
    ============================================================ */
+:root {
+  --reyou-maroon:  #5d2a2c;
+  --reyou-gold:    #b59156;
+  --reyou-ivory:   #f9f5f3;
+  --reyou-blush:   #fffbfb;
+  --font-canela:   'Canela', Georgia, serif;
+  --font-grotesk:  'TestDieGrotesk', 'Grift', Arial, sans-serif;
+  /* Gold metallic conic-gradient for CTA border animation */
+  --reyou-gold-metal: conic-gradient(
+    from var(--btn-angle, 0deg),
+    #c9a96e 0%, #f0d898 20%, #b59156 40%,
+    #e8c97a 60%, #a07840 80%, #c9a96e 100%
+  );
+}
+
 .reyou-section {
-  background: var(--color-off-white);
-  color: var(--color-black);
+  background: var(--reyou-ivory);
+  color: var(--reyou-maroon);
+  border-top: 1px solid rgba(93, 42, 44, 0.08);
 }
 
 .reyou-section .brand-kicker {
-  color: var(--color-muted);
+  color: var(--reyou-gold);
+  letter-spacing: 0.18em;
+  font-family: var(--font-grotesk);
 }
 
 .reyou-section .brand-headline {
-  background: var(--gradient-silver);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: var(--font-canela);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: var(--reyou-maroon);
+  /* override shared gradient-clip */
+  background: none;
+  -webkit-text-fill-color: var(--reyou-maroon);
 }
 
-.reyou-section .brand-tagline,
+.reyou-section .brand-tagline {
+  color: var(--reyou-maroon);
+  opacity: 0.75;
+  font-family: var(--font-grotesk);
+  font-weight: 300;
+}
+
 .reyou-section .brand-body {
-  color: #333;
+  color: var(--reyou-maroon);
+  opacity: 0.8;
+  font-family: var(--font-grotesk);
+  font-weight: 300;
 }
 
+/* Gold-outlined CTA with rotating metallic border on hover */
 .reyou-section .brand-cta {
-  color: var(--color-black);
-  border-color: var(--color-black);
+  position: relative;
+  color: var(--reyou-maroon);
+  border-color: var(--reyou-gold);
+  background: transparent;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.reyou-section .brand-cta::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--reyou-gold-metal);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+  animation: reyou-spin 3s linear infinite paused;
 }
 
 .reyou-section .brand-cta:hover {
-  background: var(--color-black);
-  color: var(--color-white);
+  color: var(--reyou-maroon);
+  border-color: transparent;
+}
+
+.reyou-section .brand-cta:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@property --btn-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes reyou-spin {
+  to { --btn-angle: 360deg; }
 }
 
 .reyou-section .brand-visual-placeholder {
-  background: linear-gradient(135deg, #e8e8e8 0%, #c8c8c8 100%);
-  color: var(--color-silver-dk);
+  background: linear-gradient(150deg, var(--reyou-blush) 0%, #ede0d8 100%);
+  color: var(--reyou-gold);
 }
 
 /* ============================================================
    11. PACAGEN SECTION
+   — Brand palette: navy #032d70, blue #044eb7, warm bg #faf4f3
+   — Typography feel: clean sans, rounded CTA, blue gradient hover
    ============================================================ */
+:root {
+  --pacagen-navy:   #032d70;
+  --pacagen-blue:   #044eb7;
+  --pacagen-dark:   #0f294d;
+  --pacagen-bg:     #faf4f3;
+  --pacagen-bg-dk:  #f5ede8;
+  --font-worksans:  'Work Sans', 'Grift', Arial, sans-serif;
+  --font-domine:    'Domine', Georgia, serif;
+}
+
 .pacagen-section {
-  background: var(--color-black);
+  background: #032d70;
   color: var(--color-white);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(3, 45, 112, 0.08);
 }
 
 .pacagen-section .brand-kicker {
-  color: var(--color-silver-dk);
+  color: #7aadff;
+  letter-spacing: 0.18em;
+  font-family: var(--font-worksans);
 }
 
 .pacagen-section .brand-headline {
   color: var(--color-white);
+  font-family: var(--font-domine);
+  /* override shared gradient-clip */
+  background: none;
+  -webkit-text-fill-color: var(--color-white);
 }
 
 .pacagen-section .brand-tagline {
-  color: var(--color-silver);
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-worksans);
 }
 
 .pacagen-section .brand-body {
-  color: var(--color-silver-lt);
+  color: rgba(255,255,255,0.8);
+  font-family: var(--font-worksans);
 }
 
+/* Rounded-rectangle navy CTA, blue gradient on hover */
 .pacagen-section .brand-cta {
   color: var(--color-white);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: var(--pacagen-blue);
+  border-color: var(--pacagen-blue);
+  border-radius: 9999px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 .pacagen-section .brand-cta:hover {
-  background: var(--color-white);
-  color: var(--color-black);
-  border-color: var(--color-white);
+  background: linear-gradient(135deg, #1a6ef5 0%, var(--pacagen-navy) 100%);
+  border-color: #1a6ef5;
+  box-shadow: 0 4px 20px rgba(4, 78, 183, 0.45);
+  color: var(--color-white);
 }
 
 .pacagen-section .brand-visual-placeholder {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-  color: var(--color-silver-dk);
+  background: linear-gradient(150deg, #044eb7 0%, #021f50 100%);
+  color: rgba(255,255,255,0.3);
 }
 
 /* ============================================================
-   12. CONTACT / FOOTER SECTION
+   12. STORIES — MAKING MIRACLES HAPPEN
+   ============================================================ */
+.stories-section {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #080808;
+  padding-bottom: var(--space-2xl);
+}
+
+/* Edge fade so tracks bleed off naturally */
+.stories-section::before,
+.stories-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  z-index: 4;
+  pointer-events: none;
+}
+.stories-section::before {
+  left: 0;
+  background: linear-gradient(to right, #080808 0%, transparent 100%);
+}
+.stories-section::after {
+  right: 0;
+  background: linear-gradient(to left, #080808 0%, transparent 100%);
+}
+
+.stories-header {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+  max-width: 640px;
+}
+
+.stories-kicker {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-label);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: var(--space-sm);
+}
+
+.stories-heading {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: var(--color-white);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: var(--space-md);
+}
+
+.stories-subhead {
+  font-size: var(--text-body);
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+}
+
+/* ── Scrolling tracks ── */
+.stories-track {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.stories-track-inner {
+  display: flex;
+  gap: 6px;
+  width: max-content;
+  will-change: transform;
+}
+
+/* JS sets --track-width; CSS drives the animation */
+.stories-track--left  .stories-track-inner { animation: track-scroll-left  28s linear infinite; }
+.stories-track--right .stories-track-inner { animation: track-scroll-right 32s linear infinite; }
+.stories-track--slow  .stories-track-inner { animation-duration: 42s; }
+
+@keyframes track-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-50%)); }
+}
+
+@keyframes track-scroll-right {
+  from { transform: translateX(calc(-50%)); }
+  to   { transform: translateX(0); }
+}
+
+/* Pause on hover over the track */
+.stories-track:hover .stories-track-inner {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stories-track-inner { animation: none !important; }
+}
+
+/* ── Individual tiles ── */
+.story-tile {
+  position: relative;
+  flex: 0 0 auto;
+  width: 220px;
+  height: 280px;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: #111;
+  border-radius: 6px;
+  outline: none;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.story-tile--wide {
+  width: 340px;
+}
+
+.story-tile:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.55);
+}
+
+.story-tile:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+  z-index: 3;
+}
+
+/* ── Tile media (image or video) ── */
+.story-tile-img {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-tile-img svg {
+  width: 55%;
+  height: 55%;
+  opacity: 0.45;
+}
+
+/* Video tiles */
+.story-tile-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Play badge on video tiles */
+.story-tile[data-video]::before {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpolygon points='5,3 19,12 5,21'/%3E%3C/svg%3E") center / 12px no-repeat;
+  border-radius: 50%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Dark scrim, lifts on hover */
+.story-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.28);
+  transition: background 0.3s;
+}
+
+.story-tile:hover::after,
+.story-tile:focus-visible::after {
+  background: rgba(0,0,0,0.08);
+}
+
+/* ── Tile label bar ── */
+.story-tile-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 0.85rem 0.9rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.story-tile-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--color-white);
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.story-tile-product {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.story-tile-product.reyou   { background: var(--reyou-gold);   color: var(--reyou-maroon); }
+.story-tile-product.pacagen { background: var(--pacagen-blue);  color: var(--color-white);  }
+
+/* ── Story modal ── */
+.story-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-modal[hidden] { display: none; }
+
+.story-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.story-modal-panel {
+  position: relative;
+  z-index: 1;
+  background: var(--color-white);
+  color: var(--color-black);
+  max-width: 580px;
+  width: calc(100% - 2rem);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  animation: modal-in 0.3s ease;
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* Video embed inside modal */
+.story-modal-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.story-modal-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.story-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0,0,0,0.45);
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #fff;
+  padding: 0.3rem 0.55rem;
+  border-radius: 50%;
+  transition: background 0.2s;
+  z-index: 2;
+}
+
+.story-modal-close:hover { background: rgba(0,0,0,0.75); }
+
+.story-modal-body {
+  padding: 2rem 2rem 2.5rem;
+}
+
+.story-modal-product-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.story-modal-product-badge.re\:you,
+.story-modal-product-badge.reyou {
+  background: var(--reyou-ivory);
+  color: var(--reyou-maroon);
+  border: 1px solid var(--reyou-gold);
+}
+
+.story-modal-product-badge.pacagen {
+  background: #e8f0ff;
+  color: var(--pacagen-navy);
+  border: 1px solid var(--pacagen-blue);
+}
+
+.story-modal-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.story-modal-location {
+  font-size: var(--text-meta);
+  color: var(--color-muted);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.story-modal-quote {
+  font-size: 1.0625rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #333;
+  margin: 0;
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--color-divider);
+  font-style: italic;
+}
+
+/* ============================================================
+   13. CONTACT / FOOTER SECTION
    ============================================================ */
 .contact-section {
   background: var(--color-off-white);
@@ -997,6 +1536,111 @@ body.fouc-guard {
 }
 
 /* ============================================================
+   12b. POLICY PAGES (privacy-policy, terms)
+   ============================================================ */
+.policy-page {
+  background: var(--color-white);
+  color: var(--color-black);
+  padding-top: calc(var(--nav-height) + var(--space-2xl));
+  padding-bottom: var(--space-2xl);
+  min-height: 100vh;
+}
+
+.policy-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.policy-header {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.policy-kicker {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-label);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-md);
+}
+
+.policy-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-sm);
+}
+
+.policy-meta {
+  font-size: var(--text-meta);
+  color: var(--color-muted);
+  font-weight: 300;
+}
+
+.policy-section {
+  margin-bottom: var(--space-xl);
+}
+
+.policy-section h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-divider);
+}
+
+.policy-section h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.policy-section p {
+  font-size: var(--text-body);
+  font-weight: 300;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+}
+
+.policy-section ul {
+  margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+  list-style: disc;
+}
+
+.policy-section ul li {
+  font-size: var(--text-body);
+  font-weight: 300;
+  color: #333;
+  line-height: 1.8;
+  margin-bottom: var(--space-sm);
+}
+
+.policy-section a {
+  color: var(--color-black);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.policy-section a:hover {
+  color: var(--color-muted);
+}
+
+/* ============================================================
    13. SCROLL ANIMATIONS
    ============================================================ */
 .will-animate {
@@ -1080,6 +1724,15 @@ body.fouc-guard {
     gap: var(--space-md);
     text-align: center;
   }
+
+  /* Stories — narrower tiles on tablet */
+  .story-tile       { width: 180px; height: 240px; }
+  .story-tile--wide { width: 280px; }
+
+  .story-modal-panel {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
 }
 
 /* ============================================================
@@ -1100,5 +1753,13 @@ body.fouc-guard {
 
   .contact-social {
     flex-wrap: wrap;
+  }
+
+  /* Stories — smaller tiles on phones */
+  .story-tile       { width: 150px; height: 200px; }
+  .story-tile--wide { width: 220px; }
+
+  .story-modal-body {
+    padding: 1.75rem 1.25rem 1.25rem;
   }
 }
