@@ -147,7 +147,7 @@
 
   <script>
     (function () {
-      var CORRECT = 'pacapaca';
+      var CORRECT = 'paca';
       var gate    = document.getElementById('password-gate');
       var form    = document.getElementById('gate-form');
       var input   = document.getElementById('gate-input');
@@ -352,125 +352,196 @@
          ═══════════════════════════════════════════════════════ -->
     <section class="stories-section" id="stories" aria-labelledby="stories-heading">
 
-      <div class="stories-overlay" aria-hidden="true"></div>
-
       <div class="stories-header">
         <span class="stories-kicker">Real People. Real Results.</span>
         <h2 class="stories-heading" id="stories-heading">Making Miracles Happen</h2>
         <p class="stories-subhead">Click any story to hear how our science changed their life.</p>
       </div>
 
-      <div class="stories-wall" role="list">
+      <!-- Row 1 — drifts left -->
+      <div class="stories-track stories-track--left" aria-hidden="true">
+        <div class="stories-track-inner">
 
-        <button class="story-tile" role="listitem"
-                aria-label="Open story: Sarah M."
-                data-name="Sarah M."
-                data-product="RE:YOU"
-                data-location="Austin, TX"
-                data-story="After years of trying everything, RE:YOU's personalized approach finally gave me my energy back. Within three months I felt like myself again — the version of me I thought I'd lost forever. I tell everyone I know about it.">
-          <div class="story-tile-img" style="background-color:#c9a96e;" aria-hidden="true">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/>
-              <ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/>
-            </svg>
-          </div>
-          <div class="story-tile-info">
-            <span class="story-tile-name">Sarah M.</span>
-            <span class="story-tile-product reyou">RE:YOU</span>
-          </div>
-        </button>
+          <button class="story-tile" aria-label="Open story: Sarah M."
+                  data-name="Sarah M." data-product="RE:YOU" data-location="Austin, TX"
+                  data-story="After years of trying everything, RE:YOU's personalized approach finally gave me my energy back. Within three months I felt like myself again — the version of me I thought I'd lost forever. I tell everyone I know about it.">
+            <div class="story-tile-img" style="background-color:#c9a96e;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Sarah M.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
 
-        <button class="story-tile story-tile--tall" role="listitem"
-                aria-label="Open story: James K."
-                data-name="James K."
-                data-product="Pacagen"
-                data-location="San Francisco, CA"
-                data-story="I've had cat allergies my entire life. I'd accepted that I'd never be able to visit my sister's home. Pacagen changed that. After just six weeks of the protocol I sat on her couch for the first time in 15 years and didn't reach for my inhaler once.">
-          <div class="story-tile-img" style="background-color:#044eb7;" aria-hidden="true">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/>
-              <ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/>
-            </svg>
-          </div>
-          <div class="story-tile-info">
-            <span class="story-tile-name">James K.</span>
-            <span class="story-tile-product pacagen">Pacagen</span>
-          </div>
-        </button>
+          <button class="story-tile story-tile--wide" aria-label="Open story: James K."
+                  data-name="James K." data-product="Pacagen" data-location="San Francisco, CA"
+                  data-story="I've had cat allergies my entire life. I'd accepted that I'd never be able to visit my sister's home. Pacagen changed that. After just six weeks of the protocol I sat on her couch for the first time in 15 years and didn't reach for my inhaler once.">
+            <div class="story-tile-img" style="background-color:#044eb7;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">James K.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
 
-        <button class="story-tile" role="listitem"
-                aria-label="Open story: Priya N."
-                data-name="Priya N."
-                data-product="RE:YOU"
-                data-location="New York, NY"
-                data-story="The science behind RE:YOU is unlike anything else on the market. My hormonal health had been a mystery to every doctor I saw. RE:YOU's technology identified what was going on and gave me a clear path forward. Six months later my labs look completely different.">
-          <div class="story-tile-img" style="background-color:#5d2a2c;" aria-hidden="true">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/>
-              <ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/>
-            </svg>
-          </div>
-          <div class="story-tile-info">
-            <span class="story-tile-name">Priya N.</span>
-            <span class="story-tile-product reyou">RE:YOU</span>
-          </div>
-        </button>
+          <button class="story-tile" aria-label="Open story: Priya N."
+                  data-name="Priya N." data-product="RE:YOU" data-location="New York, NY"
+                  data-story="The science behind RE:YOU is unlike anything else on the market. My hormonal health had been a mystery to every doctor I saw. RE:YOU's technology identified what was going on and gave me a clear path forward. Six months later my labs look completely different.">
+            <div class="story-tile-img" style="background-color:#5d2a2c;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Priya N.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
 
-        <button class="story-tile story-tile--wide" role="listitem"
-                aria-label="Open story: Marcus T."
-                data-name="Marcus T."
-                data-product="Pacagen"
-                data-location="Chicago, IL"
-                data-story="As someone who grew up with severe allergies, I was skeptical. But the clinical data behind Pacagen is real, and so are my results. My allergist is genuinely baffled by my improvement. I've gone from daily antihistamines to nothing in four months.">
-          <div class="story-tile-img" style="background-color:#032d70;" aria-hidden="true">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/>
-              <ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/>
-            </svg>
-          </div>
-          <div class="story-tile-info">
-            <span class="story-tile-name">Marcus T.</span>
-            <span class="story-tile-product pacagen">Pacagen</span>
-          </div>
-        </button>
+          <button class="story-tile story-tile--wide" aria-label="Open story: Marcus T."
+                  data-name="Marcus T." data-product="Pacagen" data-location="Chicago, IL"
+                  data-story="As someone who grew up with severe allergies, I was skeptical. But the clinical data behind Pacagen is real, and so are my results. My allergist is genuinely baffled by my improvement. I've gone from daily antihistamines to nothing in four months.">
+            <div class="story-tile-img" style="background-color:#032d70;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Marcus T.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
 
-        <button class="story-tile" role="listitem"
-                aria-label="Open story: Lena W."
-                data-name="Lena W."
-                data-product="RE:YOU"
-                data-location="Seattle, WA"
-                data-story="I started RE:YOU after my second child. The postpartum fog was real and nothing conventional helped. RE:YOU's approach felt genuinely personalized — not a one-size-fits-all supplement stack. Three months in, the clarity came back. I finally feel like me again.">
-          <div class="story-tile-img" style="background-color:#b59156;" aria-hidden="true">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/>
-              <ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/>
-            </svg>
-          </div>
-          <div class="story-tile-info">
-            <span class="story-tile-name">Lena W.</span>
-            <span class="story-tile-product reyou">RE:YOU</span>
-          </div>
-        </button>
+          <button class="story-tile" aria-label="Open story: Lena W."
+                  data-name="Lena W." data-product="RE:YOU" data-location="Seattle, WA"
+                  data-story="I started RE:YOU after my second child. The postpartum fog was real and nothing conventional helped. RE:YOU's approach felt genuinely personalized — not a one-size-fits-all supplement stack. Three months in, the clarity came back. I finally feel like me again.">
+            <div class="story-tile-img" style="background-color:#b59156;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Lena W.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
 
-        <button class="story-tile story-tile--tall" role="listitem"
-                aria-label="Open story: Daniel R."
-                data-name="Daniel R."
-                data-product="Pacagen"
-                data-location="Boston, MA"
-                data-story="My son is allergic to cats and my wife refused to give up hers. I found Pacagen and it felt like a long shot. Now my son plays with the cats every day. His pediatrician asked me what we'd changed because his allergy panel scores dropped so dramatically.">
-          <div class="story-tile-img" style="background-color:#1a4a8a;" aria-hidden="true">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/>
-              <ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/>
-            </svg>
-          </div>
-          <div class="story-tile-info">
-            <span class="story-tile-name">Daniel R.</span>
-            <span class="story-tile-product pacagen">Pacagen</span>
-          </div>
-        </button>
+          <button class="story-tile" aria-label="Open story: Daniel R."
+                  data-name="Daniel R." data-product="Pacagen" data-location="Boston, MA"
+                  data-story="My son is allergic to cats and my wife refused to give up hers. I found Pacagen and it felt like a long shot. Now my son plays with the cats every day. His pediatrician asked me what we'd changed because his allergy panel scores dropped so dramatically.">
+            <div class="story-tile-img" style="background-color:#1a4a8a;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Daniel R.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
 
-      </div><!-- /.stories-wall -->
+          <!-- Duplicates for seamless loop -->
+          <button class="story-tile" aria-label="Open story: Sarah M." tabindex="-1"
+                  data-name="Sarah M." data-product="RE:YOU" data-location="Austin, TX"
+                  data-story="After years of trying everything, RE:YOU's personalized approach finally gave me my energy back. Within three months I felt like myself again — the version of me I thought I'd lost forever. I tell everyone I know about it.">
+            <div class="story-tile-img" style="background-color:#c9a96e;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Sarah M.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile story-tile--wide" aria-label="Open story: James K." tabindex="-1"
+                  data-name="James K." data-product="Pacagen" data-location="San Francisco, CA"
+                  data-story="I've had cat allergies my entire life. I'd accepted that I'd never be able to visit my sister's home. Pacagen changed that. After just six weeks of the protocol I sat on her couch for the first time in 15 years and didn't reach for my inhaler once.">
+            <div class="story-tile-img" style="background-color:#044eb7;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">James K.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Priya N." tabindex="-1"
+                  data-name="Priya N." data-product="RE:YOU" data-location="New York, NY"
+                  data-story="The science behind RE:YOU is unlike anything else on the market. My hormonal health had been a mystery to every doctor I saw. RE:YOU's technology identified what was going on and gave me a clear path forward. Six months later my labs look completely different.">
+            <div class="story-tile-img" style="background-color:#5d2a2c;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Priya N.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Row 2 — drifts right -->
+      <div class="stories-track stories-track--right" aria-hidden="true">
+        <div class="stories-track-inner">
+
+          <button class="story-tile story-tile--wide" aria-label="Open story: Aisha B."
+                  data-name="Aisha B." data-product="RE:YOU" data-location="Los Angeles, CA"
+                  data-story="I'd been dismissed by so many practitioners. RE:YOU was the first time I felt like the science was actually built around me. The improvement in my sleep quality alone was worth everything. I'm recommending it to every woman I know.">
+            <div class="story-tile-img" style="background-color:#7a3a3c;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Aisha B.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Tom H."
+                  data-name="Tom H." data-product="Pacagen" data-location="Denver, CO"
+                  data-story="I adopted a rescue cat knowing full well I was allergic. I started Pacagen two weeks before she arrived. It genuinely worked — my reactions dropped by probably 80%. My girlfriend can't believe I have a cat now.">
+            <div class="story-tile-img" style="background-color:#033a8a;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Tom H.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Rachel S."
+                  data-name="Rachel S." data-product="RE:YOU" data-location="Miami, FL"
+                  data-story="RE:YOU helped me understand my own body in a way no one ever had. My energy is stable, my mood is better, and I finally have the clarity I needed to feel like myself every single day.">
+            <div class="story-tile-img" style="background-color:#9a6a30;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Rachel S.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile story-tile--wide" aria-label="Open story: Kevin L."
+                  data-name="Kevin L." data-product="Pacagen" data-location="Portland, OR"
+                  data-story="My daughter wanted a cat more than anything. I told her my allergies made it impossible. Then I found Pacagen. We got a kitten in February. My daughter named her Miracle. I am not joking.">
+            <div class="story-tile-img" style="background-color:#042050;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Kevin L.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <!-- Duplicates for seamless loop -->
+          <button class="story-tile story-tile--wide" aria-label="Open story: Aisha B." tabindex="-1"
+                  data-name="Aisha B." data-product="RE:YOU" data-location="Los Angeles, CA"
+                  data-story="I'd been dismissed by so many practitioners. RE:YOU was the first time I felt like the science was actually built around me. The improvement in my sleep quality alone was worth everything. I'm recommending it to every woman I know.">
+            <div class="story-tile-img" style="background-color:#7a3a3c;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Aisha B.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Tom H." tabindex="-1"
+                  data-name="Tom H." data-product="Pacagen" data-location="Denver, CO"
+                  data-story="I adopted a rescue cat knowing full well I was allergic. I started Pacagen two weeks before she arrived. It genuinely worked — my reactions dropped by probably 80%. My girlfriend can't believe I have a cat now.">
+            <div class="story-tile-img" style="background-color:#033a8a;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Tom H.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Rachel S." tabindex="-1"
+                  data-name="Rachel S." data-product="RE:YOU" data-location="Miami, FL"
+                  data-story="RE:YOU helped me understand my own body in a way no one ever had. My energy is stable, my mood is better, and I finally have the clarity I needed to feel like myself every single day.">
+            <div class="story-tile-img" style="background-color:#9a6a30;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Rachel S.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Row 3 — drifts left, slower -->
+      <div class="stories-track stories-track--left stories-track--slow" aria-hidden="true">
+        <div class="stories-track-inner">
+
+          <button class="story-tile" aria-label="Open story: Maria C."
+                  data-name="Maria C." data-product="RE:YOU" data-location="Phoenix, AZ"
+                  data-story="I was exhausted all the time and couldn't figure out why. Doctors kept telling me my labs were 'normal.' RE:YOU's technology found what they missed. I'm not tired anymore. That sounds small but it changed everything.">
+            <div class="story-tile-img" style="background-color:#8a4a20;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Maria C.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile story-tile--wide" aria-label="Open story: Ben O."
+                  data-name="Ben O." data-product="Pacagen" data-location="Nashville, TN"
+                  data-story="Both my kids are allergic to cats. We've had to pass on adopting twice. After three months on Pacagen their reactions are almost completely gone. We're picking up a kitten next weekend and I genuinely cannot wait.">
+            <div class="story-tile-img" style="background-color:#012458;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Ben O.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Julia F."
+                  data-name="Julia F." data-product="RE:YOU" data-location="Atlanta, GA"
+                  data-story="RE:YOU is the first wellness product I've ever used where I could actually feel the difference before the end of the first month. The formula feels bespoke because it genuinely is. Nothing else comes close.">
+            <div class="story-tile-img" style="background-color:#6b3040;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Julia F.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile story-tile--wide" aria-label="Open story: Chris P."
+                  data-name="Chris P." data-product="Pacagen" data-location="Minneapolis, MN"
+                  data-story="I work in a veterinary clinic. The irony of being allergic to cats was not lost on me. Pacagen let me do my job without suffering. My coworkers noticed before I even told them what I'd started taking.">
+            <div class="story-tile-img" style="background-color:#063460;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Chris P.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <!-- Duplicates for seamless loop -->
+          <button class="story-tile" aria-label="Open story: Maria C." tabindex="-1"
+                  data-name="Maria C." data-product="RE:YOU" data-location="Phoenix, AZ"
+                  data-story="I was exhausted all the time and couldn't figure out why. Doctors kept telling me my labs were 'normal.' RE:YOU's technology found what they missed. I'm not tired anymore. That sounds small but it changed everything.">
+            <div class="story-tile-img" style="background-color:#8a4a20;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Maria C.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+          <button class="story-tile story-tile--wide" aria-label="Open story: Ben O." tabindex="-1"
+                  data-name="Ben O." data-product="Pacagen" data-location="Nashville, TN"
+                  data-story="Both my kids are allergic to cats. We've had to pass on adopting twice. After three months on Pacagen their reactions are almost completely gone. We're picking up a kitten next weekend and I genuinely cannot wait.">
+            <div class="story-tile-img" style="background-color:#012458;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Ben O.</span><span class="story-tile-product pacagen">Pacagen</span></div>
+          </button>
+
+          <button class="story-tile" aria-label="Open story: Julia F." tabindex="-1"
+                  data-name="Julia F." data-product="RE:YOU" data-location="Atlanta, GA"
+                  data-story="RE:YOU is the first wellness product I've ever used where I could actually feel the difference before the end of the first month. The formula feels bespoke because it genuinely is. Nothing else comes close.">
+            <div class="story-tile-img" style="background-color:#6b3040;" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg></div>
+            <div class="story-tile-info"><span class="story-tile-name">Julia F.</span><span class="story-tile-product reyou">RE:YOU</span></div>
+          </button>
+
+        </div>
+      </div>
 
     </section>
 

@@ -139,24 +139,56 @@
   // ─── Stories modal ───────────────────────────────────────────────────────
   function initStories() {
     var modal    = document.getElementById('story-modal');
-    var backdrop = modal && modal.querySelector('.story-modal-backdrop');
-    var closeBtn = modal && modal.querySelector('.story-modal-close');
-    var badge    = document.getElementById('modal-badge');
-    var nameEl   = document.getElementById('modal-name');
-    var locEl    = document.getElementById('modal-location');
-    var storyEl  = document.getElementById('modal-story');
     if (!modal) return;
 
-    var tiles = document.querySelectorAll('.story-tile');
+    var backdrop  = modal.querySelector('.story-modal-backdrop');
+    var closeBtn  = modal.querySelector('.story-modal-close');
+    var badge     = document.getElementById('modal-badge');
+    var nameEl    = document.getElementById('modal-name');
+    var locEl     = document.getElementById('modal-location');
+    var storyEl   = document.getElementById('modal-story');
     var lastFocused = null;
 
+    // Build video container in modal if not already present
+    var videoWrap = modal.querySelector('.story-modal-video-wrap');
+    if (!videoWrap) {
+      videoWrap = document.createElement('div');
+      videoWrap.className = 'story-modal-video-wrap';
+      videoWrap.style.display = 'none';
+      var vid = document.createElement('video');
+      vid.controls = true;
+      vid.playsInline = true;
+      videoWrap.appendChild(vid);
+      modal.querySelector('.story-modal-panel').insertBefore(
+        videoWrap,
+        modal.querySelector('.story-modal-body')
+      );
+    }
+    var modalVideo = videoWrap.querySelector('video');
+
     function openModal(tile) {
-      var product = tile.dataset.product || '';
-      badge.textContent    = product;
-      badge.className      = 'story-modal-product-badge ' + product.toLowerCase();
-      nameEl.textContent   = tile.dataset.name || '';
-      locEl.textContent    = tile.dataset.location || '';
-      storyEl.textContent  = tile.dataset.story || '';
+      var product  = tile.dataset.product || '';
+      var videoSrc = tile.dataset.video   || '';
+
+      badge.textContent   = product;
+      badge.className     = 'story-modal-product-badge ' + product.toLowerCase().replace(':', '');
+      nameEl.textContent  = tile.dataset.name     || '';
+      locEl.textContent   = tile.dataset.location || '';
+      storyEl.textContent = tile.dataset.story    || '';
+
+      if (videoSrc) {
+        modalVideo.src          = videoSrc;
+        videoWrap.style.display = '';
+        // Close btn floats over video — keep white
+        closeBtn.style.background = 'rgba(0,0,0,0.5)';
+        closeBtn.style.color      = '#fff';
+      } else {
+        modalVideo.src          = '';
+        videoWrap.style.display = 'none';
+        closeBtn.style.background = '';
+        closeBtn.style.color      = '';
+      }
+
       lastFocused = tile;
       modal.removeAttribute('hidden');
       document.body.style.overflow = 'hidden';
@@ -166,32 +198,42 @@
     function closeModal() {
       modal.setAttribute('hidden', '');
       document.body.style.overflow = '';
+      // Pause video on close
+      if (modalVideo) { modalVideo.pause(); modalVideo.src = ''; }
       if (lastFocused) lastFocused.focus();
     }
 
+    // Attach to all real tiles (not tabindex="-1" dupes)
+    var tiles = document.querySelectorAll('.story-tile:not([tabindex="-1"])');
     tiles.forEach(function (tile) {
       tile.addEventListener('click', function () { openModal(tile); });
     });
 
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (backdrop) backdrop.addEventListener('click', closeModal);
+    // Dupe tiles also open modal (they're interactive, just hidden from tab order)
+    var dupeTiles = document.querySelectorAll('.story-tile[tabindex="-1"]');
+    dupeTiles.forEach(function (tile) {
+      tile.addEventListener('click', function () { openModal(tile); });
+    });
+
+    if (closeBtn)  closeBtn.addEventListener('click',  closeModal);
+    if (backdrop)  backdrop.addEventListener('click',  closeModal);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !modal.hasAttribute('hidden')) closeModal();
     });
 
-    // Trap focus inside modal
+    // Focus trap
     modal.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab') return;
-      var focusable = Array.from(modal.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])'));
+      var focusable = Array.from(
+        modal.querySelectorAll('button, a, input, video, [tabindex]:not([tabindex="-1"])')
+      );
       var first = focusable[0];
       var last  = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
+        e.preventDefault(); last.focus();
       } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
+        e.preventDefault(); first.focus();
       }
     });
   }

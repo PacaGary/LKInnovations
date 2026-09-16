@@ -1003,31 +1003,37 @@ body.fouc-guard {
    ============================================================ */
 .stories-section {
   position: relative;
-  min-height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: #000;
+  background: #080808;
+  padding-bottom: var(--space-2xl);
 }
 
-.stories-overlay {
+/* Edge fade so tracks bleed off naturally */
+.stories-section::before,
+.stories-section::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.3) 40%,
-    rgba(0,0,0,0.55) 100%
-  );
-  z-index: 1;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  z-index: 4;
   pointer-events: none;
+}
+.stories-section::before {
+  left: 0;
+  background: linear-gradient(to right, #080808 0%, transparent 100%);
+}
+.stories-section::after {
+  right: 0;
+  background: linear-gradient(to left, #080808 0%, transparent 100%);
 }
 
 .stories-header {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   text-align: center;
   padding: var(--space-2xl) var(--space-lg) var(--space-xl);
   max-width: 640px;
@@ -1040,7 +1046,7 @@ body.fouc-guard {
   font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.45);
   margin-bottom: var(--space-sm);
 }
 
@@ -1056,143 +1062,170 @@ body.fouc-guard {
 
 .stories-subhead {
   font-size: var(--text-body);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.5);
   font-weight: 300;
 }
 
-/* ── Mosaic wall ── */
-.stories-wall {
+/* ── Scrolling tracks ── */
+.stories-track {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 220px;
-  gap: 6px;
   width: 100%;
-  padding: 0 6px var(--space-2xl);
+  overflow: hidden;
+  margin-bottom: 6px;
 }
 
+.stories-track-inner {
+  display: flex;
+  gap: 6px;
+  width: max-content;
+  will-change: transform;
+}
+
+/* JS sets --track-width; CSS drives the animation */
+.stories-track--left  .stories-track-inner { animation: track-scroll-left  28s linear infinite; }
+.stories-track--right .stories-track-inner { animation: track-scroll-right 32s linear infinite; }
+.stories-track--slow  .stories-track-inner { animation-duration: 42s; }
+
+@keyframes track-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-50%)); }
+}
+
+@keyframes track-scroll-right {
+  from { transform: translateX(calc(-50%)); }
+  to   { transform: translateX(0); }
+}
+
+/* Pause on hover over the track */
+.stories-track:hover .stories-track-inner {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stories-track-inner { animation: none !important; }
+}
+
+/* ── Individual tiles ── */
 .story-tile {
   position: relative;
+  flex: 0 0 auto;
+  width: 220px;
+  height: 280px;
   overflow: hidden;
   border: none;
   padding: 0;
   cursor: pointer;
-  background: transparent;
-  border-radius: 4px;
+  background: #111;
+  border-radius: 6px;
   outline: none;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.story-tile:focus-visible {
-  box-shadow: 0 0 0 3px rgba(255,255,255,0.6);
-}
-
-.story-tile--tall {
-  grid-row: span 2;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .story-tile--wide {
-  grid-column: span 2;
+  width: 340px;
 }
 
+.story-tile:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.55);
+}
+
+.story-tile:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+  z-index: 3;
+}
+
+/* ── Tile media (image or video) ── */
 .story-tile-img {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: tile-drift 18s ease-in-out infinite alternate;
-  transform-origin: center center;
 }
 
 .story-tile-img svg {
-  width: 60%;
-  height: 60%;
-  opacity: 0.6;
+  width: 55%;
+  height: 55%;
+  opacity: 0.45;
 }
 
-/* Stagger drift animation per tile */
-.story-tile:nth-child(1) .story-tile-img { animation-duration: 16s; animation-delay: 0s; }
-.story-tile:nth-child(2) .story-tile-img { animation-duration: 20s; animation-delay: -4s; }
-.story-tile:nth-child(3) .story-tile-img { animation-duration: 14s; animation-delay: -8s; }
-.story-tile:nth-child(4) .story-tile-img { animation-duration: 22s; animation-delay: -2s; }
-.story-tile:nth-child(5) .story-tile-img { animation-duration: 18s; animation-delay: -6s; }
-.story-tile:nth-child(6) .story-tile-img { animation-duration: 15s; animation-delay: -10s; }
-
-@keyframes tile-drift {
-  0%   { transform: scale(1.08) translate(0%, 0%); }
-  25%  { transform: scale(1.12) translate(1.5%, -1%); }
-  50%  { transform: scale(1.1)  translate(-1%, 1.5%); }
-  75%  { transform: scale(1.13) translate(1%, 1%); }
-  100% { transform: scale(1.08) translate(-1.5%, -0.5%); }
+/* Video tiles */
+.story-tile-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .story-tile-img { animation: none; transform: scale(1.08); }
+/* Play badge on video tiles */
+.story-tile[data-video]::before {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000'%3E%3Cpolygon points='5,3 19,12 5,21'/%3E%3C/svg%3E") center / 12px no-repeat;
+  border-radius: 50%;
+  z-index: 4;
+  pointer-events: none;
 }
 
-/* Dark overlay on each tile, lifts on hover */
+/* Dark scrim, lifts on hover */
 .story-tile::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.28);
   transition: background 0.3s;
 }
 
 .story-tile:hover::after,
 .story-tile:focus-visible::after {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0,0,0,0.08);
 }
 
-.story-tile:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-  z-index: 2;
-}
-
+/* ── Tile label bar ── */
 .story-tile-info {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 3;
-  padding: 1rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  padding: 0.85rem 0.9rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .story-tile-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--color-white);
   letter-spacing: 0.04em;
+  line-height: 1.2;
 }
 
 .story-tile-product {
   font-family: var(--font-display);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 2px;
+  white-space: nowrap;
 }
 
-.story-tile-product.reyou {
-  background: var(--reyou-gold);
-  color: var(--reyou-maroon);
-}
-
-.story-tile-product.pacagen {
-  background: var(--pacagen-blue);
-  color: var(--color-white);
-}
+.story-tile-product.reyou   { background: var(--reyou-gold);   color: var(--reyou-maroon); }
+.story-tile-product.pacagen { background: var(--pacagen-blue);  color: var(--color-white);  }
 
 /* ── Story modal ── */
 .story-modal {
@@ -1204,16 +1237,14 @@ body.fouc-guard {
   justify-content: center;
 }
 
-.story-modal[hidden] {
-  display: none;
-}
+.story-modal[hidden] { display: none; }
 
 .story-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .story-modal-panel {
@@ -1221,37 +1252,56 @@ body.fouc-guard {
   z-index: 1;
   background: var(--color-white);
   color: var(--color-black);
-  max-width: 560px;
+  max-width: 580px;
   width: calc(100% - 2rem);
-  border-radius: 8px;
-  overflow: hidden;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 10px;
   animation: modal-in 0.3s ease;
 }
 
 @keyframes modal-in {
-  from { opacity: 0; transform: translateY(16px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* Video embed inside modal */
+.story-modal-video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.story-modal-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .story-modal-close {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: transparent;
+  background: rgba(0,0,0,0.45);
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 1;
   cursor: pointer;
-  color: var(--color-muted);
-  padding: 0.25rem 0.5rem;
-  transition: color 0.2s;
+  color: #fff;
+  padding: 0.3rem 0.55rem;
+  border-radius: 50%;
+  transition: background 0.2s;
   z-index: 2;
 }
 
-.story-modal-close:hover { color: var(--color-black); }
+.story-modal-close:hover { background: rgba(0,0,0,0.75); }
 
 .story-modal-body {
-  padding: 2.5rem 2rem 2rem;
+  padding: 2rem 2rem 2.5rem;
 }
 
 .story-modal-product-badge {
@@ -1266,6 +1316,7 @@ body.fouc-guard {
   margin-bottom: 1rem;
 }
 
+.story-modal-product-badge.re\:you,
 .story-modal-product-badge.reyou {
   background: var(--reyou-ivory);
   color: var(--reyou-maroon);
@@ -1674,15 +1725,9 @@ body.fouc-guard {
     text-align: center;
   }
 
-  /* Stories */
-  .stories-wall {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
-  }
-
-  .story-tile--wide {
-    grid-column: span 2;
-  }
+  /* Stories — narrower tiles on tablet */
+  .story-tile       { width: 180px; height: 240px; }
+  .story-tile--wide { width: 280px; }
 
   .story-modal-panel {
     max-height: 90vh;
@@ -1710,19 +1755,9 @@ body.fouc-guard {
     flex-wrap: wrap;
   }
 
-  /* Stories — single column on small phones */
-  .stories-wall {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 160px;
-  }
-
-  .story-tile--tall {
-    grid-row: span 1;
-  }
-
-  .story-tile--wide {
-    grid-column: span 2;
-  }
+  /* Stories — smaller tiles on phones */
+  .story-tile       { width: 150px; height: 200px; }
+  .story-tile--wide { width: 220px; }
 
   .story-modal-body {
     padding: 1.75rem 1.25rem 1.25rem;
