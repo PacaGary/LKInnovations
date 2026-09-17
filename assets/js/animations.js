@@ -97,8 +97,9 @@
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
       tracks.forEach(function (t) {
-        var range  = 1200;
-        var offset = (progress - 0.5) * range * 2 * t.speed;
+        var range  = 600;
+        var base   = -(t.el.scrollHeight / 2 - vh / 2);
+        var offset = base + (progress - 0.5) * range * 2 * t.speed;
         t.el.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
       });
 
@@ -141,10 +142,12 @@
 
     // ── Circle reveal (scroll-driven) ─────────────────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      solution.style.clipPath = 'circle(160% at 50% 160%)';
+      solution.style.clipPath = 'circle(260% at 50% 220%)';
       return;
     }
 
+    var cardSpeeds = [75, 50, 25];
+    var cards = Array.from(section.querySelectorAll('.raise-bar-card'));
     var ticking = false;
 
     function update() {
@@ -152,9 +155,23 @@
       var vh       = window.innerHeight;
       var total    = section.offsetHeight - vh;
       var progress = Math.max(0, Math.min(1, -rect.top / total));
-      // Fixed center far below viewport; radius grows → flat sliver → full arc
-      var radius   = progress * 160;
-      solution.style.clipPath = 'circle(' + radius.toFixed(1) + '% at 50% 160%)';
+
+      // Phase 1 (progress 0→0.5): cards drift up from below
+      var cardP = Math.min(progress / 0.5, 1);
+      var eased = 1 - Math.pow(1 - cardP, 3);
+      cards.forEach(function (card, i) {
+        var speed  = cardSpeeds[i % cardSpeeds.length];
+        var offset = (1 - eased) * speed;
+        card.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
+      });
+
+      // Phase 2 (progress 0.5→1): circle reveals
+      var circleP = Math.max(0, (progress - 0.5) / 0.5);
+      var vw   = window.innerWidth;
+      var cx   = vw * 0.5;
+      var cy   = vh * 1.15;
+      var maxR = Math.sqrt(cx * cx + cy * cy) * 1.05;
+      solution.style.clipPath = 'circle(' + (circleP * maxR).toFixed(1) + 'px at ' + cx.toFixed(1) + 'px ' + cy.toFixed(1) + 'px)';
       ticking = false;
     }
 

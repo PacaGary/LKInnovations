@@ -63,7 +63,7 @@
   function renderTrack(trackInnerEl, items) {
     var real  = items.map(function (d) { return renderStoryTile(d, false); }).join('');
     var dupes = items.map(function (d) { return renderStoryTile(d, true);  }).join('');
-    trackInnerEl.innerHTML = real + dupes + dupes;
+    trackInnerEl.innerHTML = dupes + real + dupes + dupes;
   }
 
   function initStories() {

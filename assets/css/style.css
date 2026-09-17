@@ -543,7 +543,7 @@ body.fouc-guard {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 5rem;
+  padding-bottom: 7rem;
   pointer-events: none;
   z-index: 2;
 }
@@ -639,7 +639,8 @@ body.fouc-guard {
    8. ABOUT / MISSION SECTION
    ============================================================ */
 .about-section {
-  background: var(--color-white);
+  background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f4f4f4' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   color: var(--color-black);
   padding: var(--space-2xl) var(--space-lg);
 }
@@ -695,7 +696,7 @@ body.fouc-guard {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 1rem 2.5rem;
-  border: 1px solid var(--color-silver-lt);
+  border: 1px solid var(--color-black);
   color: var(--color-black);
   position: relative;
   isolation: isolate;
@@ -1042,7 +1043,8 @@ body.fouc-guard {
 .raise-bar-section {
   position: relative;
   height: 250vh;
-  background: #f4f4f4;
+  background-color: #f4f4f4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   isolation: isolate;
 }
 
@@ -1062,7 +1064,8 @@ body.fouc-guard {
 }
 
 .raise-bar-layer--pain {
-  background: #f4f4f4;
+  background-color: #f4f4f4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   color: var(--color-black);
   z-index: 1;
 }
@@ -1071,7 +1074,7 @@ body.fouc-guard {
   background: var(--color-black);
   color: var(--color-white);
   z-index: 2;
-  clip-path: circle(0% at 50% 160%);
+  clip-path: circle(0px at 50% 115%);
 }
 
 .raise-bar-inner {
@@ -1146,19 +1149,15 @@ body.fouc-guard {
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-  transform: translateY(60px);
+  --parallax-y: 0px;
+  transform: translateY(var(--parallax-y));
   opacity: 0;
-  transition: transform 0.7s var(--ease-out), opacity 0.7s var(--ease-out);
+  transition: opacity 0.6s var(--ease-out);
 }
 
 .raise-bar-sticky.cards-entered .raise-bar-card {
-  transform: translateY(0);
   opacity: 1;
 }
-
-.raise-bar-sticky.cards-entered .raise-bar-card:nth-child(1) { transition-delay: 0s; }
-.raise-bar-sticky.cards-entered .raise-bar-card:nth-child(2) { transition-delay: 0.1s; }
-.raise-bar-sticky.cards-entered .raise-bar-card:nth-child(3) { transition-delay: 0.2s; }
 
 .raise-bar-layer--pain .raise-bar-card {
   background: rgba(0,0,0,0.04);
@@ -1166,9 +1165,42 @@ body.fouc-guard {
 }
 
 .raise-bar-layer--solution .raise-bar-card {
-  background: rgba(255,255,255,0.06);
+  background-color: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
 }
+
+.raise-bar-card--image {
+  border: none !important;
+  position: relative;
+}
+
+.raise-bar-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.raise-bar-card--image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 40%, transparent 100%);
+  border-radius: inherit;
+}
+
+.raise-bar-card--image .raise-bar-card-num,
+.raise-bar-card--image .raise-bar-card-title,
+.raise-bar-card--image .raise-bar-card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.raise-bar-card--image .raise-bar-card-num  { color: rgba(255,255,255,0.45); }
+.raise-bar-card--image .raise-bar-card-title { color: #fff; }
+.raise-bar-card--image .raise-bar-card-body  { color: rgba(255,255,255,0.6); }
 
 .raise-bar-card-num {
   display: block;
@@ -1220,10 +1252,10 @@ body.fouc-guard {
 
 @media (prefers-reduced-motion: reduce) {
   .raise-bar-layer--solution {
-    clip-path: circle(160% at 50% 160%) !important;
+    clip-path: circle(260% at 50% 220%) !important;
   }
   .raise-bar-card {
-    transform: none !important;
+    --parallax-y: 0px !important;
     opacity: 1 !important;
     transition: none !important;
   }
@@ -1609,7 +1641,8 @@ body.fouc-guard {
    13. CONTACT / FOOTER SECTION
    ============================================================ */
 .contact-section {
-  background: var(--color-off-white);
+  background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f4f4f4' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   color: var(--color-black);
   padding: var(--space-2xl) var(--space-lg);
 }
@@ -1755,9 +1788,10 @@ body.fouc-guard {
    SITE FOOTER — floating LVMH-style component
    ============================================================ */
 .footer-stage {
-  background: #f4f4f4 center / cover no-repeat;
+  background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23f4f4f4' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
-
+ 
 .site-footer {
   background: rgba(18, 18, 22, 0.8);
   backdrop-filter: blur(40px) saturate(180%);
