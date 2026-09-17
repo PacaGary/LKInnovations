@@ -685,17 +685,17 @@ body.fouc-guard {
 
 .about-visual {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   background: var(--color-black);
   overflow: hidden;
 }
 
 .about-visual-img {
   position: absolute;
-  top: -10%;
+  top: -20%;
   left: 0;
   width: 100%;
-  height: 120%;
+  height: 140%;
   object-fit: cover;
   --parallax-y: 0px;
   --hover-scale: 1;
