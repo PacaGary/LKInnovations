@@ -438,25 +438,47 @@ body.fouc-guard {
 .nav-menu-toggle.is-open .toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-menu-toggle.is-open .toggle-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-/* Mobile drawer — frosted glass overlay */
+/* Mobile drawer — dim backdrop */
 .mobile-drawer {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 199;
-  background: rgba(4, 4, 6, 0.45);
-  backdrop-filter: blur(32px) saturate(140%);
-  -webkit-backdrop-filter: blur(32px) saturate(140%);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-lg);
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
   opacity: 0;
-  transition: opacity 0.35s var(--ease-out);
+  transition: opacity 0.35s var(--ease-out), background 0.35s var(--ease-out);
 }
 
 .mobile-drawer.is-open {
   opacity: 1;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Sliding panel */
+.drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  background: rgba(18, 18, 22, 0.5);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: 4rem 3rem;
+  transform: translateX(100%);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.mobile-drawer.is-open .drawer-panel {
+  transform: translateX(0);
 }
 
 .mobile-drawer .nav-link,
@@ -648,7 +670,7 @@ body.fouc-guard {
   margin-top: var(--space-lg);
 }
 
-.about-brand-pill {
+.btn-LKDH {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: var(--text-body);
@@ -663,7 +685,7 @@ body.fouc-guard {
   transition: color 0.25s, border-color 0.25s;
 }
 
-.about-brand-pill::after {
+.btn-LKDH::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -674,39 +696,15 @@ body.fouc-guard {
   z-index: -1;
 }
 
-.about-brand-pill:hover::after {
+.btn-LKDH:hover::after {
   clip-path: circle(150% at var(--mx, 50%) var(--my, 50%));
 }
 
-.about-brand-pill:hover {
+.btn-LKDH:hover {
   color: var(--color-white);
   border-color: var(--color-black);
 }
 
-.about-visual {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  background: var(--color-black);
-  overflow: hidden;
-}
-
-.about-visual-img {
-  position: absolute;
-  top: -20%;
-  left: 0;
-  width: 100%;
-  height: 140%;
-  object-fit: cover;
-  --parallax-y: 0px;
-  --hover-scale: 1;
-  transform: translateY(var(--parallax-y)) scale(var(--hover-scale));
-  will-change: transform;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.about-visual:hover .about-visual-img {
-  --hover-scale: 1.04;
-}
 
 /* ============================================================
    9. BRAND SECTION (shared)
@@ -790,13 +788,13 @@ body.fouc-guard {
   transform: translateX(4px);
 }
 
-.brand-visual {
+.visual {
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
 }
 
-.brand-visual-placeholder {
+.visual-placeholder {
   position: absolute;
   inset: -20% 0;
   height: 140%;
@@ -814,7 +812,7 @@ body.fouc-guard {
   transition: --hover-scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.brand-visual-img {
+.visual-img {
   position: absolute;
   top: -10%;
   left: 0;
@@ -828,11 +826,11 @@ body.fouc-guard {
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.brand-visual:hover .brand-visual-img {
+.visual:hover .visual-img {
   --hover-scale: 1.04;
 }
 
-.brand-visual:hover .brand-visual-placeholder {
+.visual:hover .visual-placeholder {
   --hover-scale: 1.04;
 }
 
@@ -945,7 +943,7 @@ body.fouc-guard {
   to { --btn-angle: 360deg; }
 }
 
-.reyou-section .brand-visual-placeholder {
+.reyou-section .visual-placeholder {
   background: linear-gradient(150deg, var(--reyou-blush) 0%, #ede0d8 100%);
   color: var(--reyou-gold);
 }
@@ -1011,7 +1009,7 @@ body.fouc-guard {
   color: var(--color-white);
 }
 
-.pacagen-section .brand-visual-placeholder {
+.pacagen-section .visual-placeholder {
   background: linear-gradient(150deg, #044eb7 0%, #021f50 100%);
   color: rgba(255,255,255,0.3);
 }
@@ -1677,19 +1675,19 @@ body.fouc-guard {
   transform: translateY(0);
 }
 
-/* Group — direct children stagger in 80ms apart */
+/* Group — direct children stagger in 100ms apart */
 .reveal-group > * {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(52px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-group.is-visible > *:nth-child(1) { transition-delay: 0s; }
-.reveal-group.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
-.reveal-group.is-visible > *:nth-child(3) { transition-delay: 0.16s; }
-.reveal-group.is-visible > *:nth-child(4) { transition-delay: 0.24s; }
-.reveal-group.is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+.reveal-group.is-visible > *:nth-child(2) { transition-delay: 0.10s; }
+.reveal-group.is-visible > *:nth-child(3) { transition-delay: 0.20s; }
+.reveal-group.is-visible > *:nth-child(4) { transition-delay: 0.30s; }
+.reveal-group.is-visible > *:nth-child(5) { transition-delay: 0.40s; }
 
 .reveal-group.is-visible > * {
   opacity: 1;
@@ -1717,11 +1715,6 @@ body.fouc-guard {
     grid-template-columns: 1fr;
   }
 
-  .about-visual {
-    aspect-ratio: 16 / 9;
-    order: -1;
-  }
-
   /* Brand sections */
   .brand-inner,
   .brand-inner--reverse {
@@ -1729,7 +1722,7 @@ body.fouc-guard {
     direction: ltr;
   }
 
-  .brand-visual {
+  .visual {
     aspect-ratio: 16 / 9;
   }
 
@@ -1746,6 +1739,9 @@ body.fouc-guard {
   }
 
   /* Stories — aspect-ratio handles tile sizing */
+
+  /* Drawer full width on mobile */
+  .drawer-panel { width: 100%; border-left: none; }
 
   /* Cap to 2 columns on mobile — hide the extra 3 */
   .stories-track:nth-child(n+3) { display: none; }

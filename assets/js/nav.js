@@ -15,15 +15,17 @@
     var drawer  = document.querySelector('.mobile-drawer');
     if (!drawer) return;
 
-    var fragment = document.createDocumentFragment();
+    var panel = document.createElement('div');
+    panel.className = 'drawer-panel';
+
     NAV_LINKS.forEach(function (n) {
       var a = document.createElement('a');
       a.href        = n.href;
       a.className   = n.cls;
       a.textContent = n.label;
-      fragment.appendChild(a);
+      panel.appendChild(a);
     });
-    drawer.appendChild(fragment);
+    drawer.appendChild(panel);
   }
 
   function initHoverEffect() {
@@ -40,7 +42,7 @@
   }
 
   function initPillHover() {
-    var pills = document.querySelectorAll('.about-brand-pill');
+    var pills = document.querySelectorAll('.btn-LKDH');
     pills.forEach(function (pill) {
       pill.addEventListener('mousemove', function (e) {
         var rect = pill.getBoundingClientRect();
@@ -88,9 +90,9 @@
       drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
     });
 
-    // Close on backdrop click
+    // Close on backdrop click (not on panel itself)
     drawer.addEventListener('click', function (e) {
-      if (e.target === drawer) closeDrawer();
+      if (!e.target.closest('.drawer-panel')) closeDrawer();
     });
 
     var links = drawer.querySelectorAll('a');

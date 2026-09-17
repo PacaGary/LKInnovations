@@ -41,7 +41,7 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var items = Array.from(
-      document.querySelectorAll('.about-visual-img, .brand-visual-img, .about-visual-placeholder, .brand-visual-placeholder')
+      document.querySelectorAll('.visual-img, .visual-placeholder')
     );
     if (!items.length) return;
 
@@ -50,7 +50,7 @@
     function update() {
       var vh = window.innerHeight;
       items.forEach(function (el) {
-        var container = el.closest('.about-visual, .brand-visual');
+        var container = el.closest('.visual');
         if (!container) return;
         var rect = container.getBoundingClientRect();
         if (rect.bottom < -200 || rect.top > vh + 200) return;
