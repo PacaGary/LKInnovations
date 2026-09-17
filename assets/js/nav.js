@@ -4,27 +4,28 @@
   'use strict';
 
   var NAV_LINKS = [
-    { href: '#about',              label: 'About',   cls: 'nav-link' },
-    { href: '#reyou',              label: 'RE:YOU',  cls: 'nav-link' },
-    { href: '#pacagen',            label: 'Pacagen', cls: 'nav-link' },
-    { href: '/orb-particles.html', label: 'Orb A',   cls: 'nav-link' },
-    { href: '#stories',            label: 'Stories', cls: 'nav-link' },
-    { href: '#contact',            label: 'Contact', cls: 'nav-cta'  }
+    { href: '/#about',   label: 'About',   cls: 'nav-link' },
+    { href: '/#reyou',   label: 'RE:YOU',  cls: 'nav-link' },
+    { href: '/#pacagen', label: 'Pacagen', cls: 'nav-link' },
+    { href: '/#stories', label: 'Stories', cls: 'nav-link' },
+    { href: '/#contact', label: 'Contact', cls: 'nav-cta'  }
   ];
 
   function renderNavLinks() {
     var drawer  = document.querySelector('.mobile-drawer');
     if (!drawer) return;
 
-    var fragment = document.createDocumentFragment();
+    var panel = document.createElement('div');
+    panel.className = 'drawer-panel';
+
     NAV_LINKS.forEach(function (n) {
       var a = document.createElement('a');
       a.href        = n.href;
       a.className   = n.cls;
       a.textContent = n.label;
-      fragment.appendChild(a);
+      panel.appendChild(a);
     });
-    drawer.appendChild(fragment);
+    drawer.appendChild(panel);
   }
 
   function initHoverEffect() {
@@ -37,6 +38,19 @@
       var y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
       toggle.style.setProperty('--mx', x);
       toggle.style.setProperty('--my', y);
+    });
+  }
+
+  function initPillHover() {
+    var pills = document.querySelectorAll('.btn-LKDH');
+    pills.forEach(function (pill) {
+      pill.addEventListener('mousemove', function (e) {
+        var rect = pill.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+        var y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+        pill.style.setProperty('--mx', x);
+        pill.style.setProperty('--my', y);
+      });
     });
   }
 
@@ -76,9 +90,9 @@
       drawer.classList.contains('is-open') ? closeDrawer() : openDrawer();
     });
 
-    // Close on backdrop click
+    // Close on backdrop click (not on panel itself)
     drawer.addEventListener('click', function (e) {
-      if (e.target === drawer) closeDrawer();
+      if (!e.target.closest('.drawer-panel')) closeDrawer();
     });
 
     var links = drawer.querySelectorAll('a');
@@ -96,6 +110,7 @@
   function init() {
     renderNavLinks();
     initHoverEffect();
+    initPillHover();
     initMobileDrawer();
   }
 

@@ -41,7 +41,7 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var items = Array.from(
-      document.querySelectorAll('.about-visual-img, .about-visual-placeholder, .brand-visual-placeholder')
+      document.querySelectorAll('.visual-img, .visual-placeholder')
     );
     if (!items.length) return;
 
@@ -50,7 +50,7 @@
     function update() {
       var vh = window.innerHeight;
       items.forEach(function (el) {
-        var container = el.closest('.about-visual, .brand-visual');
+        var container = el.closest('.visual');
         if (!container) return;
         var rect = container.getBoundingClientRect();
         if (rect.bottom < -200 || rect.top > vh + 200) return;
@@ -83,8 +83,7 @@
       { el: document.querySelector('.stories-track--a .stories-track-inner'), speed:  0.5  },
       { el: document.querySelector('.stories-track--b .stories-track-inner'), speed: -0.35 },
       { el: document.querySelector('.stories-track--c .stories-track-inner'), speed:  0.2  },
-      { el: document.querySelector('.stories-track--d .stories-track-inner'), speed: -0.45 },
-      { el: document.querySelector('.stories-track--e .stories-track-inner'), speed:  0.32 }
+      { el: document.querySelector('.stories-track--d .stories-track-inner'), speed: -0.45 }
     ].filter(function (t) { return t.el; });
 
     if (!tracks.length) return;
@@ -116,12 +115,66 @@
     update();
   }
 
+  // ─── Raise the Bar scroll-driven circle reveal ───────────────────────────
+  function initRaiseBar() {
+    var section  = document.querySelector('.raise-bar-section');
+    var sticky   = document.querySelector('.raise-bar-sticky');
+    var solution = document.querySelector('.raise-bar-layer--solution');
+    if (!section || !sticky || !solution) return;
+
+    // ── Card entrance (one-shot) ──────────────────────────────────────────
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var entranceObserver = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              sticky.classList.add('cards-entered');
+            });
+          });
+          entranceObserver.disconnect();
+        }
+      }, { threshold: 0.15 });
+      entranceObserver.observe(section);
+    } else {
+      sticky.classList.add('cards-entered');
+    }
+
+    // ── Circle reveal (scroll-driven) ─────────────────────────────────────
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      solution.style.clipPath = 'circle(160% at 50% 160%)';
+      return;
+    }
+
+    var ticking = false;
+
+    function update() {
+      var rect     = section.getBoundingClientRect();
+      var vh       = window.innerHeight;
+      var total    = section.offsetHeight - vh;
+      var progress = Math.max(0, Math.min(1, -rect.top / total));
+      // Fixed center far below viewport; radius grows → flat sliver → full arc
+      var radius   = progress * 160;
+      solution.style.clipPath = 'circle(' + radius.toFixed(1) + '% at 50% 160%)';
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    update();
+  }
+
   // ─── Bootstrap ───────────────────────────────────────────────────────────
   function init() {
     triggerHeroEntrance();
     initReveal();
     initParallax();
     initStoriesParallax();
+    initRaiseBar();
   }
 
   if (document.readyState === 'loading') {
