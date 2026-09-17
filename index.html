@@ -201,7 +201,7 @@
       <canvas id="glass-canvas"></canvas>
       <p class="drag-hint">Drag to rotate</p>
       <div class="hero-content">
-        <h1 class="hero-title">Making <em>Miracles</em> Happen</h1>
+        <h1 class="hero-title">Making Miracles Happen</h1>
         <p class="hero-sub">Biotechnology for consumer health &amp; wellness</p>
       </div>
       <div class="hero-scroll-cue" aria-hidden="true">
@@ -222,19 +222,12 @@
       <div class="about-inner reveal-group">
 
         <div class="about-content">
-          <span class="about-kicker">Who We Are</span>
+          <span class="about-kicker">Our Mission</span>
           <h2 class="about-headline" id="about-heading">
-            Engineering what's next in consumer health.
+            Reimagining what consumer products can do.
           </h2>
           <p class="about-body">
-            LKDH Innovations is a biotechnology innovation company developing the next
-            generation of consumer health and wellness. We discover and engineer novel,
-            patent-protected technologies, then bring them to market through
-            category-defining brands.
-          </p>
-          <p class="about-body">
-            Our work begins in the lab and ends in the hands of consumers — connecting
-            rigorous science with products that people actually use.
+            LKDH Innovations is a biotechnology-driven consumer health and wellness company. We study the biology behind everyday problems, discover new molecules to address them, and turn those discoveries into products that can fundamentally change everyday life.
           </p>
           <div class="about-brands">
             <a href="#reyou"   class="about-brand-pill">RE:YOU</a>
@@ -243,40 +236,7 @@
         </div>
 
         <div class="about-visual" aria-hidden="true">
-          <img src="/assets/images/orbglass.png" alt="" class="about-visual-img" draggable="false">
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════
-         RE:YOU BRAND SECTION
-         ═══════════════════════════════════════════════════════ -->
-    <section class="brand-section reyou-section" id="reyou" aria-labelledby="reyou-heading">
-      <div class="brand-inner reveal-group">
-
-        <div class="brand-content">
-          <span class="brand-kicker">Brand</span>
-          <h2 class="brand-headline" id="reyou-heading">RE:YOU</h2>
-          <p class="brand-tagline">Personalized wellness, re-engineered.</p>
-          <p class="brand-body">
-            RE:YOU is a next-generation wellness brand built on proprietary biotech.
-            [Placeholder — add RE:YOU product description, key differentiators,
-            and target market here.]
-          </p>
-          <a href="https://reyou.com" class="brand-cta" target="_blank" rel="noopener noreferrer">
-            Visit RE:YOU
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 aria-hidden="true">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </a>
-        </div>
-
-        <div class="brand-visual" aria-hidden="true">
-          <div class="brand-visual-placeholder">RE:YOU</div>
+          <img src="/assets/images/orbs.png" alt="" class="about-visual-img" draggable="false">
         </div>
 
       </div>
@@ -310,7 +270,42 @@
         </div>
 
         <div class="brand-visual" aria-hidden="true">
-          <div class="brand-visual-placeholder">Pacagen</div>
+          <img src="https://cdn.shopify.com/s/files/1/0814/8369/4394/files/dust_spray_pollen.png?v=1774469725"
+               alt="" class="brand-visual-img" draggable="false">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         RE:YOU BRAND SECTION
+         ═══════════════════════════════════════════════════════ -->
+    <section class="brand-section reyou-section" id="reyou" aria-labelledby="reyou-heading">
+      <div class="brand-inner reveal-group">
+
+        <div class="brand-content">
+          <span class="brand-kicker">Brand</span>
+          <h2 class="brand-headline" id="reyou-heading">RE:YOU</h2>
+          <p class="brand-tagline">Personalized wellness, re-engineered.</p>
+          <p class="brand-body">
+            RE:YOU is a next-generation wellness brand built on proprietary biotech.
+            [Placeholder — add RE:YOU product description, key differentiators,
+            and target market here.]
+          </p>
+          <a href="https://reyou.com" class="brand-cta" target="_blank" rel="noopener noreferrer">
+            Visit RE:YOU
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="brand-visual" aria-hidden="true">
+          <img src="https://cdn.shopify.com/s/files/1/0807/8262/2943/files/RY-banner-mobile-fade.png?v=1782850198"
+               alt="" class="brand-visual-img" draggable="false">
         </div>
 
       </div>
@@ -691,7 +686,8 @@ void main() {
       ctx.fillRect(0, 0, w, h);
       const img = new Image();
       img.onload = () => {
-        const logoW = Math.round(w * 0.32);
+        const logoFrac = canvas.clientWidth < 768 ? 0.55 : 0.32;
+        const logoW = Math.round(w * logoFrac);
         const logoH = Math.round(logoW * (img.naturalHeight / Math.max(img.naturalWidth, 1)));
         const lx = (w - logoW) / 2;
         const ly = (h - logoH) / 2;
@@ -880,7 +876,7 @@ void main() {
 
       const camDist    = CAM_DIST;
       const halfFrame  = camDist * Math.tan(FOV / 2);
-      const sizeFrac   = 0.72;
+      const sizeFrac   = canvas.clientWidth < 768 ? 0.5 : 0.72;
       const targetHalf = sizeFrac * halfFrame;
       const torusTube  = 0.18;
       const halfDepth  = 0.16;

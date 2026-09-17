@@ -40,6 +40,19 @@
     });
   }
 
+  function initPillHover() {
+    var pills = document.querySelectorAll('.about-brand-pill');
+    pills.forEach(function (pill) {
+      pill.addEventListener('mousemove', function (e) {
+        var rect = pill.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+        var y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+        pill.style.setProperty('--mx', x);
+        pill.style.setProperty('--my', y);
+      });
+    });
+  }
+
   function initMobileDrawer() {
     var toggle = document.querySelector('.nav-menu-toggle');
     var drawer = document.querySelector('.mobile-drawer');
@@ -96,6 +109,7 @@
   function init() {
     renderNavLinks();
     initHoverEffect();
+    initPillHover();
     initMobileDrawer();
   }
 

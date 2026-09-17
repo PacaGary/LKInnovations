@@ -651,17 +651,34 @@ body.fouc-guard {
 .about-brand-pill {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: var(--text-meta);
+  font-size: var(--text-body);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.6rem 1.25rem;
+  padding: 1rem 2.5rem;
   border: 1px solid var(--color-silver-lt);
   color: var(--color-black);
-  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.about-brand-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-black);
+  clip-path: circle(0% at var(--mx, 50%) var(--my, 50%));
+  transition: clip-path 0.5s var(--ease-out);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.about-brand-pill:hover::after {
+  clip-path: circle(150% at var(--mx, 50%) var(--my, 50%));
 }
 
 .about-brand-pill:hover {
-  background: var(--color-black);
   color: var(--color-white);
   border-color: var(--color-black);
 }
@@ -675,9 +692,10 @@ body.fouc-guard {
 
 .about-visual-img {
   position: absolute;
-  inset: -20% 0;
+  top: -10%;
+  left: 0;
   width: 100%;
-  height: 140%;
+  height: 120%;
   object-fit: cover;
   --parallax-y: 0px;
   --hover-scale: 1;
@@ -796,6 +814,24 @@ body.fouc-guard {
   transition: --hover-scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.brand-visual-img {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  --parallax-y: 0px;
+  --hover-scale: 1;
+  transform: translateY(var(--parallax-y)) scale(var(--hover-scale));
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-visual:hover .brand-visual-img {
+  --hover-scale: 1.04;
+}
+
 .brand-visual:hover .brand-visual-placeholder {
   --hover-scale: 1.04;
 }
@@ -863,25 +899,35 @@ body.fouc-guard {
   color: var(--reyou-maroon);
   border-color: var(--reyou-gold);
   background: transparent;
-  z-index: 0;
-  overflow: hidden;
 }
 
 .reyou-section .brand-cta::before {
   content: '';
   position: absolute;
-  inset: -2px;
+  inset: 0;
+  z-index: 0;
   background: var(--reyou-gold-metal);
-  z-index: -1;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px;
+  margin: -2px;
   opacity: 0;
   transition: opacity 0.3s;
-  border-radius: inherit;
   animation: reyou-spin 3s linear infinite paused;
 }
 
 .reyou-section .brand-cta:hover {
-  color: var(--reyou-maroon);
   border-color: transparent;
+  background: linear-gradient(90deg, #c9a96e 0%, #f0d898 30%, #b59156 60%, #a07840 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .reyou-section .brand-cta:hover::before {

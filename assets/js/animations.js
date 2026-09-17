@@ -41,7 +41,7 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     var items = Array.from(
-      document.querySelectorAll('.about-visual-img, .about-visual-placeholder, .brand-visual-placeholder')
+      document.querySelectorAll('.about-visual-img, .brand-visual-img, .about-visual-placeholder, .brand-visual-placeholder')
     );
     if (!items.length) return;
 
