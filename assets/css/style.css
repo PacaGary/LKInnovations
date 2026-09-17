@@ -1701,6 +1701,10 @@ body.fouc-guard {
 
   /* Stories — aspect-ratio handles tile sizing */
 
+  /* Cap to 2 columns on mobile — hide the extra 3 */
+  .stories-track:nth-child(n+3) { display: none; }
+  .stories-columns { padding: 0 4vw; }
+
   .story-modal-panel {
     max-height: 90vh;
     overflow-y: auto;
