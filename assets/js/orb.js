@@ -444,12 +444,12 @@ void main() {
 
     const camDist    = CAM_DIST;
     const halfFrame  = camDist * Math.tan(FOV / 2);
-    const sizeFrac   = canvas.clientWidth < 768 ? 0.5 : 0.72;
+    const sizeFrac   = canvas.clientWidth < 768 ? 0.5 : 0.6;
     const targetHalf = sizeFrac * halfFrame;
-    const torusTube  = 0.18;
+    const torusTube  = 0.32;
     const halfDepth  = 0.16;
     const refHalf    = 1.2;
-    const boundR     = 1.2;
+    const boundR     = 1.3;
     const shapeId    = 2;
     const scale      = targetHalf / refHalf;
     const floatY     = Math.sin(elapsed * 2) * IDLE_FLOAT;
@@ -500,7 +500,7 @@ void main() {
     const FROST_DURATION = 10.0;
     const frostT = Math.min(elapsed / FROST_DURATION, 1.0);
     const frostEase = frostT * frostT * (3.0 - 2.0 * frostT);
-    gl.uniform1f(u.frost, 1.5 * (1.0 - frostEase));
+    gl.uniform1f(u.frost, 0.4 + 1.1 * (1.0 - frostEase));
     gl.uniform3f(u.tint, 1.0, 1.0, 1.0);
     gl.uniform1f(u.time, elapsed);
     gl.enableVertexAttribArray(aGlassPos);

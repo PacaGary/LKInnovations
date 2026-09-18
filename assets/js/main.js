@@ -4,8 +4,6 @@
 (function () {
   'use strict';
 
-  var assetPath = '/assets';
-
   // ─── Social links data ───────────────────────────────────────────────────
   var SOCIAL_LINKS = [
     {
@@ -35,31 +33,6 @@
         '</svg>' +
         '</a>';
     }).join('');
-  }
-
-  // ─── Stylesheet loader ───────────────────────────────────────────────────
-  function loadStylesheet() {
-    if (document.querySelector('link[data-lk-css]')) return;
-
-    var link = document.createElement('link');
-    link.rel           = 'stylesheet';
-    link.dataset.lkCss = '1';
-    link.href          = assetPath + '/css/style.css';
-
-    link.onload = link.onerror = function () {
-      document.body.classList.remove('fouc-guard');
-      document.body.style.visibility = 'visible';
-      document.body.style.opacity    = '1';
-    };
-
-    // Hard fallback — never leave page invisible
-    setTimeout(function () {
-      document.body.classList.remove('fouc-guard');
-      document.body.style.visibility = 'visible';
-      document.body.style.opacity    = '1';
-    }, 1500);
-
-    document.head.appendChild(link);
   }
 
   // ─── Contact form handler ────────────────────────────────────────────────
@@ -92,8 +65,6 @@
   }
 
   // ─── Bootstrap ───────────────────────────────────────────────────────────
-  loadStylesheet();
-
   function init() {
     renderSocialLinks();
     initContactForm();
