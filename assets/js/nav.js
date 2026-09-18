@@ -5,8 +5,8 @@
 
   var NAV_LINKS = [
     { href: '/#about',   label: 'About',   cls: 'nav-link' },
-    { href: '/#reyou',   label: 'RE:YOU',  cls: 'nav-link' },
     { href: '/#pacagen', label: 'Pacagen', cls: 'nav-link' },
+    { href: '/#reyou',   label: 'RE:YOU',  cls: 'nav-link' },
     { href: '/#stories', label: 'Stories', cls: 'nav-link' },
     { href: '/#contact', label: 'Contact', cls: 'nav-cta'  }
   ];

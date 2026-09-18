@@ -1809,6 +1809,86 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 }
 
 /* ============================================================
+   12b. TEAM INSTITUTIONS SECTION
+   ============================================================ */
+.team-institutions-section {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: var(--space-2xl) 0 var(--space-xl);
+  overflow: hidden;
+}
+
+.institutions-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.institutions-kicker {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-label);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-silver-dk);
+  margin-bottom: var(--space-md);
+}
+
+.institutions-headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+}
+
+.institutions-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.institutions-track {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  animation: institutions-scroll 28s linear infinite;
+}
+
+.institutions-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: -0.03em;
+  opacity: 0.2;
+  transition: opacity 0.3s;
+  cursor: default;
+}
+
+.institutions-name:hover {
+  opacity: 1;
+}
+
+.institutions-dot {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--color-silver-dk);
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+@keyframes institutions-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .institutions-track { animation-play-state: paused; }
+}
+
+/* ============================================================
    13. CONTACT / FOOTER SECTION
    ============================================================ */
 .contact-section {
