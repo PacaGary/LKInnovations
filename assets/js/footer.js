@@ -70,6 +70,19 @@
     );
   }
 
+  function renderContactSocial() {
+    var el = document.querySelector('.contact-social');
+    if (!el) return;
+    el.innerHTML = CONNECT.map(function (l) {
+      return (
+        '<a href="' + l.href + '" target="_blank" rel="noopener noreferrer"' +
+        ' class="contact-social-link" aria-label="' + l.label + '">' +
+        l.icon +
+        '</a>'
+      );
+    }).join('');
+  }
+
   function renderFooter() {
     var el = document.querySelector('.site-footer');
     if (!el) return;
@@ -99,9 +112,14 @@
       '</div>';
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderFooter);
-  } else {
+  function renderAll() {
     renderFooter();
+    renderContactSocial();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderAll);
+  } else {
+    renderAll();
   }
 })();

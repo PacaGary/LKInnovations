@@ -5,9 +5,14 @@
 
   var STORY_TILE_SVG = '<svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg>';
 
+  var PHOTO_TILES = {
+    pacagen: { _photo: true, src: '/assets/images/PACAGEN%20LIFESTYLE%20PHOTO%202MB.png', label: 'Pacagen', productClass: 'pacagen' },
+    reyou:   { _photo: true, src: '/assets/images/REYOU%20LIFESTYLE%20PHOTO%202MB.png',   label: 'RE:YOU',  productClass: 'reyou'   }
+  };
+
   var STORY_TRACKS = [
     [
-      { name: 'Sarah M.',    product: 'RE:YOU',  location: 'Austin, TX',        color: '#c9a96e', story: 'After years of trying everything, RE:YOU\'s personalized approach finally gave me my energy back. Within three months I felt like myself again — the version of me I thought I\'d lost forever. I tell everyone I know about it.' },
+      PHOTO_TILES.pacagen,
       { name: 'James K.',    product: 'Pacagen', location: 'San Francisco, CA', color: '#044eb7', story: 'I\'ve had cat allergies my entire life. I\'d accepted that I\'d never be able to visit my sister\'s home. Pacagen changed that. After just six weeks of the protocol I sat on her couch for the first time in 15 years and didn\'t reach for my inhaler once.' },
       { name: 'Priya N.',    product: 'RE:YOU',  location: 'New York, NY',      color: '#5d2a2c', story: 'The science behind RE:YOU is unlike anything else on the market. My hormonal health had been a mystery to every doctor I saw. RE:YOU\'s technology identified what was going on and gave me a clear path forward. Six months later my labs look completely different.' },
       { name: 'Maria C.',    product: 'RE:YOU',  location: 'Phoenix, AZ',       color: '#8a4a20', story: 'I was exhausted all the time and couldn\'t figure out why. Doctors kept telling me my labs were \'normal.\' RE:YOU\'s technology found what they missed. I\'m not tired anymore. That sounds small but it changed everything.' },
@@ -25,6 +30,7 @@
       { name: 'Elena V.',    product: 'RE:YOU',  location: 'San Jose, CA',      color: '#6a2a50', story: 'I\'d read about the science and was cautiously optimistic. After two months I was genuinely shocked. The brain fog lifted first. Then my energy evened out. I feel like I\'ve been upgraded.' }
     ],
     [
+      PHOTO_TILES.reyou,
       { name: 'Daniel R.',   product: 'Pacagen', location: 'Boston, MA',        color: '#1a4a8a', story: 'My son is allergic to cats and my wife refused to give up hers. I found Pacagen and it felt like a long shot. Now my son plays with the cats every day. His pediatrician asked me what we\'d changed because his allergy panel scores dropped so dramatically.' },
       { name: 'Tom H.',      product: 'Pacagen', location: 'Denver, CO',        color: '#033a8a', story: 'I adopted a rescue cat knowing full well I was allergic. I started Pacagen two weeks before she arrived. It genuinely worked — my reactions dropped by probably 80%. My girlfriend can\'t believe I have a cat now.' },
       { name: 'Rachel S.',   product: 'RE:YOU',  location: 'Miami, FL',         color: '#9a6a30', story: 'RE:YOU helped me understand my own body in a way no one ever had. My energy is stable, my mood is better, and I finally have the clarity I needed to feel like myself every single day.' },
@@ -34,7 +40,6 @@
       { name: 'Ryan C.',     product: 'Pacagen', location: 'Salt Lake City, UT',color: '#042268', story: 'Living with two allergic kids in a house where the neighbors have outdoor cats was a nightmare. Pacagen changed the calculus entirely. Both kids saw major improvement within six weeks. It bought us a lot of peace.' }
     ],
     [
-      { name: 'Kevin L.',    product: 'Pacagen', location: 'Portland, OR',      color: '#042050', story: 'My daughter wanted a cat more than anything. I told her my allergies made it impossible. Then I found Pacagen. We got a kitten in February. My daughter named her Miracle. I am not joking.' },
       { name: 'Chris P.',    product: 'Pacagen', location: 'Minneapolis, MN',   color: '#063460', story: 'I work in a veterinary clinic. The irony of being allergic to cats was not lost on me. Pacagen let me do my job without suffering. My coworkers noticed before I even told them what I\'d started taking.' },
       { name: 'Amara J.',    product: 'RE:YOU',  location: 'Washington, DC',    color: '#7d3a20', story: 'I\'ve spent years trying to optimize my health and RE:YOU finally filled the gap. The personalized protocol felt like it was designed for me specifically because it was. My energy, clarity, and mood have all shifted in ways I can feel every single morning.' },
       { name: 'Haruto S.',   product: 'Pacagen', location: 'San Francisco, CA', color: '#012c60', story: 'I grew up with cats and always assumed I\'d outgrow the allergy. I never did. Pacagen was the first real intervention that worked. I can sleep at my parents\' house again for the first time since college.' },
@@ -60,9 +65,20 @@
       '</button>';
   }
 
+  function renderPhotoTile(cfg, isDupe) {
+    var tabAttr = isDupe ? ' tabindex="-1"' : '';
+    return '<div class="story-photo-tile"' + tabAttr + '>' +
+      '<img class="story-photo-tile-img" src="' + cfg.src + '" alt="' + cfg.label + ' lifestyle photo" loading="lazy">' +
+      '</div>';
+  }
+
+  function renderTile(d, isDupe) {
+    return d._photo ? renderPhotoTile(d, isDupe) : renderStoryTile(d, isDupe);
+  }
+
   function renderTrack(trackInnerEl, items) {
-    var real  = items.map(function (d) { return renderStoryTile(d, false); }).join('');
-    var dupes = items.map(function (d) { return renderStoryTile(d, true);  }).join('');
+    var real  = items.map(function (d) { return renderTile(d, false); }).join('');
+    var dupes = items.map(function (d) { return renderTile(d, true);  }).join('');
     trackInnerEl.innerHTML = dupes + real + dupes + dupes;
   }
 
