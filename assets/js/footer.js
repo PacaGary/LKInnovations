@@ -16,9 +16,9 @@
   ];
 
   var REYOU = [
-    { label: 'Shop',           href: 'https://reyou.com/collections',   external: true },
-    { label: 'Science',        href: 'https://reyou.com/science',        external: true },
-    { label: 'Clinical Trial', href: 'https://reyou.com/clinical-trial', external: true },
+    { label: 'Shop',           href: 'https://getreyou.com/products/dual-path-hair-revival-serum',   external: true },
+    { label: 'Science',        href: 'https://getreyou.com/science',        external: true },
+    { label: 'Clinical Trial', href: 'https://getreyou.com/science#clinical-trial', external: true },
   ];
 
   var CONNECT = [
