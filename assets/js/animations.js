@@ -97,7 +97,7 @@
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
       tracks.forEach(function (t) {
-        var range  = 600;
+        var range  = 1800;
         var base   = -(t.el.scrollHeight / 2 - vh / 2);
         var offset = base + (progress - 0.5) * range * 2 * t.speed;
         t.el.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
@@ -165,8 +165,8 @@
         card.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
       });
 
-      // Phase 2 (progress 0.5→1): circle reveals
-      var circleP = Math.max(0, (progress - 0.5) / 0.5);
+      // Phase 2 (progress 0.40→1): circle reveals (10% overlap with card phase)
+      var circleP = Math.max(0, (progress - 0.40) / 0.60);
       var vw   = window.innerWidth;
       var cx   = vw * 0.5;
       var cy   = vh * 1.15;
