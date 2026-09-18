@@ -80,10 +80,10 @@
     if (!section || !sticky) return;
 
     var tracks = [
-      { el: document.querySelector('.stories-track--a .stories-track-inner'), speed:  0.5  },
-      { el: document.querySelector('.stories-track--b .stories-track-inner'), speed: -0.35 },
-      { el: document.querySelector('.stories-track--c .stories-track-inner'), speed:  0.2  },
-      { el: document.querySelector('.stories-track--d .stories-track-inner'), speed: -0.45 }
+      { el: document.querySelector('.stories-track--a .stories-track-inner'), speed: -0.50 },
+      { el: document.querySelector('.stories-track--b .stories-track-inner'), speed: -0.25 },
+      { el: document.querySelector('.stories-track--c .stories-track-inner'), speed: -0.40 },
+      { el: document.querySelector('.stories-track--d .stories-track-inner'), speed: -0.15 }
     ].filter(function (t) { return t.el; });
 
     if (!tracks.length) return;
@@ -97,20 +97,23 @@
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
       tracks.forEach(function (t) {
-        var range  = 1800;
-        var base   = -(t.el.scrollHeight / 2 - vh / 2);
-        var offset = base + (progress - 0.5) * range * 2 * t.speed;
+        var offset = progress * 4000 * t.speed;
         t.el.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
       });
 
       ticking = false;
     }
 
+    var active = false;
+    var io = new IntersectionObserver(function (entries) {
+      active = entries[0].isIntersecting;
+    }, { rootMargin: '200px 0px 200px 0px' });
+    io.observe(section);
+
     window.addEventListener('scroll', function () {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
+      if (!active || ticking) return;
+      requestAnimationFrame(update);
+      ticking = true;
     }, { passive: true });
 
     update();
@@ -142,11 +145,11 @@
 
     // ── Circle reveal (scroll-driven) ─────────────────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      solution.style.clipPath = 'circle(260% at 50% 220%)';
+      solution.style.clipPath = 'circle(260% at 50% -20%)';
       return;
     }
 
-    var cardSpeeds = [75, 50, 25];
+    var cardSpeeds = [125, 83, 42];
     var cards = Array.from(section.querySelectorAll('.raise-bar-card'));
     var ticking = false;
 
@@ -169,8 +172,8 @@
       var circleP = Math.max(0, (progress - 0.40) / 0.60);
       var vw   = window.innerWidth;
       var cx   = vw * 0.5;
-      var cy   = vh * 1.15;
-      var maxR = Math.sqrt(cx * cx + cy * cy) * 1.05;
+      var cy   = vh * -0.15;
+      var maxR = Math.sqrt(cx * cx + (vh - cy) * (vh - cy)) * 1.05;
       solution.style.clipPath = 'circle(' + (circleP * maxR).toFixed(1) + 'px at ' + cx.toFixed(1) + 'px ' + cy.toFixed(1) + 'px)';
       ticking = false;
     }

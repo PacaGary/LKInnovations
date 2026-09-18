@@ -32,10 +32,6 @@
   <link rel="shortcut icon"    href="/assets/images/logo/favicon.svg">
   <link rel="apple-touch-icon" href="/assets/images/logo/favicon.svg">
 
-  <!-- Font preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <!-- Structured data -->
   <script type="application/ld+json">
   {
@@ -56,14 +52,13 @@
   }
   </script>
 
-  <!-- FOUC prevention -->
-  <script>document.body && document.body.classList.add('fouc-guard');</script>
-  <script src="/assets/js/nav.js"></script>
-  <script src="/assets/js/stories.js"></script>
-  <script src="/assets/js/animations.js"></script>
-  <script src="/assets/js/main.js"></script>
-
+  <link rel="stylesheet" href="/assets/css/style.css">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <script defer src="/assets/js/nav.js"></script>
+  <script defer src="/assets/js/stories.js"></script>
+  <script defer src="/assets/js/animations.js"></script>
+  <script defer src="/assets/js/main.js"></script>
   <style>
     #password-gate {
       position: fixed;
@@ -136,7 +131,7 @@
   </style>
 </head>
 
-<body class="fouc-guard">
+<body>
 
   <!-- Password gate -->
   <div id="password-gate" role="dialog" aria-modal="true" aria-label="Site access">
@@ -208,7 +203,6 @@
          ═══════════════════════════════════════════════════════ -->
     <section class="site-hero" aria-label="LKDH Innovations">
       <canvas id="glass-canvas"></canvas>
-      <p class="drag-hint">Drag to rotate</p>
       <div class="hero-content">
         <h1 class="hero-title">Making Miracles Happen</h1>
         <p class="hero-sub">Biotechnology for consumer health &amp; wellness</p>
@@ -268,17 +262,17 @@
             </div>
             <div class="raise-bar-cards" aria-hidden="true">
               <div class="raise-bar-card raise-bar-card--image raise-bar-card--pet-pain">
-                <img class="raise-bar-card-img" src="https://cdn.shopify.com/s/files/1/0814/8369/4394/files/Homepage_circle.png?v=1763164410&width=1600&crop=center" alt="">
+                <img class="raise-bar-card-img" src="https://cdn.shopify.com/s/files/1/0814/8369/4394/files/Homepage_circle.png?v=1763164410&width=800&crop=center" alt="" loading="lazy">
                 <span class="raise-bar-card-num">01</span>
                 <h3 class="raise-bar-card-title">Pet Allergies</h3>
               </div>
               <div class="raise-bar-card raise-bar-card--image raise-bar-card--enviro-pain">
-                <img class="raise-bar-card-img" src="https://cdn.shopify.com/s/files/1/0814/8369/4394/files/dust_spray_pollen.png?v=1774469725" alt="">
+                <img class="raise-bar-card-img" src="https://cdn.shopify.com/s/files/1/0814/8369/4394/files/dust_spray_pollen.png?v=1774469725" alt="" loading="lazy">
                 <span class="raise-bar-card-num">02</span>
                 <h3 class="raise-bar-card-title">Environmental Allergies</h3>
               </div>
               <div class="raise-bar-card raise-bar-card--image raise-bar-card--hair-pain">
-                <img class="raise-bar-card-img" src="https://cdn.shopify.com/s/files/1/0807/8262/2943/files/FAQ_image.png?v=1782871064" alt="">
+                <img class="raise-bar-card-img" src="https://cdn.shopify.com/s/files/1/0807/8262/2943/files/FAQ_image.png?v=1782871064" alt="" loading="lazy">
                 <span class="raise-bar-card-num">03</span>
                 <h3 class="raise-bar-card-title">Hair Thinning</h3>
               </div>
@@ -342,10 +336,9 @@
           <h2 class="brand-headline" id="pacagen-heading">Pacagen</h2>
           <p class="brand-tagline">Transforming everyday allergen management</p>
           <p class="brand-body">
-            Pacagen is a consumer brand that engineers specialized proteins that <i>neutralize</i> various allergens in your home, formulated into products that can sit on your shelf, in your cabinets, or in your bathroom.
-          </p>
-          <p class="brand-body">
-              Unlike other treatments for pet and dust allergies, Pacagen's proactive solutions can safely protect you from allergy flare-ups <i>before they occur</i>.
+            Pacagen engineers specialized proteins that <i>neutralize</i> common household allergens, formulated into products that can sit on your shelf, in your cabinets, or in your bathroom.
+
+              Unlike other solutions for pet and dust allergies, Pacagen's proactive approach can safely protect you from allergy flare-ups <i>before they even occur</i>.
           </p>
           <a href="https://pacagen.com" class="brand-cta" target="_blank" rel="noopener noreferrer">
             Visit Pacagen
@@ -363,7 +356,7 @@
 
         <div class="visual" aria-hidden="true">
           <img src="/assets/images/PACAGEN PRODUCT PHOTO 2MB.png"
-               alt="" class="visual-img" draggable="false">
+               alt="" class="visual-img" draggable="false" loading="lazy">
         </div>
 
       </div>
@@ -381,9 +374,7 @@
           <p class="brand-tagline">Pioneering the next generation of wellness</p>
           <p class="brand-body">
             RE:YOU is rethinking what wellness products can do, starting with a new approach to visible <i>hair thinning</i>.
-          </p>
-          <p class="brand-body">
-            Using AI-powered discovery tools, we developed NOVOGRO™, a <i>clinically tested</i> set of molecules that collectively support the hair follicle and the scalp environment around it.
+            Using AI-powered discovery tools, our team developed NOVOGRO™, a <i>clinically-tested</i> set of molecules that work together to support the hair follicle and the scalp environment around it.
           </p>
           <a href="https://reyou.com" class="brand-cta" target="_blank" rel="noopener noreferrer">
             Visit RE:YOU
@@ -401,7 +392,7 @@
 
         <div class="visual" aria-hidden="true">
           <img src="/assets/images/REYOU PRODUCT PHOTO 2MB.png"
-               alt="" class="visual-img" draggable="false">
+               alt="" class="visual-img" draggable="false" loading="lazy">
         </div>
 
       </div>
@@ -453,6 +444,7 @@
       <div class="story-modal-backdrop"></div>
       <div class="story-modal-panel">
         <button class="story-modal-close" aria-label="Close story">&times;</button>
+        <img id="modal-photo" class="story-modal-photo" src="" alt="" hidden>
         <div class="story-modal-body">
           <span class="story-modal-product-badge" id="modal-badge"></span>
           <h3 class="story-modal-name" id="modal-name"></h3>
@@ -471,22 +463,22 @@
     <section class="team-institutions-section" aria-label="Our team's academic background">
       <div class="institutions-inner reveal">
         <span class="institutions-kicker">Our Team</span>
-        <h2 class="institutions-headline">A world class team leading the charge</h2>
+        <h2 class="institutions-headline">A world class team leading the charge, trained at the globe's top institutions.</h2>
       </div>
       <div class="institutions-marquee" aria-hidden="true">
         <div class="institutions-track">
-          <span class="institutions-name">Harvard</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Northwestern</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Caltech</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Princeton</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Duke</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Purdue</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Harvard</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Northwestern</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Caltech</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Princeton</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Duke</span><span class="institutions-dot">·</span>
-          <span class="institutions-name">Purdue</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="harvard">Harvard</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="northwestern">Northwestern</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="caltech">Caltech</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="princeton">Princeton</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="duke">Duke</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="purdue">Purdue</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="harvard">Harvard</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="northwestern">Northwestern</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="caltech">Caltech</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="princeton">Princeton</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="duke">Duke</span><span class="institutions-dot">·</span>
+          <span class="institutions-name" data-school="purdue">Purdue</span><span class="institutions-dot">·</span>
         </div>
       </div>
     </section>
@@ -535,7 +527,7 @@
   </div>
   <script src="/assets/js/footer.js"></script>
 
-  <script src="/assets/js/orb.js"></script>
+  <script src="/assets/js/liquid-metal.js"></script>
 
 
 </body>
