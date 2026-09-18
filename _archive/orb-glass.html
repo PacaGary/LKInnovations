@@ -865,7 +865,7 @@ void main() {
 
       const camDist    = CAM_DIST;
       const halfFrame  = camDist * Math.tan(FOV / 2);
-      const sizeFrac   = 0.72;
+      const sizeFrac   = window.innerWidth < 768 ? 0.45 : 0.72;
       const targetHalf = sizeFrac * halfFrame;
 
       // Sphere

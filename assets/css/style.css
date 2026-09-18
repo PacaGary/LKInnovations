@@ -3,10 +3,10 @@
    Single global stylesheet
    ============================================================
    STRUCTURE
-   1.  CSS Custom Properties (Design Tokens)
+   1.  CSS Custom Properties (all design tokens)
    2.  Reset & Base
    3.  Typography Scale
-   4.  Font Faces (Grift)
+   4.  Font Faces (Grift, Canela, TestDieGrotesk, Work Sans, Domine)
    5.  FOUC Prevention
    6.  Navigation
    7.  Hero Section
@@ -14,17 +14,18 @@
    9.  Brand Section (shared)
    10. RE:YOU Section
    11. Pacagen Section
-   12. Contact / Footer Section
-   13. Scroll Animations
-   14. Responsive — 768px breakpoint
-   15. Responsive — 480px breakpoint
+   12. Stories Section
+   13. Contact / Footer Section
+   14. Scroll Animations
+   15. Responsive — 768px breakpoint
+   16. Responsive — 480px breakpoint
    ============================================================ */
 
 /* ============================================================
    1. CSS CUSTOM PROPERTIES
    ============================================================ */
 :root {
-  /* — Colors — */
+  /* — Base palette — */
   --color-black:      #000000;
   --color-white:      #ffffff;
   --color-off-white:  #f4f4f4;
@@ -35,23 +36,40 @@
   --color-divider:    #e0e0e0;
 
   /* — Silver gradient — */
-  --gradient-silver:  linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 40%, #a8a8a8 60%, #d0d0d0 100%);
-  --gradient-silver-text: linear-gradient(135deg, #d0d0d0 0%, #a0a0a0 50%, #c8c8c8 100%);
+  --gradient-silver: linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 40%, #a8a8a8 60%, #d0d0d0 100%);
 
-  /* — Typography — */
-  --font-display: 'Grift', 'Inter', Arial, Helvetica, sans-serif;
-  --font-body:    'Grift', 'Inter', Arial, Helvetica, sans-serif;
+  /* — RE:YOU brand — */
+  --reyou-maroon:     #5d2a2c;
+  --reyou-gold:       #b59156;
+  --reyou-ivory:      #f9f5f3;
+  --reyou-blush:      #fffbfb;
+  --reyou-gold-metal: conic-gradient(
+    from var(--btn-angle, 0deg),
+    #c9a96e 0%, #f0d898 20%, #b59156 40%,
+    #e8c97a 60%, #a07840 80%, #c9a96e 100%
+  );
 
-  /* — Type Scale — */
-  --text-hero:    clamp(3rem, 6vw, 6rem);
-  --text-h2:      clamp(2rem, 3.5vw, 3.5rem);
-  --text-h3:      clamp(1.25rem, 2vw, 1.75rem);
-  --text-body:    1.0625rem;
-  --text-meta:    0.8125rem;
-  --text-label:   0.6875rem;
+  /* — Pacagen brand — */
+  --pacagen-navy: #032d70;
+  --pacagen-blue: #044eb7;
+  --pacagen-dark: #0f294d;
+
+  /* — Fonts — */
+  --font-display:  'Grift', 'Inter', Arial, Helvetica, sans-serif;
+  --font-canela:   'Canela', Georgia, serif;
+  --font-grotesk:  'TestDieGrotesk', 'Grift', Arial, sans-serif;
+  --font-worksans: 'Work Sans', 'Grift', Arial, sans-serif;
+  --font-domine:   'Domine', Georgia, serif;
+
+  /* — Type scale — */
+  --text-hero:  clamp(3rem, 6vw, 6rem);
+  --text-h2:    clamp(2rem, 3.5vw, 3.5rem);
+  --text-h3:    clamp(1.25rem, 2vw, 1.75rem);
+  --text-body:  1.0625rem;
+  --text-meta:  0.8125rem;
+  --text-label: 0.6875rem;
 
   /* — Spacing — */
-  --space-xs:  0.25rem;
   --space-sm:  0.5rem;
   --space-md:  1rem;
   --space-lg:  2rem;
@@ -89,7 +107,7 @@ html {
 body {
   background-color: var(--color-black);
   color: var(--color-white);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: var(--text-body);
   line-height: 1.7;
   overflow-x: hidden;
@@ -956,25 +974,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 /* ============================================================
    10. RE:YOU SECTION
-   — Brand palette: maroon #5d2a2c, gold #b59156, ivory #f9f5f3
-   — Typography feel: editorial serif headline (Grift light),
-     open-tracking eyebrow, light body copy
    ============================================================ */
-:root {
-  --reyou-maroon:  #5d2a2c;
-  --reyou-gold:    #b59156;
-  --reyou-ivory:   #f9f5f3;
-  --reyou-blush:   #fffbfb;
-  --font-canela:   'Canela', Georgia, serif;
-  --font-grotesk:  'TestDieGrotesk', 'Grift', Arial, sans-serif;
-  /* Gold metallic conic-gradient for CTA border animation */
-  --reyou-gold-metal: conic-gradient(
-    from var(--btn-angle, 0deg),
-    #c9a96e 0%, #f0d898 20%, #b59156 40%,
-    #e8c97a 60%, #a07840 80%, #c9a96e 100%
-  );
-}
-
 .reyou-section {
   background: var(--reyou-ivory);
   color: var(--reyou-maroon);
@@ -997,18 +997,20 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   -webkit-text-fill-color: var(--reyou-maroon);
 }
 
+.reyou-section .brand-tagline,
+.reyou-section .brand-body {
+  font-family: var(--font-grotesk);
+  font-weight: 300;
+}
+
 .reyou-section .brand-tagline {
   color: var(--reyou-maroon);
   opacity: 0.75;
-  font-family: var(--font-grotesk);
-  font-weight: 300;
 }
 
 .reyou-section .brand-body {
   color: var(--reyou-maroon);
   opacity: 0.8;
-  font-family: var(--font-grotesk);
-  font-weight: 300;
 }
 
 /* Gold-outlined CTA with rotating metallic border on hover */
@@ -1070,19 +1072,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 
 /* ============================================================
    11. PACAGEN SECTION
-   — Brand palette: navy #032d70, blue #044eb7, warm bg #faf4f3
-   — Typography feel: clean sans, rounded CTA, blue gradient hover
    ============================================================ */
-:root {
-  --pacagen-navy:   #032d70;
-  --pacagen-blue:   #044eb7;
-  --pacagen-dark:   #0f294d;
-  --pacagen-bg:     #faf4f3;
-  --pacagen-bg-dk:  #f5ede8;
-  --font-worksans:  'Work Sans', 'Grift', Arial, sans-serif;
-  --font-domine:    'Domine', Georgia, serif;
-}
-
 .pacagen-section {
   background: #032d70;
   color: var(--color-white);
@@ -1103,15 +1093,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   -webkit-text-fill-color: var(--color-white);
 }
 
-.pacagen-section .brand-tagline {
-  color: rgba(255,255,255,0.75);
+.pacagen-section .brand-tagline,
+.pacagen-section .brand-body {
   font-family: var(--font-worksans);
 }
 
-.pacagen-section .brand-body {
-  color: rgba(255,255,255,0.8);
-  font-family: var(--font-worksans);
-}
+.pacagen-section .brand-tagline { color: rgba(255,255,255,0.75); }
+.pacagen-section .brand-body    { color: rgba(255,255,255,0.8);  }
 
 /* Rounded-rectangle navy CTA, blue gradient on hover */
 .pacagen-section .brand-cta {
