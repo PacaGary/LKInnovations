@@ -327,6 +327,29 @@
     initParallax();
     initStoriesParallax();
     initRaiseBar();
+    initInstitutionsSpotlight();
+  }
+
+  // ─── Institutions marquee spotlight ─────────────────────────────────────
+  function initInstitutionsSpotlight() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var schools = ['harvard', 'northwestern', 'caltech', 'princeton', 'duke', 'purdue'];
+    var index   = 0;
+
+    function advance() {
+      document.querySelectorAll('.institutions-name.is-active').forEach(function (el) {
+        el.classList.remove('is-active');
+      });
+      var school = schools[index];
+      document.querySelectorAll('.institutions-name[data-school="' + school + '"]').forEach(function (el) {
+        el.classList.add('is-active');
+      });
+      index = (index + 1) % schools.length;
+    }
+
+    advance();
+    setInterval(advance, 2000);
   }
 
   if (document.readyState === 'loading') {
