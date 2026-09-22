@@ -98,7 +98,9 @@
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
       tracks.forEach(function (t) {
-        var offset = progress * 10000 * t.speed;
+        // Scroll depth per device — raise for more travel, lower for less
+        var depth = window.innerWidth <= 768 ? 2500 : 9000; // mobile : desktop
+        var offset = progress * depth * t.speed;
         t.el.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
       });
 
@@ -174,7 +176,7 @@
       }
 
       // Phase 2: circle reveals — delayed on mobile so cards show first
-      var circleStart = isMobile ? 0.60 : 0.40;
+      var circleStart = isMobile ? 0.50 : 0.40;
       var circleP = Math.max(0, (progress - circleStart) / (1 - circleStart));
       var vw   = window.innerWidth;
       var cx   = vw * 0.5;
