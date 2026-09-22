@@ -25,6 +25,11 @@
       a.textContent = n.label;
       panel.appendChild(a);
     });
+
+    var social = document.createElement('div');
+    social.className = 'drawer-social';
+    panel.appendChild(social);
+
     drawer.appendChild(panel);
   }
 
@@ -60,36 +65,39 @@
       headline: 'The Science Behind Pacagen',
       sections: [
         {
-          tag: 'WhiskerBlock™',
-          body: "Pacagen engineers specialized proteins that bind directly to Fel d 1 — the primary cat allergen — neutralizing it before it can trigger your immune response. Applied to surfaces and fabrics, WhiskerBlock™ works proactively, so you’re protected before exposure rather than reacting after."
+          tag: 'WhiskerBlock™ Alpha',
+          body: "Breaks down Fel d 1, the primary allergen in cat saliva that causes 95% of cat allergies."
+        },
+        {
+          tag: 'WhiskerBlock™ Beta',
+          body: "Targets Can f 1 and Can f 2, two of the main allergens in dog dander that causes dog allergies."
         },
         {
           tag: 'EnviroBlock™',
-          body: "EnviroBlock™ targets dust mite and environmental allergens at the molecular level. Its patent-protected barrier technology protects the epithelial skin layer while reducing your body’s inflammatory response to everyday environmental triggers — no antihistamines required."
-        },
-        {
-          tag: 'Our Approach',
-          body: "Unlike traditional allergy treatments that suppress symptoms after the fact, Pacagen’s proactive platform neutralizes allergens at the source. Every formula is engineered for efficacy first, shelf appeal second."
+          body: "Mutes the enzymatic activity of Der p 1 and the inflammatory activity of Der p 2, both of which are allergens released by dust mites."
         }
-      ]
+
+      ],
+      manuscript: 'https://www.biorxiv.org/content/10.1101/2025.08.03.668213v1'
     },
     reyou: {
       eyebrow: 'The Technology',
       headline: 'The Science Behind RE:YOU',
       sections: [
         {
-          tag: 'NOVOGRO™',
-          body: "NOVOGRO™ is a clinically tested complex of molecules discovered using AI-powered screening tools. Rather than targeting a single pathway, it works on the full hair follicle environment — supporting dermal papilla cell signaling, reducing scalp inflammation, and extending the anagen (growth) phase."
+          tag: '20 Million+ Molecules Screened',
+          body: "Our scientists used advanced biotechnology to identify three new molecules (NOVOGRO™) that support hair through complementary pathways."
         },
         {
-          tag: 'AI-Powered Discovery',
-          body: "RE:YOU built proprietary discovery infrastructure to screen thousands of molecular candidates against hair biology models. This approach surfaces non-obvious actives that traditional formulation labs would never test — and validates them against real clinical endpoints before they reach a product."
+          tag: 'NOVOGRO™-623/624',
+          body: "Enhances cellular energy within dermal papilla cells, supporting the signaling activity that drives the growth phase"
         },
         {
-          tag: 'Clinical Backing',
-          body: "In controlled studies, NOVOGRO™ users saw measurable improvements in hair density and reductions in shedding within 90 days. Results are tracked against baseline photography and dermatologist assessment — not self-reported surveys."
+          tag: 'NOVOGRO™-273',
+          body: "Improves oxygen and nutrient availability around the follicle."
         }
-      ]
+      ],
+      manuscript: 'https://www.biorxiv.org/content/10.64898/2026.06.09.728282v1'
     }
   };
 
@@ -107,6 +115,10 @@
       html += '<p class="info-drawer-body" style="margin-top:0.75rem">' + s.body + '</p>';
       html += '</div>';
     });
+
+    if (data.manuscript) {
+      html += '<a href="' + data.manuscript + '" class="info-drawer-manuscript-link" target="_blank" rel="noopener noreferrer">Read our manuscript</a>';
+    }
 
     return html;
   }
