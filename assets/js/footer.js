@@ -5,20 +5,24 @@
 
   var COMPANY = [
     { label: 'About',   href: '/#about'   },
+    { label: 'Pacagen', href: '/#pacagen' },
+    { label: 'RE:YOU', href: '/#reyou' },
     { label: 'Stories', href: '/#stories' },
     { label: 'Contact', href: '/#contact' },
   ];
 
   var PACAGEN = [
-    { label: 'Shop',    href: 'https://pacagen.com/collections', external: true },
-    { label: 'Science', href: 'https://pacagen.com/science',     external: true },
-    { label: 'Learn',   href: 'https://pacagen.com/learn',       external: true },
+    { label: 'Shop',    href: 'https://pacagen.com/collections/all', external: true },
+    { label: 'Science', href: 'https://pacagen.com/pages/our-science',     external: true },
+    { label: 'Our Story', href: 'https://pacagen.com/pages/about-us',     external: true },
+    { label: 'Learn',   href: 'https://pacagen.com/blogs',       external: true },
   ];
 
   var REYOU = [
     { label: 'Shop',           href: 'https://getreyou.com/products/dual-path-hair-revival-serum',   external: true },
-    { label: 'Science',        href: 'https://getreyou.com/science',        external: true },
-    { label: 'Clinical Trial', href: 'https://getreyou.com/science#clinical-trial', external: true },
+    { label: 'Clinical Trial',        href: 'https://getreyou.com/pages/science#clinical-trial',        external: true },
+    { label: 'Reviews', href: 'https://getreyou.com/pages/reviews', external: true },
+    { label: 'Learn', href: 'https://getreyou.com/blogs', external: true },
   ];
 
   var CONNECT = [
@@ -112,9 +116,23 @@
       '</div>';
   }
 
+  function renderDrawerSocial() {
+    var el = document.querySelector('.drawer-social');
+    if (!el) return;
+    el.innerHTML = CONNECT.map(function (l) {
+      return (
+        '<a href="' + l.href + '" target="_blank" rel="noopener noreferrer"' +
+        ' class="drawer-social-icon" aria-label="' + l.label + '">' +
+        l.icon +
+        '</a>'
+      );
+    }).join('');
+  }
+
   function renderAll() {
     renderFooter();
     renderContactSocial();
+    renderDrawerSocial();
   }
 
   if (document.readyState === 'loading') {

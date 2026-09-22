@@ -25,6 +25,11 @@
       a.textContent = n.label;
       panel.appendChild(a);
     });
+
+    var social = document.createElement('div');
+    social.className = 'drawer-social';
+    panel.appendChild(social);
+
     drawer.appendChild(panel);
   }
 
