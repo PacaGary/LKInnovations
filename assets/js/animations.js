@@ -194,6 +194,20 @@
     }, { passive: true });
 
     update();
+
+    // ── Card body smooth-reveal on click ────────────────────────────────────
+    section.querySelectorAll('.raise-bar-layer--solution .raise-bar-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var isOpen = card.classList.toggle('is-open');
+        card.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
   }
 
   // ─── Droplets scroll section ─────────────────────────────────────────────

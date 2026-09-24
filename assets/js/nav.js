@@ -96,6 +96,11 @@
           tag: 'NOVOGRO™-273',
           body: "Improves oxygen and nutrient availability around the follicle."
         }
+        ,
+        {
+          tag: 'Clinical Trial',
+          body: "In a 100+ person clinical study with female subjects with androgenetic alopecia, participants who "
+        }
       ],
       manuscript: 'https://www.biorxiv.org/content/10.64898/2026.06.09.728282v1'
     }
