@@ -363,7 +363,7 @@
     }
 
     advance();
-    setInterval(advance, 2000);
+    setInterval(advance, 1500); //Change to modify the color change timing
   }
 
   if (document.readyState === 'loading') {

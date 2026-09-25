@@ -1350,6 +1350,12 @@ body.fouc-guard {
 .raise-bar-layer--solution .raise-bar-card {
   background-color: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+.raise-bar-layer--solution .raise-bar-card:focus-visible {
+  outline: 3px solid rgba(255,255,255,0.9);
+  outline-offset: 4px;
 }
 
 .raise-bar-card--image {
@@ -1369,20 +1375,33 @@ body.fouc-guard {
 .raise-bar-layer--solution .raise-bar-card--image::before {
   content: '+';
   position: absolute;
-  top: var(--space-sm);
-  left: var(--space-sm);
+  top: var(--space-md);
+  right: var(--space-md);
   z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 300;
+  font-size: 1.5rem;
+  font-weight: 400;
   line-height: 1;
-  color: rgba(255,255,255,0.8);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--color-white);
+  background: rgba(12, 12, 12, 0.3);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 50%;
-  padding: 0.3rem 0.55rem;
   pointer-events: none;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+.raise-bar-layer--solution .raise-bar-card:hover::before,
+.raise-bar-layer--solution .raise-bar-card:focus-visible::before {
+  background: var(--color-black);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+  transform: scale(1.04);
 }
 
 .raise-bar-layer--solution .raise-bar-card--image.is-open::before {
@@ -1437,7 +1456,7 @@ body.fouc-guard {
 }
 
 .raise-bar-layer--solution .raise-bar-card.is-open .raise-bar-card-title {
-  transform: translateY(-3.5rem);
+  transform: none;
 }
 
 .raise-bar-card-body {
@@ -1452,29 +1471,51 @@ body.fouc-guard {
 
 .raise-bar-layer--solution .raise-bar-card-body {
   color: #f4f4f4;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0 var(--space-lg) var(--space-lg);
+  position: relative;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
   z-index: 1;
   opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 350ms cubic-bezier(0.4, 0, 0.2, 1),
-    transform 420ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  transform: translateY(0.5rem);
+  transition: opacity 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              max-height 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 420ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .raise-bar-layer--solution .raise-bar-card.is-open .raise-bar-card-body {
+  max-height: 8rem;
+  margin-top: var(--space-sm);
+  padding: 0;
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .raise-bar-layer--solution .raise-bar-card-body {
+  .raise-bar-layer--solution .raise-bar-card.is-open .raise-bar-card-body {
     opacity: 1;
+    max-height: none;
     transform: none;
     transition: none;
+  }
+
+  .raise-bar-layer--solution .raise-bar-card-body {
+    transition: none;
+  }
+}
+
+/* Keep the complete header and card row inside shorter desktop/tablet viewports. */
+@media (min-width: 769px) and (max-height: 850px) {
+  .raise-bar-inner {
+    padding-top: clamp(1.5rem, 5vh, 3rem);
+    /*gap: clamp(1rem, 3vh, 2.5rem);*/
+  }
+
+  .raise-bar-card {
+    aspect-ratio: 5 / 4;
+    padding: clamp(1rem, 1.8vw, 2rem);
   }
 }
 
@@ -1531,7 +1572,7 @@ body.fouc-guard {
     overflow-y: hidden;
   }
   .raise-bar-card{
-    padding: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .raise-bar-layer--solution .raise-bar-card--image::after {
@@ -1546,7 +1587,18 @@ body.fouc-guard {
   }
 
   .raise-bar-card {
-    aspect-ratio: 16 / 9;
+    /* Size rows from the viewport so all three cards remain visible on
+       short phones, tall phones, and tablet-sized screens. */
+    height: clamp(6.5rem, 25vh, 13rem);
+    aspect-ratio: auto;
+  }
+
+  .raise-bar-layer--solution .raise-bar-card--image::before {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 36px;
+    height: 36px;
+    font-size: 1.35rem;
   }
 }
 
@@ -2023,7 +2075,7 @@ body.fouc-guard {
   display: inline-flex;
   align-items: baseline;
   gap: 1.5rem;
-  animation: institutions-scroll 28s linear infinite;
+  animation: institutions-scroll 28s linear infinite; /*lower is faster*/
 }
 
 .institutions-name {
