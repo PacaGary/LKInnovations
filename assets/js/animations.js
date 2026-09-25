@@ -4,6 +4,12 @@
 (function () {
   'use strict';
 
+  function getViewportMode() {
+    if (window.innerWidth < 768) return 'mobile';
+    if (window.innerWidth < 1024) return 'tablet';
+    return 'desktop';
+  }
+
   // ─── Hero entrance ───────────────────────────────────────────────────────
   function triggerHeroEntrance() {
     requestAnimationFrame(function () {
@@ -91,15 +97,22 @@
 
     var ticking = false;
 
+    function requestUpdate() {
+      if (ticking) return;
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+
     function update() {
       var rect     = section.getBoundingClientRect();
       var vh       = window.innerHeight;
       var total    = section.offsetHeight - vh;
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
+      var mode = getViewportMode();
+      var depth = mode === 'mobile' ? 2500 : mode === 'tablet' ? 6000 : 9000;
+
       tracks.forEach(function (t) {
-        // Scroll depth per device — raise for more travel, lower for less
-        var depth = window.innerWidth <= 768 ? 2500 : 9000; // mobile : desktop
         var offset = progress * depth * t.speed;
         t.el.style.transform = 'translateY(' + offset.toFixed(2) + 'px)';
       });
@@ -114,10 +127,10 @@
     io.observe(section);
 
     window.addEventListener('scroll', function () {
-      if (!active || ticking) return;
-      requestAnimationFrame(update);
-      ticking = true;
+      if (active) requestUpdate();
     }, { passive: true });
+
+    window.addEventListener('resize', requestUpdate, { passive: true });
 
     update();
   }
@@ -156,6 +169,12 @@
     var cards = Array.from(section.querySelectorAll('.raise-bar-card'));
     var ticking = false;
 
+    function requestUpdate() {
+      if (ticking) return;
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+
     function update() {
       var rect     = section.getBoundingClientRect();
       var vh       = window.innerHeight;
@@ -165,7 +184,7 @@
       // Phase 1 (progress 0→0.5): cards drift up on desktop only; mobile uses opacity fade only
       var cardP = Math.min(progress / 0.5, 1);
       var eased = 1 - Math.pow(1 - cardP, 3);
-      var isMobile = window.innerWidth <= 768;
+      var isMobile = getViewportMode() === 'mobile';
       if (!isMobile) {
         cards.forEach(function (card, i) {
           var speed  = cardSpeeds[i % cardSpeeds.length];
@@ -187,11 +206,10 @@
     }
 
     window.addEventListener('scroll', function () {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
-      }
+      requestUpdate();
     }, { passive: true });
+
+    window.addEventListener('resize', requestUpdate, { passive: true });
 
     update();
 
