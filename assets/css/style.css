@@ -1219,6 +1219,10 @@ body.fouc-guard {
   display: none;
 }
 
+.raise-bar-mobile-solution-header {
+  display: none;
+}
+
 .raise-bar-section {
   position: relative;
   height: 250vh;
@@ -1230,7 +1234,7 @@ body.fouc-guard {
 .raise-bar-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
 }
 
@@ -1346,6 +1350,12 @@ body.fouc-guard {
 .raise-bar-layer--solution .raise-bar-card {
   background-color: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+}
+
+.raise-bar-layer--solution .raise-bar-card:focus-visible {
+  outline: 3px solid rgba(255,255,255,0.9);
+  outline-offset: 4px;
 }
 
 .raise-bar-card--image {
@@ -1362,6 +1372,43 @@ body.fouc-guard {
   object-position: center center;
 }
 
+.raise-bar-layer--solution .raise-bar-card--image::before {
+  content: '+';
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-white);
+  background: rgba(12, 12, 12, 0.3);
+  backdrop-filter: var(--blur-sm);
+  -webkit-backdrop-filter: var(--blur-sm);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: background 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+.raise-bar-layer--solution .raise-bar-card:hover::before,
+.raise-bar-layer--solution .raise-bar-card:focus-visible::before {
+  background: var(--color-black);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+  transform: scale(1.04);
+}
+
+.raise-bar-layer--solution .raise-bar-card--image.is-open::before {
+  content: '−';
+}
+
+.raise-bar-layer--pain .raise-bar-card--image::after,
 .raise-bar-layer--solution .raise-bar-card--image::after {
   content: '';
   position: absolute;
@@ -1405,6 +1452,11 @@ body.fouc-guard {
 
 .raise-bar-layer--solution .raise-bar-card-title {
   color: var(--color-white);
+  transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.raise-bar-layer--solution .raise-bar-card.is-open .raise-bar-card-title {
+  transform: none;
 }
 
 .raise-bar-card-body {
@@ -1419,6 +1471,52 @@ body.fouc-guard {
 
 .raise-bar-layer--solution .raise-bar-card-body {
   color: #f4f4f4;
+  position: relative;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(0.5rem);
+  transition: opacity 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              max-height 420ms cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 420ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.raise-bar-layer--solution .raise-bar-card.is-open .raise-bar-card-body {
+  max-height: 8rem;
+  margin-top: var(--space-sm);
+  padding: 0;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .raise-bar-layer--solution .raise-bar-card.is-open .raise-bar-card-body {
+    opacity: 1;
+    max-height: none;
+    transform: none;
+    transition: none;
+  }
+
+  .raise-bar-layer--solution .raise-bar-card-body {
+    transition: none;
+  }
+}
+
+/* Keep the complete header and card row inside shorter desktop/tablet viewports. */
+@media (min-width: 768px) and (max-height: 850px) {
+  .raise-bar-inner {
+    padding-top: clamp(1.5rem, 5vh, 3rem);
+    /*gap: clamp(1rem, 3vh, 2.5rem);*/
+  }
+
+  .raise-bar-card {
+    aspect-ratio: 5 / 4;
+    padding: clamp(1rem, 1.8vw, 2rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1432,15 +1530,30 @@ body.fouc-guard {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .raise-bar-section {
-    height: 220vh;
+    height: 180vh;
   }
 
   .raise-bar-mobile-header {
     display: block;
-    padding: var(--space-2xl) var(--space-md) var(--space-lg);
+    padding: clamp(3rem, 10vw, 4rem) var(--space-md) var(--space-lg);
     color: var(--color-black);
+  }
+
+  .raise-bar-mobile-solution-header {
+    display: block;
+    padding: clamp(3rem, 10vw, 4rem) var(--space-md) var(--space-lg);
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+
+  .raise-bar-mobile-solution-header .raise-bar-eyebrow {
+    color: rgba(255,255,255,0.45);
+  }
+
+  .raise-bar-mobile-solution-header .raise-bar-body {
+    color: rgba(255,255,255,0.6);
   }
 
   .raise-bar-header {
@@ -1449,9 +1562,9 @@ body.fouc-guard {
 
   .raise-bar-inner {
     height: 100%;
-    padding: var(--space-md);
-    gap: var(--space-md);
-    justify-content: center;
+    min-height: 0;
+    padding: clamp(0.75rem, 2svh, 1rem);
+    gap: 0;
   }
 
   .raise-bar-layer {
@@ -1459,7 +1572,7 @@ body.fouc-guard {
     overflow-y: hidden;
   }
   .raise-bar-card{
-    padding: var(--space-sm);
+    padding: var(--space-md);
   }
 
   .raise-bar-layer--solution .raise-bar-card--image::after {
@@ -1468,14 +1581,38 @@ body.fouc-guard {
 
   .raise-bar-cards {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
-    flex-shrink: 0;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.625rem, 1.5svh, 0.875rem);
+    flex: 1 1 auto;
+    min-height: 0;
     width: 100%;
   }
 
   .raise-bar-card {
-    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
   }
+
+  .raise-bar-layer--solution .raise-bar-card--image::before {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 36px;
+    height: 36px;
+    font-size: 1.35rem;
+  }
+}
+
+/* Tailwind-inspired sm band: retain stacked cards with roomier gutters. */
+@media (min-width: 640px) and (max-width: 767px) {
+  .raise-bar-inner {
+    padding: 1.25rem;
+  }
+
+  .raise-bar-cards {
+    gap: 1rem;
+  }
+
 }
 
 /* ============================================================
@@ -1493,7 +1630,7 @@ body.fouc-guard {
 .stories-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1951,7 +2088,7 @@ body.fouc-guard {
   display: inline-flex;
   align-items: baseline;
   gap: 1.5rem;
-  animation: institutions-scroll 28s linear infinite;
+  animation: institutions-scroll 28s linear infinite; /*lower is faster*/
 }
 
 .institutions-name {
@@ -2161,7 +2298,7 @@ body.fouc-guard {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   margin: 0 4vw 0vw;
-  bottom: 6vw;
+  bottom: 4vw;
   position: relative;
   z-index: 10;
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
@@ -2445,11 +2582,101 @@ body.fouc-guard {
 }
 
 /* ============================================================
-   14. RESPONSIVE — 768px
+   14. RESPONSIVE — TABLET / MD (768px–1023px)
    ============================================================ */
-@media (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --page-x: 5vw;
+    --space-xl: 3rem;
+    --space-2xl: 5rem;
+  }
+
+  /* Let tall tablets preview the next section without shrinking landscape. */
+  .site-hero {
+    height: min(100svh, 900px);
+  }
+
+  .hero-content {
+    padding-bottom: 7rem;
+  }
+
+  .about-section,
+  .brand-section {
+    padding: var(--space-2xl) var(--page-x);
+  }
+
+  .about-inner,
+  .brand-inner {
+    gap: 2.5rem;
+  }
+
+  .raise-bar-section {
+    height: 190vh;
+  }
+
+  .raise-bar-inner {
+    padding: clamp(2rem, 4svh, 3rem) 1.5rem 1.5rem;
+    gap: clamp(1.25rem, 3svh, 2rem);
+    justify-content: flex-start;
+  }
+
+  .raise-bar-cards {
+    gap: 1rem;
+  }
+
+  /* Portrait md screens have much more height than a 4:5 card row needs. */
+  .raise-bar-card {
+    aspect-ratio: auto;
+    height: clamp(22rem, 52svh, 38rem);
+  }
+
+  .stories-section {
+    height: 650vh;
+  }
+
+  .stories-header {
+    padding: 12vh var(--page-x) 9vh;
+  }
+
+  .stories-columns {
+    padding: 0 4vw;
+  }
+}
+
+/* Keep the compact 5:4 treatment for short/landscape md viewports. */
+@media (min-width: 768px) and (max-width: 1023px) and (max-height: 850px) {
+  .raise-bar-card {
+    height: auto;
+  }
+}
+
+/* Compact landscape tablets and short laptops without changing columns. */
+@media (min-width: 768px) and (max-height: 850px) {
   :root {
     --space-2xl: 5rem;
+  }
+
+  .raise-bar-inner {
+    padding: clamp(1.5rem, 5vh, 3rem) 1.5rem;
+    gap: clamp(1rem, 3vh, 2rem);
+  }
+
+  .stories-header {
+    padding-top: 12vh;
+    padding-bottom: 9vh;
+  }
+}
+
+/* ============================================================
+   15. RESPONSIVE — MOBILE (BELOW MD / 768px)
+   ============================================================ */
+@media (max-width: 767px) {
+  :root {
+    --space-2xl: 5rem;
+  }
+
+  .stories-section {
+    height: 600vh;
   }
 
   /* Hero — center logo on mobile */
@@ -2536,7 +2763,7 @@ body.fouc-guard {
 }
 
 /* ============================================================
-   15. RESPONSIVE — 480px
+   16. RESPONSIVE — 480px
    ============================================================ */
 @media (max-width: 480px) {
   :root {
