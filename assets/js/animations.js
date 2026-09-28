@@ -110,7 +110,7 @@
       var progress = Math.max(0, Math.min(1, -rect.top / total));
 
       var mode = getViewportMode();
-      var depth = mode === 'mobile' ? 2500 : mode === 'tablet' ? 6000 : 9000;
+      var depth = mode === 'mobile' ? 1500 : mode === 'tablet' ? 4000 : 6000;
 
       tracks.forEach(function (t) {
         var offset = progress * depth * t.speed;
@@ -159,15 +159,67 @@
       sticky.classList.add('cards-entered');
     }
 
+    var cardSpeeds = [25, 75, 125, 175];
+    var cards = Array.from(section.querySelectorAll('.raise-bar-card'));
+    var solutionCards = Array.from(section.querySelectorAll('.raise-bar-layer--solution .raise-bar-card[data-brand]'));
+    var logoStage = section.querySelector('.raise-bar-logo-stage');
+    var logos = Array.from(section.querySelectorAll('.raise-bar-logo[data-brand]'));
+    var ticking = false;
+
+    function clamp01(value) { return Math.max(0, Math.min(1, value)); }
+    function easeOut(value) { return 1 - Math.pow(1 - value, 3); }
+    function lerp(a, b, t) { return a + ((b - a) * t); }
+
+    function updateLogoPositions(progress, forceFinal) {
+      if (!logoStage || !logos.length || !solutionCards.length) return;
+
+      var stageRect = logoStage.getBoundingClientRect();
+      var isMobile = getViewportMode() === 'mobile';
+      var originY = isMobile ? 28 : 36;
+      var clusterStart = isMobile ? 0.53 : 0.44;
+      var travelStart = isMobile ? 0.61 : 0.54;
+      var travelDuration = isMobile ? 0.36 : 0.42;
+
+      logos.forEach(function (logo, index) {
+        var brand = logo.getAttribute('data-brand');
+        var card = solutionCards.find(function (candidate) {
+          return candidate.getAttribute('data-brand') === brand;
+        });
+        if (!card) return;
+
+        var cardRect = card.getBoundingClientRect();
+        var originX = stageRect.width * 0.5;
+        var targetX = cardRect.left - stageRect.left + (cardRect.width * 0.5);
+        var targetY = cardRect.top - stageRect.top + (cardRect.height * (isMobile ? 0.32 : 0.36));
+        var travelProgress = forceFinal ? 1 : clamp01((progress - travelStart) / travelDuration);
+        var easedTravel = easeOut(travelProgress);
+        var clusterProgress = forceFinal ? 1 : clamp01((progress - clusterStart) / 0.14);
+        var clusterOpacity = easeOut(clusterProgress);
+        var x = lerp(originX, targetX, easedTravel);
+        var y = lerp(originY, targetY, easedTravel);
+        var naturalWidth = logo.offsetWidth || 1;
+        var targetWidth = cardRect.width * 0.70;
+        var finalScale = targetWidth / naturalWidth;
+        var scale = lerp(0.2, finalScale, easedTravel);
+        var rotate = lerp([ -12, 7, 14 ][index] || 0, 0, easedTravel);
+
+        logo.style.setProperty('--logo-x', x.toFixed(2) + 'px');
+        logo.style.setProperty('--logo-y', y.toFixed(2) + 'px');
+        logo.style.setProperty('--logo-scale', scale.toFixed(3));
+        logo.style.setProperty('--logo-rotate', rotate.toFixed(2) + 'deg');
+        logo.style.setProperty('--logo-opacity', forceFinal ? '1' : clusterOpacity.toFixed(3));
+
+        var imageFade = forceFinal ? 0 : 1 - clamp01((travelProgress - 0.58) / 0.42);
+        card.style.setProperty('--legacy-image-opacity', imageFade.toFixed(3));
+      });
+    }
+
     // ── Circle reveal (scroll-driven) ─────────────────────────────────────
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       solution.style.clipPath = 'circle(260% at 50% -20%)';
+      updateLogoPositions(1, true);
       return;
     }
-
-    var cardSpeeds = [175, 125, 75, 25];
-    var cards = Array.from(section.querySelectorAll('.raise-bar-card'));
-    var ticking = false;
 
     function requestUpdate() {
       if (ticking) return;
@@ -202,6 +254,7 @@
       var cy   = vh * -0.15;
       var maxR = Math.sqrt(cx * cx + (vh - cy) * (vh - cy)) * 1.05;
       solution.style.clipPath = 'circle(' + (circleP * maxR).toFixed(1) + 'px at ' + cx.toFixed(1) + 'px ' + cy.toFixed(1) + 'px)';
+      updateLogoPositions(progress, false);
       ticking = false;
     }
 
