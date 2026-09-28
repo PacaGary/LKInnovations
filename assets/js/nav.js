@@ -122,7 +122,7 @@
     });
 
     if (data.manuscript) {
-      html += '<a href="' + data.manuscript + '" class="info-drawer-manuscript-link" target="_blank" rel="noopener noreferrer">Read our manuscript</a>';
+      html += '<a href="' + data.manuscript + '" class="info-drawer-manuscript-link" target="_blank" rel="noopener noreferrer">Read our manuscript →</a>';
     }
 
     return html;
