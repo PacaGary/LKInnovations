@@ -876,7 +876,7 @@ body.fouc-guard {
    8b. BRANDS INTRO SECTION
    ============================================================ */
 .brands-intro-section {
-  padding: var(--space-xl) var(--page-x);
+  padding: var(--space-xl) var(--section-x);
   text-align: center;
 }
 
@@ -910,7 +910,7 @@ body.fouc-guard {
    9. BRAND SECTION (shared)
    ============================================================ */
 .brand-section {
-  padding: var(--space-2xl) var(--page-x);
+  padding: var(--space-2xl) var(--section-x);
 }
 
 .brand-inner {
@@ -2071,7 +2071,7 @@ body.fouc-guard {
 .institutions-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--page-x);
+  padding: 0 var(--section-x);
   text-align: center;
   margin-bottom: var(--space-xl);
 }
@@ -2160,7 +2160,7 @@ body.fouc-guard {
   background-color: #ffffff;
   background-image: var(--dot-white);
   color: var(--color-black);
-  padding: var(--space-2xl) var(--page-x);
+  padding: var(--space-2xl) var(--section-x);
 }
 
 .contact-inner {
@@ -2620,7 +2620,7 @@ body.fouc-guard {
 
   .about-section,
   .brand-section {
-    padding: var(--space-2xl) var(--page-x);
+    padding: var(--space-2xl) var(--section-x);
   }
 
   .about-inner,
@@ -2994,6 +2994,8 @@ body.fouc-guard {
    ============================================================ */
 :root {
   --page-x: 7vw;
+  /* % resolves at the use site, so content caps at 1500px and centres. */
+  --section-x: max(var(--page-x), calc((100% - 1440px) / 2));
 }
 
 /* Primary content shells align to the same desktop guide while backgrounds
@@ -3001,8 +3003,8 @@ body.fouc-guard {
 .about-section,
 .brand-section,
 .contact-section {
-  padding-left: var(--page-x);
-  padding-right: var(--page-x);
+  padding-left: var(--section-x);
+  padding-right: var(--section-x);
 }
 
 .about-inner,
@@ -3016,7 +3018,7 @@ body.fouc-guard {
 
 .raise-bar-inner,
 .solutions-inner {
-  width: calc(100% - (2 * var(--page-x)));
+  width: calc(100% - (2 * var(--section-x)));
   max-width: none;
 }
 
@@ -3137,7 +3139,11 @@ body.fouc-guard {
   padding-right: var(--page-x);
 }
 
-.institutions-inner,
+.institutions-inner {
+  padding-left: var(--section-x);
+  padding-right: var(--section-x);
+}
+
 .footer-inner {
   padding-left: var(--page-x);
   padding-right: var(--page-x);
