@@ -135,90 +135,33 @@
     update();
   }
 
-  // ─── Raise the Bar scroll-driven circle reveal ───────────────────────────
+  // ─── Solutions center-to-columns scroll stage ────────────────────────────
   function initRaiseBar() {
-    var section  = document.querySelector('.raise-bar-section');
-    var sticky   = document.querySelector('.raise-bar-sticky');
-    var solution = document.querySelector('.raise-bar-layer--solution');
-    if (!section || !sticky || !solution) return;
+    var section = document.querySelector('.solutions-section');
+    var stage = section && section.querySelector('.solutions-stage');
+    var products = section ? Array.from(section.querySelectorAll('.solution-product')) : [];
+    if (!section || !stage || !products.length) return;
 
-    // ── Card entrance (one-shot) ──────────────────────────────────────────
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var entranceObserver = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) {
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              sticky.classList.add('cards-entered');
-            });
-          });
-          entranceObserver.disconnect();
-        }
-      }, { threshold: 0.15 });
-      entranceObserver.observe(section);
-    } else {
-      sticky.classList.add('cards-entered');
-    }
-
-    var cardSpeeds = [25, 75, 125, 175];
-    var cards = Array.from(section.querySelectorAll('.raise-bar-card'));
-    var solutionCards = Array.from(section.querySelectorAll('.raise-bar-layer--solution .raise-bar-card[data-brand]'));
-    var logoStage = section.querySelector('.raise-bar-logo-stage');
-    var logos = Array.from(section.querySelectorAll('.raise-bar-logo[data-brand]'));
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var ticking = false;
+    var active = false;
 
     function clamp01(value) { return Math.max(0, Math.min(1, value)); }
     function easeOut(value) { return 1 - Math.pow(1 - value, 3); }
     function lerp(a, b, t) { return a + ((b - a) * t); }
 
-    function updateLogoPositions(progress, forceFinal) {
-      if (!logoStage || !logos.length || !solutionCards.length) return;
-
-      var stageRect = logoStage.getBoundingClientRect();
-      var isMobile = getViewportMode() === 'mobile';
-      var originY = isMobile ? 28 : 36;
-      var clusterStart = isMobile ? 0.53 : 0.44;
-      var travelStart = isMobile ? 0.61 : 0.54;
-      var travelDuration = isMobile ? 0.36 : 0.42;
-
-      logos.forEach(function (logo, index) {
-        var brand = logo.getAttribute('data-brand');
-        var card = solutionCards.find(function (candidate) {
-          return candidate.getAttribute('data-brand') === brand;
-        });
-        if (!card) return;
-
-        var cardRect = card.getBoundingClientRect();
-        var originX = stageRect.width * 0.5;
-        var targetX = cardRect.left - stageRect.left + (cardRect.width * 0.5);
-        var targetY = cardRect.top - stageRect.top + (cardRect.height * (isMobile ? 0.32 : 0.36));
-        var travelProgress = forceFinal ? 1 : clamp01((progress - travelStart) / travelDuration);
-        var easedTravel = easeOut(travelProgress);
-        var clusterProgress = forceFinal ? 1 : clamp01((progress - clusterStart) / 0.14);
-        var clusterOpacity = easeOut(clusterProgress);
-        var x = lerp(originX, targetX, easedTravel);
-        var y = lerp(originY, targetY, easedTravel);
-        var naturalWidth = logo.offsetWidth || 1;
-        var targetWidth = cardRect.width * 0.70;
-        var finalScale = targetWidth / naturalWidth;
-        var scale = lerp(0.2, finalScale, easedTravel);
-        var rotate = lerp([ -12, 7, 14 ][index] || 0, 0, easedTravel);
-
-        logo.style.setProperty('--logo-x', x.toFixed(2) + 'px');
-        logo.style.setProperty('--logo-y', y.toFixed(2) + 'px');
-        logo.style.setProperty('--logo-scale', scale.toFixed(3));
-        logo.style.setProperty('--logo-rotate', rotate.toFixed(2) + 'deg');
-        logo.style.setProperty('--logo-opacity', forceFinal ? '1' : clusterOpacity.toFixed(3));
-
-        var imageFade = forceFinal ? 0 : 1 - clamp01((travelProgress - 0.58) / 0.42);
-        card.style.setProperty('--legacy-image-opacity', imageFade.toFixed(3));
-      });
-    }
-
-    // ── Circle reveal (scroll-driven) ─────────────────────────────────────
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      solution.style.clipPath = 'circle(260% at 50% -20%)';
-      updateLogoPositions(1, true);
-      return;
+    function getTargets(isMobile, isShort, stageWidth, stageHeight) {
+      if (isShort) {
+        return [
+          { x: -stageWidth * 0.28, y: -stageHeight * 0.32 },
+          { x: stageWidth * 0.28, y: -stageHeight * 0.32 },
+          { x: 0, y: stageHeight * 0.32 }
+        ];
+      }
+      if (isMobile) {
+        return [{ x: 0, y: -stageHeight * 0.33 }, { x: 0, y: 0 }, { x: 0, y: stageHeight * 0.33 }];
+      }
+      return [{ x: -stageWidth * 0.32, y: 0 }, { x: 0, y: 0 }, { x: stageWidth * 0.32, y: 0 }];
     }
 
     function requestUpdate() {
@@ -232,51 +175,70 @@
       var vh       = window.innerHeight;
       var total    = section.offsetHeight - vh;
       var progress = Math.max(0, Math.min(1, -rect.top / total));
-
-      // Phase 1 (progress 0→0.5): cards drift up on desktop only; mobile uses opacity fade only
-      var cardP = Math.min(progress / 0.5, 1);
-      var eased = 1 - Math.pow(1 - cardP, 3);
       var isMobile = getViewportMode() === 'mobile';
-      if (!isMobile) {
-        cards.forEach(function (card, i) {
-          var speed  = cardSpeeds[i % cardSpeeds.length];
-          var offset = (1 - eased) * speed;
-          card.style.setProperty('--parallax-x', '0px');
-          card.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
-        });
-      }
 
-      // Phase 2: circle reveals — delayed on mobile so cards show first
-      var circleStart = isMobile ? 0.50 : 0.40;
-      var circleP = Math.max(0, (progress - circleStart) / (1 - circleStart));
-      var vw   = window.innerWidth;
-      var cx   = vw * 0.5;
-      var cy   = vh * -0.15;
-      var maxR = Math.sqrt(cx * cx + (vh - cy) * (vh - cy)) * 1.05;
-      solution.style.clipPath = 'circle(' + (circleP * maxR).toFixed(1) + 'px at ' + cx.toFixed(1) + 'px ' + cy.toFixed(1) + 'px)';
-      updateLogoPositions(progress, false);
+      // Leave the intro settled briefly, then separate the product marks.
+      var travel = easeOut(clamp01((progress - 0.18) / 0.68));
+      var stageWidth = stage.clientWidth;
+      var stageHeight = stage.clientHeight;
+      var isPortraitTablet = !isMobile && window.innerWidth <= 1024 && window.innerHeight > window.innerWidth;
+      var useTriangle = (isMobile && window.innerHeight < 700) || isPortraitTablet;
+      var targets = getTargets(isMobile, useTriangle, stageWidth, stageHeight);
+
+      products.forEach(function (product, index) {
+        var target = targets[index];
+        product.style.setProperty('--solution-x', lerp(0, target.x, travel).toFixed(2) + 'px');
+        product.style.setProperty('--solution-y', lerp(0, target.y, travel).toFixed(2) + 'px');
+        product.style.setProperty('--solution-scale', lerp(0.42, 1, travel).toFixed(3));
+      });
+
+      section.classList.toggle('is-settled', travel > 0.72);
       ticking = false;
     }
 
+    var observer = new IntersectionObserver(function (entries) {
+      active = entries[0].isIntersecting;
+      if (active) requestUpdate();
+    }, { rootMargin: '120px 0px 120px 0px' });
+    observer.observe(section);
+
     window.addEventListener('scroll', function () {
-      requestUpdate();
+      if (active && !reducedMotion) requestUpdate();
     }, { passive: true });
 
     window.addEventListener('resize', requestUpdate, { passive: true });
 
-    update();
-
-    // ── Card body smooth-reveal on click ────────────────────────────────────
-    section.querySelectorAll('.raise-bar-layer--solution .raise-bar-card').forEach(function (card) {
-      card.addEventListener('click', function () {
-        var isOpen = card.classList.toggle('is-open');
-        card.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (reducedMotion) {
+      section.classList.add('is-settled');
+      var finalMobile = getViewportMode() === 'mobile';
+      var finalPortraitTablet = !finalMobile && window.innerWidth <= 1024 && window.innerHeight > window.innerWidth;
+      var finalTriangle = (finalMobile && window.innerHeight < 700) || finalPortraitTablet;
+      var finalStageWidth = stage.clientWidth;
+      var finalStageHeight = stage.clientHeight;
+      var finalTargets = getTargets(finalMobile, finalTriangle, finalStageWidth, finalStageHeight);
+      products.forEach(function (product, index) {
+        product.style.setProperty('--solution-x', finalTargets[index].x.toFixed(2) + 'px');
+        product.style.setProperty('--solution-y', finalTargets[index].y.toFixed(2) + 'px');
+        product.style.setProperty('--solution-scale', '1');
       });
-      card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
+      return;
+    }
+
+    update();
+  }
+
+  // ─── Expandable problem cards ───────────────────────────────────────────
+  function initProblemCards() {
+    document.querySelectorAll('.raise-bar-card').forEach(function (card) {
+      var toggle = card.querySelector('.raise-bar-card-toggle');
+      var body = card.querySelector('.raise-bar-card-body');
+      if (!toggle || !body) return;
+
+      toggle.addEventListener('click', function () {
+        var open = card.classList.toggle('is-open');
+        toggle.textContent = open ? '−' : '+';
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', (open ? 'Hide' : 'Show more about') + ' ' + card.querySelector('.raise-bar-card-title').textContent.toLowerCase());
       });
     });
   }
@@ -412,6 +374,7 @@
     initParallax();
     initStoriesParallax();
     initRaiseBar();
+    initProblemCards();
     initInstitutionsSpotlight();
   }
 

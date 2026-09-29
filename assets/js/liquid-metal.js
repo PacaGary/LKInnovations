@@ -9,10 +9,10 @@
   var GLOSS     = 10;
 
   var COLORS    = ['#888888','#ababab','#c8c8c8','#dcdcdc','#f0f0f0','#ffffff']; // color ramp dark→light (6 stops)
-  var REFRACTION = 0;   // chromatic aberration amount
-  var FROST      = 0;   // frosted-glass blur (0 = clear, 10 = heavy)
+  var REFRACTION = 2;   // chromatic aberration amount
+  var FROST      = 2;   // frosted-glass blur (0 = clear, 10 = heavy)
   var VOID_SIZE  = 0;   // dark hole at pattern center (0 = none)
-  var ANGLE      = -85; // rotation of the wave field in degrees
+  var ANGLE      = -70; // rotation of the wave field in degrees
   var TWIST      = 7; // how much the field spirals outward (0 = straight, higher = more swirl)
   var STRETCH    = 12;  // elongates waves in one axis — higher = more ribbon-like
   var BANDS      = 2; // number of wave bands — lower = fewer, wider waves
@@ -294,6 +294,16 @@
   }
 
   var vw = 0, vh = 0;
+  var centerX = -0.7;
+  var centerY = 0.7;
+
+  function readCenterOffset() {
+    var styles = window.getComputedStyle(canvas);
+    var x = parseFloat(styles.getPropertyValue('--liquid-metal-center-x'));
+    var y = parseFloat(styles.getPropertyValue('--liquid-metal-center-y'));
+    centerX = isFinite(x) ? x : -0.7;
+    centerY = isFinite(y) ? y : 0.7;
+  }
 
   function resize() {
     var dpr = Math.min(window.devicePixelRatio || 1, DPR_CAP);
@@ -304,6 +314,7 @@
     canvas.width  = w;
     canvas.height = h;
     gl.viewport(0, 0, w, h);
+    readCenterOffset();
   }
 
   var colorBuf  = new Float32Array(MAX_STOPS * 3);
@@ -360,7 +371,7 @@
     gl.uniform1f(uni['uHue'],       Math.sin(shimmerPh) * SHIMMER * 0.05);
     gl.uniform1f(uni['uSweep'],     SWEEP   / 10);
     gl.uniform1f(uni['uSweepPhase'], sweepPh);
-    gl.uniform2f(uni['uCenterOffset'], -0.7, 0.7);
+    gl.uniform2f(uni['uCenterOffset'], centerX, centerY);
 
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
