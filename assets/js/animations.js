@@ -376,6 +376,80 @@
     initRaiseBar();
     initProblemCards();
     initInstitutionsSpotlight();
+    initAnchorScroll();
+  }
+
+  // ─── Eased in-page anchor scrolling ─────────────────────────────────────
+  function initAnchorScroll() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // HOW FAST does a link scroll? Duration = distance (px) × MS_PER_PX, kept between MIN_MS and MAX_MS.
+    //   MS_PER_PX: higher = slower on long jumps (e.g. 0.5 → 0.7)
+    //   MIN_MS:    duration for short hops (higher = slower)
+    //   MAX_MS:    cap for the longest jumps (higher = slower)
+    var MS_PER_PX = 0.7;
+    var MIN_MS    = 900;
+    var MAX_MS    = 2000;
+
+    var root  = document.documentElement;
+    var frame = null;
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function normalizePath(p) { return p.replace(/index\.html$/, ''); }
+
+    function stop() {
+      if (frame === null) return;
+      cancelAnimationFrame(frame);
+      frame = null;
+      root.style.scrollBehavior = '';
+    }
+
+    function scrollToTarget(target, hash) {
+      stop();
+      var offset   = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+      var maxY     = root.scrollHeight - window.innerHeight;
+      var startY   = window.scrollY;
+      var endY     = Math.max(0, Math.min(maxY, target.getBoundingClientRect().top + startY - offset));
+      var duration = Math.max(MIN_MS, Math.min(MAX_MS, Math.abs(endY - startY) * MS_PER_PX));
+      var startTime = null;
+
+      // CSS smooth scrolling would re-smooth every frame's scrollTo and stutter.
+      root.style.scrollBehavior = 'auto';
+
+      function step(now) {
+        if (startTime === null) startTime = now;
+        var t = Math.min(1, (now - startTime) / duration);
+        window.scrollTo(0, startY + (endY - startY) * easeInOutCubic(t));
+        if (t < 1) {
+          frame = requestAnimationFrame(step);
+          return;
+        }
+        frame = null;
+        root.style.scrollBehavior = '';
+        history.pushState(null, '', hash);
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      }
+
+      frame = requestAnimationFrame(step);
+    }
+
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var link = e.target.closest('a[href*="#"]');
+      if (!link || !link.hash || normalizePath(link.pathname) !== normalizePath(location.pathname)) return;
+      var target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+      if (!target) return;
+      e.preventDefault();
+      scrollToTarget(target, link.hash);
+    });
+
+    ['wheel', 'touchstart', 'keydown'].forEach(function (type) {
+      window.addEventListener(type, stop, { passive: true });
+    });
   }
 
   // ─── Institutions marquee spotlight ─────────────────────────────────────
