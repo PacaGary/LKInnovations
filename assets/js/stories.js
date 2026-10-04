@@ -12,6 +12,10 @@
 //   ratio  — optional CSS aspect-ratio override, default is 1/1 (square)
 //            e.g. '4/5' for portrait, '16/9' for landscape
 //
+// FEATURED PRODUCT — the modal card under each review is picked by matching
+//   `location` against a PRODUCTS name (below). If nothing matches (e.g. a city),
+//   it falls back to the brand's default in BRAND_DEFAULT_PRODUCT.
+//
 // Examples:
 //   { name: 'Jane D.', product: 'Pacagen', location: 'Austin, TX', color: '#044eb7',
 //     story: '...' }
@@ -25,6 +29,50 @@
 
 (function () {
   'use strict';
+
+  // FEATURED PRODUCTS — edit links/images here; every story modal reads from this.
+  // TODO: replace interim brand-site URLs and brand photos with product pages / product shots.
+  var PRODUCTS = {
+    'cat-spray': {
+      name:    'Cat Allergen Neutralizing Spray',
+      tagline: 'Neutralizes cat allergens on surfaces before they reach you.',
+      image:   'https://cdn.shopify.com/s/files/1/0814/8369/4394/files/PDP_free_gift_CANS.png',
+      url:     'https://pacagen.com'
+    },
+    'cat-supplement': {
+      name:    'Cat Allergen Reducing Supplement',
+      tagline: 'Reduces the allergens your cat produces, at the source.',
+      image:   'https://cdn.shopify.com/s/files/1/0814/8369/4394/files/hero_cat_supp_badges_general.png',
+      url:     'https://pacagen.com'
+    },
+    'dust-spray': {
+      name:    'Dust Allergen Neutralizing Spray',
+      tagline: 'Neutralizes dust mite allergens across your home.',
+      image:   'https://cdn.shopify.com/s/files/1/0814/8369/4394/files/PDP_free_gift_DUANS.png',
+      url:     'https://pacagen.com'
+    },
+    'reyou-serum': {
+      name:    'RE:YOU Dual-Path Hair Revival Serum',
+      tagline: 'Supports the hair follicle and the scalp environment it lives in for fuller-looking hair.',
+      image:   'https://cdn.shopify.com/s/files/1/0807/8262/2943/files/review-hero4.png',
+      url:     'https://getreyou.com'
+    }
+  };
+
+  var BRAND_DEFAULT_PRODUCT = { pacagen: 'cat-spray', reyou: 'reyou-serum' };
+
+  function normalize(s) {
+    return (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  function resolveProduct(location, brand) {
+    var loc = normalize(location);
+    var keys = Object.keys(PRODUCTS);
+    for (var i = 0; i < keys.length; i++) {
+      if (normalize(PRODUCTS[keys[i]].name) === loc) return PRODUCTS[keys[i]];
+    }
+    return PRODUCTS[BRAND_DEFAULT_PRODUCT[normalize(brand)]] || null;
+  }
 
   var STORY_TILE_SVG = '<svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="16" fill="rgba(255,255,255,0.25)"/><ellipse cx="40" cy="70" rx="26" ry="18" fill="rgba(255,255,255,0.2)"/></svg>';
 
@@ -40,7 +88,7 @@
       { name: 'Deanna S.',      product: 'RE:YOU', location: 'RE:YOU Dual-Path Hair Revival Serum',   ratio: '4/5',  color: '#012458', photo: 'https://review-images.judgeme.com/re-you/1789599461__1789599457743-img_7216__original.jpeg?quality=80&width=1024', story: `RE:YOU really works! In my 68 years, and trying countless products, I have never before had one that truly added volume to my thinning hair and reduced some very thin spots on my scalp until RE:YOU! I never liked how my hair looked in photos until RE:YOU! I am so happy with my results! I recently had professional portraits taken with my infant grandson, and my hair looks absolutely stunning! Thank you for creating this outstanding product! Fan for life!` },
       { name: 'Kathryn C.',    product: 'Pacagen',  location: 'Cat Allergen Neutralizing Spray',       color: '#8a4a20', photo:'/assets/images/stories/kathryn_c2.jpg', story: `Pacagen spray and powder work!
 I’ve been using the Pacagen spray and powder, and it’s helped significantly reduce my cat allergies. Previously, I was using an inhaler and allergy meds. Now, I don’t use either and feel much better!` },
-      { name: 'Nadia T.',    product: 'RE:YOU',  location: 'Houston, TX',       color: '#a06030', story: 'I never expected a supplement protocol to change my relationship with my own body. RE:YOU did exactly that. I feel in control again — of my energy, my focus, my mood. My husband says he has his wife back.' },
+      { name: 'Claire B.',    product: 'RE:YOU',  location: 'RE:YOU Dual-Path Hair Revival Serum',    photo:'https://review-images.judgeme.com/re-you/1789059632__1789059585903-img2__original.png?quality=80&width=1024',  color: '#a06030', story: `3 months later… I’m shocked. Just finished my 3 bottles and I had to share these photos because I’m kind of shocked. I’ve tried so many things since my hair started thinning during menopause and I’ve never actually been able to SEE a difference like this. My part was getting wider and wider and nothing seemed to help. Now I keep looking at these pictures because the difference is crazy to me. I’m seeing so much more hair along my part and my scalp is way less visible. This is the first thing I’ve tried where I actually feel like I’m getting my old hair back` },
       { name: 'Sasha',     product: 'Pacagen',  location: 'RE:YOU Dual-Path Hair Revival Serum',   video:  'https://cdn.shopify.com/videos/c/o/v/5c616d918c394c379ed9128afe306d0e.mp4', ratio: '9/16',   color: '#044BE7', photo: 'https://cdn.shopify.com/s/files/1/0814/8369/4394/files/sashas_story_thumbnail.png?v=1773863886', story: `Listen to Sasha's Pacagen Story.` },
       { name: 'Tess F.',   product: 'Pacagen', location: 'Cat Allergen Reducing Supplement', color: '#012c60', story: `If I could rate it with 6 stars, I would.
         This product saved me from having to rehome my cat! 
@@ -57,7 +105,7 @@ I was a bit skeptical that I would see any change and have had pretty severe cat
 
       { name: 'Nina K.',    product: 'Pacagen',  location: 'Cat Allergen Neutralizing Spray',   color: '#7a3a3c', photo:'/assets/images/stories/Nina_K.jpg', story: `No more sneezing!
 This is a true miracle product! I am amazed at how I don't sneeze 50 times a day anymore. I don't even have to pop a daily Claritin anymore. It's a game changer and I highly recommend this spray to anyone who suffers from cat allergies. My baby Star and I are so happy!` },
-      { name: 'Yulin Z.',   product: 'RE:YOU',  location: 'Charlotte, NC',   photo: 'https://cdn.shopify.com/s/files/1/0807/8262/2943/files/lan-mom-hair.jpg?v=1784672897',  color: '#9c5030', story: `I’ve been dealing with thinning hair for years and had tried everything. After a few months with RE:YOU, I started noticing baby hairs along my part and my ponytail actually feels fuller. At 52, I honestly didn't expect to see results like this.` },
+      { name: 'Yulin Z.',   product: 'RE:YOU',  location: 'RE:YOU Dual-Path Hair Revival Serum',   photo: 'https://cdn.shopify.com/s/files/1/0807/8262/2943/files/lan-mom-hair.jpg?v=1784672897',  color: '#9c5030', story: `I’ve been dealing with thinning hair for years and had tried everything. After a few months with RE:YOU, I started noticing baby hairs along my part and my ponytail actually feels fuller. At 52, I honestly didn't expect to see results like this.` },
       { name: 'Tyler N.',    product: 'Pacagen', location: 'Columbus, OH',      color: '#053060', story: 'My daughter is allergic to everything — dust, pollen, and especially cats. We couldn\'t go to half our family\'s homes. Pacagen changed that. She went from full-blown reactions to barely noticing. It\'s hard to overstate how much that matters.' },
       { name: 'Leahna L.',   product: 'RE:YOU',  location: 'RE:YOU Dual-Path Hair Revival Serum',   photo: 'https://cdn.shopify.com/s/files/1/0807/8262/2943/files/leahna_review.png?v=1785281633', video: '/assets/images/stories/20260724_Hair_MathOfHiding_Video_UGC_LeahnaLoomis.mov', color: '#9c5030', story: `I wasn't expecting to be this excited, but I'm actually noticing my thinning spots starting to fill in. It’s so easy to use that it’s become part of my daily routine and I’m thrilled with the progress I've seen` },
     ],
@@ -180,6 +228,10 @@ I have 2 cats and i had recently found out that I am allergic! I was not giving 
     var locEl       = document.getElementById('modal-location');
     var storyEl     = document.getElementById('modal-story');
     var modalPhoto  = document.getElementById('modal-photo');
+    var productCard = document.getElementById('modal-product');
+    var productImg  = productCard.querySelector('.story-modal-product-img');
+    var productName = productCard.querySelector('.story-modal-product-name');
+    var productTag  = productCard.querySelector('.story-modal-product-tagline');
     var lastFocused = null;
 
     var videoWrap = modal.querySelector('.story-modal-video-wrap');
@@ -207,6 +259,17 @@ I have 2 cats and i had recently found out that I am allergic! I was not giving 
       nameEl.textContent  = tile.dataset.name     || '';
       locEl.textContent   = tile.dataset.location || '';
       storyEl.textContent = tile.dataset.story    || '';
+
+      var featured = resolveProduct(tile.dataset.location, product);
+      if (featured) {
+        productCard.href        = featured.url;
+        productImg.src          = featured.image;
+        productName.textContent = featured.name;
+        productTag.textContent  = featured.tagline;
+        productCard.removeAttribute('hidden');
+      } else {
+        productCard.setAttribute('hidden', '');
+      }
 
       if (tile.dataset.photo && !videoSrc) {
         modalPhoto.src = tile.dataset.photo;
@@ -262,7 +325,7 @@ I have 2 cats and i had recently found out that I am allergic! I was not giving 
       if (e.key !== 'Tab') return;
       var focusable = Array.from(
         modal.querySelectorAll('button, a, input, video, [tabindex]:not([tabindex="-1"])')
-      );
+      ).filter(function (el) { return el.getClientRects().length > 0; });
       var first = focusable[0];
       var last  = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {

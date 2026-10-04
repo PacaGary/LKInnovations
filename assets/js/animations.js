@@ -153,9 +153,9 @@
     function getTargets(isMobile, isShort, stageWidth, stageHeight) {
       if (isShort) {
         return [
-          { x: -stageWidth * 0.28, y: -stageHeight * 0.32 },
-          { x: stageWidth * 0.28, y: -stageHeight * 0.32 },
-          { x: 0, y: stageHeight * 0.32 }
+          { x: -stageWidth * 0.28, y: -stageHeight * 0.27 },
+          { x: stageWidth * 0.28, y: -stageHeight * 0.27 },
+          { x: 0, y: stageHeight * 0.24 }
         ];
       }
       if (isMobile) {
