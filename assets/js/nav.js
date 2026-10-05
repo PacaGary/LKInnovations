@@ -34,15 +34,15 @@
   }
 
   function initHoverEffect() {
-    var toggle = document.querySelector('.nav-menu-toggle');
-    if (!toggle) return;
-
-    toggle.addEventListener('mousemove', function (e) {
-      var rect = toggle.getBoundingClientRect();
-      var x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
-      var y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
-      toggle.style.setProperty('--mx', x);
-      toggle.style.setProperty('--my', y);
+    var buttons = document.querySelectorAll('.nav-menu-toggle, .btn-close');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1) + '%';
+        var y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+        btn.style.setProperty('--mx', x);
+        btn.style.setProperty('--my', y);
+      });
     });
   }
 

@@ -164,6 +164,22 @@
       return [{ x: -stageWidth * 0.32, y: 0 }, { x: 0, y: 0 }, { x: stageWidth * 0.32, y: 0 }];
     }
 
+    // Narrow phones (SE through standard/Pro iPhones) get the triangle; Plus/Pro Max
+    // keep the column. Keyed on width because mobile toolbars change innerHeight mid-scroll.
+    var layout;
+    var lastWidth;
+
+    function computeLayout() {
+      var isMobile = getViewportMode() === 'mobile';
+      var isPortraitTablet = !isMobile && window.innerWidth <= 1024 && window.innerHeight > window.innerWidth;
+      layout = {
+        isMobile: isMobile,
+        useTriangle: (isMobile && window.innerWidth < 410) || isPortraitTablet
+      };
+      lastWidth = window.innerWidth;
+      section.classList.toggle('is-triangle', layout.useTriangle);
+    }
+
     function requestUpdate() {
       if (ticking) return;
       requestAnimationFrame(update);
@@ -175,15 +191,10 @@
       var vh       = window.innerHeight;
       var total    = section.offsetHeight - vh;
       var progress = Math.max(0, Math.min(1, -rect.top / total));
-      var isMobile = getViewportMode() === 'mobile';
 
       // Leave the intro settled briefly, then separate the product marks.
       var travel = easeOut(clamp01((progress - 0.18) / 0.68));
-      var stageWidth = stage.clientWidth;
-      var stageHeight = stage.clientHeight;
-      var isPortraitTablet = !isMobile && window.innerWidth <= 1024 && window.innerHeight > window.innerWidth;
-      var useTriangle = (isMobile && window.innerHeight < 700) || isPortraitTablet;
-      var targets = getTargets(isMobile, useTriangle, stageWidth, stageHeight);
+      var targets = getTargets(layout.isMobile, layout.useTriangle, stage.clientWidth, stage.clientHeight);
 
       products.forEach(function (product, index) {
         var target = targets[index];
@@ -206,16 +217,16 @@
       if (active && !reducedMotion) requestUpdate();
     }, { passive: true });
 
-    window.addEventListener('resize', requestUpdate, { passive: true });
+    computeLayout();
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth !== lastWidth) computeLayout();
+      requestUpdate();
+    }, { passive: true });
 
     if (reducedMotion) {
       section.classList.add('is-settled');
-      var finalMobile = getViewportMode() === 'mobile';
-      var finalPortraitTablet = !finalMobile && window.innerWidth <= 1024 && window.innerHeight > window.innerWidth;
-      var finalTriangle = (finalMobile && window.innerHeight < 700) || finalPortraitTablet;
-      var finalStageWidth = stage.clientWidth;
-      var finalStageHeight = stage.clientHeight;
-      var finalTargets = getTargets(finalMobile, finalTriangle, finalStageWidth, finalStageHeight);
+      var finalTargets = getTargets(layout.isMobile, layout.useTriangle, stage.clientWidth, stage.clientHeight);
       products.forEach(function (product, index) {
         product.style.setProperty('--solution-x', finalTargets[index].x.toFixed(2) + 'px');
         product.style.setProperty('--solution-y', finalTargets[index].y.toFixed(2) + 'px');
